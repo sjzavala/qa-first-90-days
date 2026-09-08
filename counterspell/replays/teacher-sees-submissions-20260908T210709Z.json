@@ -1,0 +1,217 @@
+{
+  "version": 1,
+  "id": "teacher-sees-submissions-20260908T210709Z",
+  "title": "Ada submits \"Intro to Testing\" and Alan submits \"Flaky Tests\". The Teac…",
+  "flow": "Ada submits \"Intro to Testing\" and Alan submits \"Flaky Tests\". The Teacher tab lists both rows; filtering by \"Flaky Tests\" leaves only Alan's.",
+  "flowId": "teacher-sees-submissions",
+  "recordedAt": "2026-09-08T21:07:09.979Z",
+  "summary": {
+    "verdict": "RESHAPED",
+    "counter": 0,
+    "reshape": 0
+  },
+  "events": [
+    {
+      "type": "cast:start",
+      "flow": "Ada submits \"Intro to Testing\" and Alan submits \"Flaky Tests\". The Teacher tab lists both rows; filtering by \"Flaky Tests\" leaves only Alan's.",
+      "flowId": "teacher-sees-submissions",
+      "t": 0
+    },
+    {
+      "type": "cast:chunk",
+      "text": "import",
+      "t": 1702
+    },
+    {
+      "type": "cast:chunk",
+      "text": " { test, expect } from '@playwright/test';\n\ntest.beforeEach(async ({ request }) => {\n  await request.post('http://localhost:3180/api/_reset');\n});\n\ntest('Ada submits Intro to Testing and Alan submits Flaky Tests;",
+      "t": 2370
+    },
+    {
+      "type": "cast:chunk",
+      "text": " teacher filters by Flaky Tests', async ({ page }) => {\n  // --- Ada submits \"Intro to Testing\" (a1) ---\n  await page.goto('http://localhost:5180/#/student/",
+      "t": 3011
+    },
+    {
+      "type": "cast:chunk",
+      "text": "s1');\n  await expect(page.getByTestId('open-assignment-a1')).toBeVisible();\n  await page.getByTestId('open-assignment-a1').click();\n\n  await expect(page.getByTestId",
+      "t": 3772
+    },
+    {
+      "type": "cast:chunk",
+      "text": "('quiz-title')).toBeVisible();\n  await page.getByTestId('answer-q1-1').click();\n  await page.getByTestId('answer-q2-1').click();\n  await page.getByTestId('answer-q3-1",
+      "t": 4324
+    },
+    {
+      "type": "cast:chunk",
+      "text": "').click();\n\n  await expect(page.getByTestId('submit-quiz')).toBeEnabled();\n  await page.getByTestId('submit-quiz').click();\n\n  await expect(page.getByTestId('quiz-result')).toBeVisible();",
+      "t": 4981
+    },
+    {
+      "type": "cast:chunk",
+      "text": "\n\n  // --- Alan submits \"Flaky Tests\" (a3) ---\n  await page.goto('http://localhost:5180/#/student/s2');\n  await expect(page.getByTestId('open-assignment-a3')).toBeVisible();\n  await page.getByTestId('open-assignment-a3').",
+      "t": 5739
+    },
+    {
+      "type": "cast:chunk",
+      "text": "click();\n\n  await expect(page.getByTestId('quiz-title')).toBeVisible();\n  await page.getByTestId('answer-q1-0').click();\n  await page.getByTestId('answer-q2-0').click();\n  await page.getByTestId('answer-q3-0').click();",
+      "t": 6336
+    },
+    {
+      "type": "cast:chunk",
+      "text": "\n\n  await expect(page.getByTestId('submit-quiz')).toBeEnabled();\n  await page.getByTestId('submit-quiz').click();\n\n  await expect(page.getByTestId('quiz-result')).toBeVisible();\n\n  // --- Teacher tab: verify",
+      "t": 7014
+    },
+    {
+      "type": "cast:chunk",
+      "text": " both submissions are listed ---\n  await page.goto('http://localhost:5180/#/teacher');\n  await expect(page.getByTestId('submissions-table')).toBeVisible();\n\n  const adaRow = page.getByTestId('submission",
+      "t": 7673
+    },
+    {
+      "type": "cast:chunk",
+      "text": "-row-sub-1');\n  const alanRow = page.getByTestId('submission-row-sub-2');\n\n  await expect(adaRow).toBeVisible();\n  await expect(alanRow).toBeVisible();\n\n  // --- Filter by \"Flaky Tests\" ---\n  await page.getByTestId('filter-assignment",
+      "t": 8317
+    },
+    {
+      "type": "cast:chunk",
+      "text": "').selectOption('a3');\n\n  // Alan's row (Flaky Tests) remains visible\n  await expect(alanRow).toBeVisible();\n\n  // Ada's row (Intro to Testing) is no longer visible\n  await expect(",
+      "t": 9028
+    },
+    {
+      "type": "cast:chunk",
+      "text": "adaRow).not.toBeVisible();\n\n  // Confirm assignment list reflects the filter\n  await expect(page.getByTestId('assignment-list')).not.toCont",
+      "t": 9657
+    },
+    {
+      "type": "cast:chunk",
+      "text": "ainText('Intro to Testing');\n  await expect(page.getByTestId('assignment-list')).toContainText('Flaky Tests');\n});",
+      "t": 10038
+    },
+    {
+      "type": "cast:end",
+      "spec": "import { test, expect } from '@playwright/test';\n\ntest.beforeEach(async ({ request }) => {\n  await request.post('http://localhost:3180/api/_reset');\n});\n\ntest('Ada submits Intro to Testing and Alan submits Flaky Tests; teacher filters by Flaky Tests', async ({ page }) => {\n  // --- Ada submits \"Intro to Testing\" (a1) ---\n  await page.goto('http://localhost:5180/#/student/s1');\n  await expect(page.getByTestId('open-assignment-a1')).toBeVisible();\n  await page.getByTestId('open-assignment-a1').click();\n\n  await expect(page.getByTestId('quiz-title')).toBeVisible();\n  await page.getByTestId('answer-q1-1').click();\n  await page.getByTestId('answer-q2-1').click();\n  await page.getByTestId('answer-q3-1').click();\n\n  await expect(page.getByTestId('submit-quiz')).toBeEnabled();\n  await page.getByTestId('submit-quiz').click();\n\n  await expect(page.getByTestId('quiz-result')).toBeVisible();\n\n  // --- Alan submits \"Flaky Tests\" (a3) ---\n  await page.goto('http://localhost:5180/#/student/s2');\n  await expect(page.getByTestId('open-assignment-a3')).toBeVisible();\n  await page.getByTestId('open-assignment-a3').click();\n\n  await expect(page.getByTestId('quiz-title')).toBeVisible();\n  await page.getByTestId('answer-q1-0').click();\n  await page.getByTestId('answer-q2-0').click();\n  await page.getByTestId('answer-q3-0').click();\n\n  await expect(page.getByTestId('submit-quiz')).toBeEnabled();\n  await page.getByTestId('submit-quiz').click();\n\n  await expect(page.getByTestId('quiz-result')).toBeVisible();\n\n  // --- Teacher tab: verify both submissions are listed ---\n  await page.goto('http://localhost:5180/#/teacher');\n  await expect(page.getByTestId('submissions-table')).toBeVisible();\n\n  const adaRow = page.getByTestId('submission-row-sub-1');\n  const alanRow = page.getByTestId('submission-row-sub-2');\n\n  await expect(adaRow).toBeVisible();\n  await expect(alanRow).toBeVisible();\n\n  // --- Filter by \"Flaky Tests\" ---\n  await page.getByTestId('filter-assignment').selectOption('a3');\n\n  // Alan's row (Flaky Tests) remains visible\n  await expect(alanRow).toBeVisible();\n\n  // Ada's row (Intro to Testing) is no longer visible\n  await expect(adaRow).not.toBeVisible();\n\n  // Confirm assignment list reflects the filter\n  await expect(page.getByTestId('assignment-list')).not.toContainText('Intro to Testing');\n  await expect(page.getByTestId('assignment-list')).toContainText('Flaky Tests');\n});\n",
+      "t": 10050
+    },
+    {
+      "type": "reaction",
+      "findings": [],
+      "t": 10057
+    },
+    {
+      "type": "arcana:start",
+      "t": 11601
+    },
+    {
+      "type": "arcana:result",
+      "verdict": {
+        "verdict": "RESHAPED",
+        "reasons": [
+          "Arcana scored assertionQuality 3/5; below the 4/5 bar for RESOLVES."
+        ],
+        "provisional": false,
+        "warnings": [],
+        "file": "generated.spec.ts",
+        "reaction": {
+          "findings": []
+        },
+        "arcana": {
+          "status": "ok",
+          "result": {
+            "assertionQuality": 3,
+            "independence": 4,
+            "coverageValue": 4,
+            "findings": [
+              {
+                "issue": "Submission row IDs are hardcoded (`sub-1`, `sub-2`) and assume the reset endpoint returns a perfectly clean slate with predictable auto-incremented IDs. If the backend reuses IDs non-deterministically or the reset is async, the selectors will silently target the wrong rows.",
+                "why": "Brittle identity assumption; a row mismatch would not be caught by the assertions and could produce a false-positive.",
+                "line": 45
+              },
+              {
+                "issue": "`not.toBeVisible()` is used to assert Ada's row is filtered out, but the element may still be in the DOM (hidden via CSS). This is acceptable in Playwright, but if the app hides rows with `display:none` while keeping them technically 'visible' via an ancestor scroll container, the assertion could be unreliable. Consider `not.toBeAttached()` or checking the row count instead.",
+                "why": "Visibility checks on filtered table rows depend on implementation detail; a CSS-only hide might pass or fail depending on the ancestor's overflow state.",
+                "line": 54
+              },
+              {
+                "issue": "`page.getByTestId('assignment-list')` is never asserted to be visible before the `toContainText` / `not.toContainText` calls. If the element does not exist in the DOM under the filtered view, the assertion will throw a misleading error rather than a clear filter-validation failure.",
+                "why": "Missing existence guard makes failure messages harder to diagnose and the assertion semantically ambiguous.",
+                "line": 58
+              },
+              {
+                "issue": "The test navigates between student and teacher views in a single browser page without clearing local storage or cookies. If the app stores session state per-route in `localStorage`, navigation from `s1` → `s2` → teacher could carry stale state, causing unexpected UI behaviour that the test would not detect.",
+                "why": "Cross-route session pollution is a hidden independence risk within the single test body.",
+                "line": 22
+              },
+              {
+                "issue": "Answer selectors (`answer-q1-1`, `answer-q2-0`, etc.) encode both question and option indices but do not verify the text of the answer chosen. If the quiz question order or option order changes, the test silently selects a different answer without any assertion failure before submission.",
+                "why": "Assertions on the quiz result (`quiz-result`) are only visibility checks; the correctness or content of the submission is never verified, reducing assertion depth.",
+                "line": 14
+              },
+              {
+                "issue": "`quiz-result` is only checked for visibility, not for content (score, assignment name, student name). A blank or error state that happens to render the element would pass the assertion.",
+                "why": "Weak assertion does not prove the user-visible outcome (a valid, complete submission result) was actually achieved.",
+                "line": 20
+              },
+              {
+                "issue": "No assertion confirms the teacher view shows exactly two total rows before the filter is applied. If a third stale submission existed (e.g., reset was incomplete), `adaRow` and `alanRow` being visible would not prove the overall count is correct.",
+                "why": "Missing count assertion means a partially-reset state could produce a false-positive on the pre-filter check.",
+                "line": 44
+              }
+            ],
+            "summary": "The test covers a meaningful multi-actor workflow (two students submit different assignments, teacher filters by one) and uses a reset endpoint for isolation, giving reasonable independence and coverage value. However, assertion quality is the main weakness: quiz results are only checked for visibility, filter assertions rely on potentially fragile `not.toBeVisible()` semantics, hardcoded submission IDs couple the test to backend ID generation, and the `assignment-list` element is used without an existence guard. Strengthening assertions to verify content (result scores, row counts, visible text after filtering) and decoupling from sequential IDs would significantly improve confidence."
+          },
+          "attempts": 1,
+          "model": "claude-sonnet-4-6"
+        }
+      },
+      "arcana": {
+        "status": "ok",
+        "result": {
+          "assertionQuality": 3,
+          "independence": 4,
+          "coverageValue": 4,
+          "findings": [
+            {
+              "issue": "Submission row IDs are hardcoded (`sub-1`, `sub-2`) and assume the reset endpoint returns a perfectly clean slate with predictable auto-incremented IDs. If the backend reuses IDs non-deterministically or the reset is async, the selectors will silently target the wrong rows.",
+              "why": "Brittle identity assumption; a row mismatch would not be caught by the assertions and could produce a false-positive.",
+              "line": 45
+            },
+            {
+              "issue": "`not.toBeVisible()` is used to assert Ada's row is filtered out, but the element may still be in the DOM (hidden via CSS). This is acceptable in Playwright, but if the app hides rows with `display:none` while keeping them technically 'visible' via an ancestor scroll container, the assertion could be unreliable. Consider `not.toBeAttached()` or checking the row count instead.",
+              "why": "Visibility checks on filtered table rows depend on implementation detail; a CSS-only hide might pass or fail depending on the ancestor's overflow state.",
+              "line": 54
+            },
+            {
+              "issue": "`page.getByTestId('assignment-list')` is never asserted to be visible before the `toContainText` / `not.toContainText` calls. If the element does not exist in the DOM under the filtered view, the assertion will throw a misleading error rather than a clear filter-validation failure.",
+              "why": "Missing existence guard makes failure messages harder to diagnose and the assertion semantically ambiguous.",
+              "line": 58
+            },
+            {
+              "issue": "The test navigates between student and teacher views in a single browser page without clearing local storage or cookies. If the app stores session state per-route in `localStorage`, navigation from `s1` → `s2` → teacher could carry stale state, causing unexpected UI behaviour that the test would not detect.",
+              "why": "Cross-route session pollution is a hidden independence risk within the single test body.",
+              "line": 22
+            },
+            {
+              "issue": "Answer selectors (`answer-q1-1`, `answer-q2-0`, etc.) encode both question and option indices but do not verify the text of the answer chosen. If the quiz question order or option order changes, the test silently selects a different answer without any assertion failure before submission.",
+              "why": "Assertions on the quiz result (`quiz-result`) are only visibility checks; the correctness or content of the submission is never verified, reducing assertion depth.",
+              "line": 14
+            },
+            {
+              "issue": "`quiz-result` is only checked for visibility, not for content (score, assignment name, student name). A blank or error state that happens to render the element would pass the assertion.",
+              "why": "Weak assertion does not prove the user-visible outcome (a valid, complete submission result) was actually achieved.",
+              "line": 20
+            },
+            {
+              "issue": "No assertion confirms the teacher view shows exactly two total rows before the filter is applied. If a third stale submission existed (e.g., reset was incomplete), `adaRow` and `alanRow` being visible would not prove the overall count is correct.",
+              "why": "Missing count assertion means a partially-reset state could produce a false-positive on the pre-filter check.",
+              "line": 44
+            }
+          ],
+          "summary": "The test covers a meaningful multi-actor workflow (two students submit different assignments, teacher filters by one) and uses a reset endpoint for isolation, giving reasonable independence and coverage value. However, assertion quality is the main weakness: quiz results are only checked for visibility, filter assertions rely on potentially fragile `not.toBeVisible()` semantics, hardcoded submission IDs couple the test to backend ID generation, and the `assignment-list` element is used without an existence guard. Strengthening assertions to verify content (result scores, row counts, visible text after filtering) and decoupling from sequential IDs would significantly improve confidence."
+        },
+        "attempts": 1,
+        "model": "claude-sonnet-4-6"
+      },
+      "t": 34425
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+Running 6 tests using 1 worker
+  ✓  1 [chromium] › e2e/course-app.spec.js:9:1 › student completes a quiz and sees the grade (587ms)
+  ✓  2 [chromium] › e2e/course-app.spec.js:23:1 › submit stays disabled until every question is answered (226ms)
+  ✓  3 [chromium] › e2e/course-app.spec.js:34:1 › a graded assignment shows its status on the list (348ms)
+  ✓  4 [chromium] › e2e/course-app.spec.js:48:1 › switching student shows a clean slate (312ms)
+  ✓  5 [chromium] › e2e/course-app.spec.js:62:1 › teacher sees submissions and filters by assignment (111ms)
+  ✓  6 [chromium] › e2e/course-app.spec.js:77:1 › teacher view shows the empty state after a reset (106ms)
+  6 passed (4.3s)

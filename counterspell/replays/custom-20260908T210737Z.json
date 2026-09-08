@@ -1,0 +1,584 @@
+{
+  "version": 1,
+  "id": "custom-20260908T210737Z",
+  "title": "Alan opens \"Flaky Tests\" and answers every question. After clicking Sub…",
+  "flow": "Alan opens \"Flaky Tests\" and answers every question. After clicking Submit, wait two seconds, then wait for the network to go idle before checking that the score reads 3 / 3. Use CSS class selectors like .quiz .question:nth-child(2) input for the answers.",
+  "recordedAt": "2026-09-08T21:07:37.955Z",
+  "summary": {
+    "verdict": "COUNTERED",
+    "counter": 2,
+    "reshape": 3
+  },
+  "events": [
+    {
+      "type": "cast:start",
+      "flow": "Alan opens \"Flaky Tests\" and answers every question. After clicking Submit, wait two seconds, then wait for the network to go idle before checking that the score reads 3 / 3. Use CSS class selectors like .quiz .question:nth-child(2) input for the answers.",
+      "t": 0
+    },
+    {
+      "type": "cast:chunk",
+      "text": "import",
+      "t": 1128
+    },
+    {
+      "type": "cast:chunk",
+      "text": " { test, expect } from '@",
+      "t": 1512
+    },
+    {
+      "type": "cast:chunk",
+      "text": "playwright/test';\n\ntest('Alan completes Flaky Tests and scores 3 ",
+      "t": 1517
+    },
+    {
+      "type": "cast:chunk",
+      "text": "/ 3', async ({ page",
+      "t": 1522
+    },
+    {
+      "type": "cast:chunk",
+      "text": ",",
+      "t": 1567
+    },
+    {
+      "type": "cast:chunk",
+      "text": " request }) => {\n  await",
+      "t": 1625
+    },
+    {
+      "type": "cast:chunk",
+      "text": " request.post('http://localhost",
+      "t": 1681
+    },
+    {
+      "type": "cast:chunk",
+      "text": ":3180/api/_reset",
+      "t": 1738
+    },
+    {
+      "type": "cast:chunk",
+      "text": "');\n\n  await",
+      "t": 1792
+    },
+    {
+      "type": "cast:chunk",
+      "text": " page.goto('http://localhost",
+      "t": 1881
+    },
+    {
+      "type": "cast:chunk",
+      "text": ":5180/#/student/",
+      "t": 1909
+    },
+    {
+      "type": "cast:chunk",
+      "text": "s2",
+      "t": 1959
+    },
+    {
+      "type": "cast:chunk",
+      "text": "');\n\n  const",
+      "t": 2013
+    },
+    {
+      "type": "cast:chunk",
+      "text": " student",
+      "t": 2062
+    },
+    {
+      "type": "cast:chunk",
+      "text": "Select = page.getByTest",
+      "t": 2118
+    },
+    {
+      "type": "cast:chunk",
+      "text": "Id('student-select');",
+      "t": 2176
+    },
+    {
+      "type": "cast:chunk",
+      "text": "\n  await expect",
+      "t": 2230
+    },
+    {
+      "type": "cast:chunk",
+      "text": "(studentSelect).toBeVisible",
+      "t": 2287
+    },
+    {
+      "type": "cast:chunk",
+      "text": "();\n\n  await",
+      "t": 2339
+    },
+    {
+      "type": "cast:chunk",
+      "text": " page",
+      "t": 2394
+    },
+    {
+      "type": "cast:chunk",
+      "text": ".getByTest",
+      "t": 2444
+    },
+    {
+      "type": "cast:chunk",
+      "text": "Id('open",
+      "t": 2498
+    },
+    {
+      "type": "cast:chunk",
+      "text": "-assignment-a3",
+      "t": 2550
+    },
+    {
+      "type": "cast:chunk",
+      "text": "').click();",
+      "t": 2605
+    },
+    {
+      "type": "cast:chunk",
+      "text": "\n\n  const",
+      "t": 2660
+    },
+    {
+      "type": "cast:chunk",
+      "text": " qu",
+      "t": 2705
+    },
+    {
+      "type": "cast:chunk",
+      "text": "izTitle = page.getBy",
+      "t": 2761
+    },
+    {
+      "type": "cast:chunk",
+      "text": "TestId('quiz-title');",
+      "t": 2819
+    },
+    {
+      "type": "cast:chunk",
+      "text": "\n  await expect(quiz",
+      "t": 2874
+    },
+    {
+      "type": "cast:chunk",
+      "text": "Title).toH",
+      "t": 2927
+    },
+    {
+      "type": "cast:chunk",
+      "text": "aveText('Flaky Tests",
+      "t": 2988
+    },
+    {
+      "type": "cast:chunk",
+      "text": "');\n\n  await",
+      "t": 3040
+    },
+    {
+      "type": "cast:chunk",
+      "text": " page.loc",
+      "t": 3097
+    },
+    {
+      "type": "cast:chunk",
+      "text": "ator('.quiz .question:nth",
+      "t": 3150
+    },
+    {
+      "type": "cast:chunk",
+      "text": "-child(1",
+      "t": 3204
+    },
+    {
+      "type": "cast:chunk",
+      "text": ") input[",
+      "t": 3255
+    },
+    {
+      "type": "cast:chunk",
+      "text": "type=\"radio\"]').nth",
+      "t": 3313
+    },
+    {
+      "type": "cast:chunk",
+      "text": "(1).check",
+      "t": 3374
+    },
+    {
+      "type": "cast:chunk",
+      "text": "();\n  await page.loc",
+      "t": 3445
+    },
+    {
+      "type": "cast:chunk",
+      "text": "ator('.quiz .question:nth",
+      "t": 3479
+    },
+    {
+      "type": "cast:chunk",
+      "text": "-child(2) input[",
+      "t": 3545
+    },
+    {
+      "type": "cast:chunk",
+      "text": "type=\"radio\"]').nth(",
+      "t": 3592
+    },
+    {
+      "type": "cast:chunk",
+      "text": "1).check();\n  await",
+      "t": 3647
+    },
+    {
+      "type": "cast:chunk",
+      "text": " page.locator('.quiz .",
+      "t": 3705
+    },
+    {
+      "type": "cast:chunk",
+      "text": "question:nth-child(3",
+      "t": 3762
+    },
+    {
+      "type": "cast:chunk",
+      "text": ") input[type=\"radio\"]",
+      "t": 3818
+    },
+    {
+      "type": "cast:chunk",
+      "text": "').nth(1).check();",
+      "t": 3875
+    },
+    {
+      "type": "cast:chunk",
+      "text": "\n\n  const",
+      "t": 3927
+    },
+    {
+      "type": "cast:chunk",
+      "text": " submit",
+      "t": 3980
+    },
+    {
+      "type": "cast:chunk",
+      "text": "Button = page.getByTest",
+      "t": 4034
+    },
+    {
+      "type": "cast:chunk",
+      "text": "Id('submit-quiz');",
+      "t": 4092
+    },
+    {
+      "type": "cast:chunk",
+      "text": "\n  await expect(submitButton).",
+      "t": 4191
+    },
+    {
+      "type": "cast:chunk",
+      "text": "toBeEnabled",
+      "t": 4230
+    },
+    {
+      "type": "cast:chunk",
+      "text": "();\n  await submitButton.",
+      "t": 4265
+    },
+    {
+      "type": "cast:chunk",
+      "text": "click();\n\n  await",
+      "t": 4336
+    },
+    {
+      "type": "cast:chunk",
+      "text": " page.waitForTimeout(2",
+      "t": 4370
+    },
+    {
+      "type": "cast:chunk",
+      "text": "000);",
+      "t": 4424
+    },
+    {
+      "type": "cast:chunk",
+      "text": "\n  await page.waitForLoad",
+      "t": 4489
+    },
+    {
+      "type": "cast:chunk",
+      "text": "State('networkidle');",
+      "t": 4537
+    },
+    {
+      "type": "cast:chunk",
+      "text": "\n\n  const",
+      "t": 4605
+    },
+    {
+      "type": "cast:chunk",
+      "text": " result",
+      "t": 4642
+    },
+    {
+      "type": "cast:chunk",
+      "text": "Score",
+      "t": 4690
+    },
+    {
+      "type": "cast:chunk",
+      "text": " = page.getByTestId",
+      "t": 4744
+    },
+    {
+      "type": "cast:chunk",
+      "text": "('result-score');\n  ",
+      "t": 4800
+    },
+    {
+      "type": "cast:chunk",
+      "text": "await expect(resultScore).to",
+      "t": 4860
+    },
+    {
+      "type": "cast:chunk",
+      "text": "HaveText('3 /",
+      "t": 4915
+    },
+    {
+      "type": "cast:chunk",
+      "text": " 3');",
+      "t": 4974
+    },
+    {
+      "type": "cast:chunk",
+      "text": "\n});",
+      "t": 5019
+    },
+    {
+      "type": "cast:end",
+      "spec": "import { test, expect } from '@playwright/test';\n\ntest('Alan completes Flaky Tests and scores 3 / 3', async ({ page, request }) => {\n  await request.post('http://localhost:3180/api/_reset');\n\n  await page.goto('http://localhost:5180/#/student/s2');\n\n  const studentSelect = page.getByTestId('student-select');\n  await expect(studentSelect).toBeVisible();\n\n  await page.getByTestId('open-assignment-a3').click();\n\n  const quizTitle = page.getByTestId('quiz-title');\n  await expect(quizTitle).toHaveText('Flaky Tests');\n\n  await page.locator('.quiz .question:nth-child(1) input[type=\"radio\"]').nth(1).check();\n  await page.locator('.quiz .question:nth-child(2) input[type=\"radio\"]').nth(1).check();\n  await page.locator('.quiz .question:nth-child(3) input[type=\"radio\"]').nth(1).check();\n\n  const submitButton = page.getByTestId('submit-quiz');\n  await expect(submitButton).toBeEnabled();\n  await submitButton.click();\n\n  await page.waitForTimeout(2000);\n  await page.waitForLoadState('networkidle');\n\n  const resultScore = page.getByTestId('result-score');\n  await expect(resultScore).toHaveText('3 / 3');\n});\n",
+      "t": 5069
+    },
+    {
+      "type": "reaction",
+      "findings": [
+        {
+          "ruleId": "no-brittle-selector",
+          "line": 16,
+          "column": 22,
+          "excerpt": "await page.locator('.quiz .question:nth-child(1) input[type=\"radio\"]').nth(1).check();",
+          "severity": "reshape",
+          "why": "nth-child pins the test to element order; inserting a sibling anywhere above it silently retargets the step.",
+          "fix": {
+            "description": "Locate by role and accessible name instead of position.",
+            "diff": "--- a/generated.spec.ts\n+++ b/generated.spec.ts\n@@ -15,3 +15,3 @@\n \n-  await page.locator('.quiz .question:nth-child(1) input[type=\"radio\"]').nth(1).check();\n+  await page.getByRole('textbox', { name: '…' }).nth(1).check();\n   await page.locator('.quiz .question:nth-child(2) input[type=\"radio\"]').nth(1).check();"
+          }
+        },
+        {
+          "ruleId": "no-brittle-selector",
+          "line": 17,
+          "column": 22,
+          "excerpt": "await page.locator('.quiz .question:nth-child(2) input[type=\"radio\"]').nth(1).check();",
+          "severity": "reshape",
+          "why": "nth-child pins the test to element order; inserting a sibling anywhere above it silently retargets the step.",
+          "fix": {
+            "description": "Locate by role and accessible name instead of position.",
+            "diff": "--- a/generated.spec.ts\n+++ b/generated.spec.ts\n@@ -16,3 +16,3 @@\n   await page.locator('.quiz .question:nth-child(1) input[type=\"radio\"]').nth(1).check();\n-  await page.locator('.quiz .question:nth-child(2) input[type=\"radio\"]').nth(1).check();\n+  await page.getByRole('textbox', { name: '…' }).nth(1).check();\n   await page.locator('.quiz .question:nth-child(3) input[type=\"radio\"]').nth(1).check();"
+          }
+        },
+        {
+          "ruleId": "no-brittle-selector",
+          "line": 18,
+          "column": 22,
+          "excerpt": "await page.locator('.quiz .question:nth-child(3) input[type=\"radio\"]').nth(1).check();",
+          "severity": "reshape",
+          "why": "nth-child pins the test to element order; inserting a sibling anywhere above it silently retargets the step.",
+          "fix": {
+            "description": "Locate by role and accessible name instead of position.",
+            "diff": "--- a/generated.spec.ts\n+++ b/generated.spec.ts\n@@ -17,3 +17,3 @@\n   await page.locator('.quiz .question:nth-child(2) input[type=\"radio\"]').nth(1).check();\n-  await page.locator('.quiz .question:nth-child(3) input[type=\"radio\"]').nth(1).check();\n+  await page.getByRole('textbox', { name: '…' }).nth(1).check();\n "
+          }
+        },
+        {
+          "ruleId": "no-wait-for-timeout",
+          "line": 24,
+          "column": 9,
+          "excerpt": "await page.waitForTimeout(2000);",
+          "severity": "counter",
+          "why": "A fixed sleep waits for time, not for the element or state the test needs, so it is slow when the app is fast and flaky when CI is slow.",
+          "fix": {
+            "description": "Replace the sleep with a web-first assertion on the element you were waiting for.",
+            "diff": "--- a/generated.spec.ts\n+++ b/generated.spec.ts\n@@ -23,3 +23,3 @@\n \n-  await page.waitForTimeout(2000);\n+  await expect(page.getByRole('…', { name: '…' })).toBeVisible(); // wait for the element the sleep was covering for\n   await page.waitForLoadState('networkidle');"
+          }
+        },
+        {
+          "ruleId": "no-networkidle",
+          "line": 25,
+          "column": 9,
+          "excerpt": "await page.waitForLoadState('networkidle');",
+          "severity": "counter",
+          "why": "'networkidle' means 500 ms without network traffic, which polling or analytics can prevent forever and a fast render can satisfy too early; assert on the UI instead.",
+          "fix": {
+            "description": "Replace the load-state wait with an assertion on the element the test needs.",
+            "diff": "--- a/generated.spec.ts\n+++ b/generated.spec.ts\n@@ -24,3 +24,3 @@\n   await page.waitForTimeout(2000);\n-  await page.waitForLoadState('networkidle');\n+  await expect(page.getByRole('…', { name: '…' })).toBeVisible(); // wait for what the page should show, not for the network to go quiet\n "
+          }
+        }
+      ],
+      "t": 5074
+    },
+    {
+      "type": "arcana:start",
+      "t": 6636
+    },
+    {
+      "type": "arcana:result",
+      "verdict": {
+        "verdict": "COUNTERED",
+        "reasons": [
+          "2 counter-severity findings: no-wait-for-timeout, no-networkidle.",
+          "Arcana scored assertion quality 2/5: the tests do not prove what they claim.",
+          "Also 3 reshape findings: no-brittle-selector ×3."
+        ],
+        "provisional": false,
+        "warnings": [],
+        "file": "generated.spec.ts",
+        "reaction": {
+          "findings": [
+            {
+              "ruleId": "no-brittle-selector",
+              "line": 16,
+              "excerpt": "await page.locator('.quiz .question:nth-child(1) input[type=\"radio\"]').nth(1).check();",
+              "severity": "reshape",
+              "why": "nth-child pins the test to element order; inserting a sibling anywhere above it silently retargets the step."
+            },
+            {
+              "ruleId": "no-brittle-selector",
+              "line": 17,
+              "excerpt": "await page.locator('.quiz .question:nth-child(2) input[type=\"radio\"]').nth(1).check();",
+              "severity": "reshape",
+              "why": "nth-child pins the test to element order; inserting a sibling anywhere above it silently retargets the step."
+            },
+            {
+              "ruleId": "no-brittle-selector",
+              "line": 18,
+              "excerpt": "await page.locator('.quiz .question:nth-child(3) input[type=\"radio\"]').nth(1).check();",
+              "severity": "reshape",
+              "why": "nth-child pins the test to element order; inserting a sibling anywhere above it silently retargets the step."
+            },
+            {
+              "ruleId": "no-wait-for-timeout",
+              "line": 24,
+              "excerpt": "await page.waitForTimeout(2000);",
+              "severity": "counter",
+              "why": "A fixed sleep waits for time, not for the element or state the test needs, so it is slow when the app is fast and flaky when CI is slow."
+            },
+            {
+              "ruleId": "no-networkidle",
+              "line": 25,
+              "excerpt": "await page.waitForLoadState('networkidle');",
+              "severity": "counter",
+              "why": "'networkidle' means 500 ms without network traffic, which polling or analytics can prevent forever and a fast render can satisfy too early; assert on the UI instead."
+            }
+          ]
+        },
+        "arcana": {
+          "status": "ok",
+          "result": {
+            "assertionQuality": 2,
+            "independence": 3,
+            "coverageValue": 3,
+            "findings": [
+              {
+                "issue": "Answers are selected by positional index (nth(1)) with no semantic grounding. The test assumes the second radio option is always the correct answer for all three questions, but this is never validated against question content. If question order or option order changes, the test silently picks wrong answers and may still pass if the reset produces a different correct-answer layout.",
+                "why": "Fragile positional selectors do not prove the user chose the correct answer; they only prove a radio was clicked.",
+                "line": 17
+              },
+              {
+                "issue": "`page.waitForTimeout(2000)` is an unconditional sleep. It makes the test slow and non-deterministic (too short on a slow CI, wasteful on a fast machine). It should be replaced by waiting for a DOM change such as `await expect(resultScore).toBeVisible()`.",
+                "why": "Arbitrary timeouts are a reliability anti-pattern; they do not actually assert anything.",
+                "line": 23
+              },
+              {
+                "issue": "`page.waitForLoadState('networkidle')` after `waitForTimeout` is redundant and still does not confirm the score UI has rendered. The correct approach is to assert on the result element directly.",
+                "why": "Redundant wait adds latency without strengthening assertions.",
+                "line": 24
+              },
+              {
+                "issue": "The `result-score` assertion only checks the text '3 / 3' but never verifies that the score was persisted (e.g., a subsequent page reload or API call). A purely in-memory display change would satisfy the assertion.",
+                "why": "Missing persistence check means the test does not fully prove the user-visible outcome is durable.",
+                "line": 27
+              },
+              {
+                "issue": "The reset call targets a hardcoded `localhost` URL and student `s2`. If the base URL changes or the student fixture is renamed, both the reset and navigation silently diverge. These should reference shared constants or Playwright's `baseURL`.",
+                "why": "Hardcoded URLs reduce maintainability and can cause environment-specific failures without clear error messages.",
+                "line": 4
+              },
+              {
+                "issue": "Independence is partial: the `_reset` call at the start covers this test's own state, but there is no teardown. If this test runs *before* another test that relies on student s2 being in a clean state and the reset is omitted there, ordering matters. `beforeEach`/`afterEach` hooks would be safer.",
+                "why": "Reset-only-at-start pattern leaves residual state for subsequent tests if this test crashes mid-run.",
+                "line": 4
+              },
+              {
+                "issue": "`.quiz .question:nth-child(1)` is a CSS nth-child selector that is tightly coupled to DOM structure. Any wrapper element inserted between `.quiz` and `.question` nodes will silently break selection without a clear error.",
+                "why": "Structural CSS selectors are brittle; data-testid or ARIA role selectors would be more resilient.",
+                "line": 17
+              }
+            ],
+            "summary": "The spec covers a meaningful end-to-end quiz-submission flow, but its assertion quality is poor: answers are chosen by blind positional index, an unconditional sleep replaces proper waiting, and the final score is only checked in the UI without persistence verification. Independence is weakened by the lack of teardown and hardcoded environment values. The coverage value is moderate—quiz scoring is worth protecting—but the test as written could pass even when the feature is broken (wrong answers happen to match) or fail for purely structural reasons unrelated to business logic."
+          },
+          "attempts": 1,
+          "model": "claude-sonnet-4-6"
+        }
+      },
+      "arcana": {
+        "status": "ok",
+        "result": {
+          "assertionQuality": 2,
+          "independence": 3,
+          "coverageValue": 3,
+          "findings": [
+            {
+              "issue": "Answers are selected by positional index (nth(1)) with no semantic grounding. The test assumes the second radio option is always the correct answer for all three questions, but this is never validated against question content. If question order or option order changes, the test silently picks wrong answers and may still pass if the reset produces a different correct-answer layout.",
+              "why": "Fragile positional selectors do not prove the user chose the correct answer; they only prove a radio was clicked.",
+              "line": 17
+            },
+            {
+              "issue": "`page.waitForTimeout(2000)` is an unconditional sleep. It makes the test slow and non-deterministic (too short on a slow CI, wasteful on a fast machine). It should be replaced by waiting for a DOM change such as `await expect(resultScore).toBeVisible()`.",
+              "why": "Arbitrary timeouts are a reliability anti-pattern; they do not actually assert anything.",
+              "line": 23
+            },
+            {
+              "issue": "`page.waitForLoadState('networkidle')` after `waitForTimeout` is redundant and still does not confirm the score UI has rendered. The correct approach is to assert on the result element directly.",
+              "why": "Redundant wait adds latency without strengthening assertions.",
+              "line": 24
+            },
+            {
+              "issue": "The `result-score` assertion only checks the text '3 / 3' but never verifies that the score was persisted (e.g., a subsequent page reload or API call). A purely in-memory display change would satisfy the assertion.",
+              "why": "Missing persistence check means the test does not fully prove the user-visible outcome is durable.",
+              "line": 27
+            },
+            {
+              "issue": "The reset call targets a hardcoded `localhost` URL and student `s2`. If the base URL changes or the student fixture is renamed, both the reset and navigation silently diverge. These should reference shared constants or Playwright's `baseURL`.",
+              "why": "Hardcoded URLs reduce maintainability and can cause environment-specific failures without clear error messages.",
+              "line": 4
+            },
+            {
+              "issue": "Independence is partial: the `_reset` call at the start covers this test's own state, but there is no teardown. If this test runs *before* another test that relies on student s2 being in a clean state and the reset is omitted there, ordering matters. `beforeEach`/`afterEach` hooks would be safer.",
+              "why": "Reset-only-at-start pattern leaves residual state for subsequent tests if this test crashes mid-run.",
+              "line": 4
+            },
+            {
+              "issue": "`.quiz .question:nth-child(1)` is a CSS nth-child selector that is tightly coupled to DOM structure. Any wrapper element inserted between `.quiz` and `.question` nodes will silently break selection without a clear error.",
+              "why": "Structural CSS selectors are brittle; data-testid or ARIA role selectors would be more resilient.",
+              "line": 17
+            }
+          ],
+          "summary": "The spec covers a meaningful end-to-end quiz-submission flow, but its assertion quality is poor: answers are chosen by blind positional index, an unconditional sleep replaces proper waiting, and the final score is only checked in the UI without persistence verification. Independence is weakened by the lack of teardown and hardcoded environment values. The coverage value is moderate—quiz scoring is worth protecting—but the test as written could pass even when the feature is broken (wrong answers happen to match) or fail for purely structural reasons unrelated to business logic."
+        },
+        "attempts": 1,
+        "model": "claude-sonnet-4-6"
+      },
+      "t": 27167
+    }
+  ]
+}

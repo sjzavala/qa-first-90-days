@@ -1,0 +1,35 @@
+{
+  "replays": [
+    {
+      "id": "custom-20260908T210737Z",
+      "title": "Alan opens \"Flaky Tests\" and answers every question. After clicking Sub\u2026",
+      "flow": "Alan opens \"Flaky Tests\" and answers every question. After clicking Submit, wait two seconds, then wait for the network to go idle before checking that the score reads 3 / 3. Use CSS class selectors like .quiz .question:nth-child(2) input for the answers.",
+      "recordedAt": "2026-09-08T21:07:37.955Z",
+      "verdict": "COUNTERED"
+    },
+    {
+      "id": "pasted-20260908T210758Z",
+      "title": "Pasted spec: dashboard loads the activity feed",
+      "flow": "Pasted spec: dashboard loads the activity feed",
+      "recordedAt": "2026-09-08T21:07:58.908Z",
+      "flowId": "pasted",
+      "verdict": "COUNTERED"
+    },
+    {
+      "id": "student-perfect-score-20260908T210634Z",
+      "title": "Student Ada opens \"Intro to Testing\", answers all three questions corre\u2026",
+      "flow": "Student Ada opens \"Intro to Testing\", answers all three questions correctly, submits, and sees 3 / 3 and 100%.",
+      "recordedAt": "2026-09-08T21:06:34.391Z",
+      "flowId": "student-perfect-score",
+      "verdict": "RESHAPED"
+    },
+    {
+      "id": "teacher-sees-submissions-20260908T210709Z",
+      "title": "Ada submits \"Intro to Testing\" and Alan submits \"Flaky Tests\". The Teac\u2026",
+      "flow": "Ada submits \"Intro to Testing\" and Alan submits \"Flaky Tests\". The Teacher tab lists both rows; filtering by \"Flaky Tests\" leaves only Alan's.",
+      "recordedAt": "2026-09-08T21:07:09.979Z",
+      "flowId": "teacher-sees-submissions",
+      "verdict": "RESHAPED"
+    }
+  ]
+}

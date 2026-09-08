@@ -1,0 +1,227 @@
+{
+  "version": 1,
+  "id": "pasted-20260908T210758Z",
+  "title": "Pasted spec: dashboard loads the activity feed",
+  "flow": "Pasted spec: dashboard loads the activity feed",
+  "flowId": "pasted",
+  "recordedAt": "2026-09-08T21:07:58.908Z",
+  "summary": {
+    "verdict": "COUNTERED",
+    "counter": 3,
+    "reshape": 1
+  },
+  "events": [
+    {
+      "type": "cast:start",
+      "flow": "Pasted spec: dashboard loads the activity feed",
+      "flowId": "pasted",
+      "t": 0
+    },
+    {
+      "type": "cast:end",
+      "spec": "import { test, expect } from '@playwright/test';\n\ntest('dashboard loads the activity feed', async ({ page }) => {\n  await page.goto('/dashboard', { waitUntil: 'networkidle' });\n  await page.getByRole('tab', { name: 'Activity' }).click();\n  await page.waitForLoadState('networkidle');\n  await expect(page.getByRole('list', { name: 'Activity feed' })).toBeVisible();\n});\n\ntest('refresh button reloads the feed', async ({ page }) => {\n  await page.goto('/dashboard');\n  await page.click('.toolbar .actions > button:nth-child(2)');\n  await page.waitForTimeout(2000);\n  await expect(page.getByRole('listitem').first()).toContainText('Just now');\n});\n",
+      "t": 0
+    },
+    {
+      "type": "reaction",
+      "findings": [
+        {
+          "ruleId": "no-networkidle",
+          "line": 4,
+          "column": 35,
+          "excerpt": "await page.goto('/dashboard', { waitUntil: 'networkidle' });",
+          "severity": "counter",
+          "why": "waitUntil: 'networkidle' ties navigation to network silence, which long-polling or analytics beacons can delay indefinitely; wait for a visible element instead.",
+          "fix": {
+            "description": "Drop the waitUntil option; Playwright's default 'load' plus a UI assertion is the reliable pair.",
+            "diff": "--- a/generated.spec.ts\n+++ b/generated.spec.ts\n@@ -3,3 +3,3 @@\n test('dashboard loads the activity feed', async ({ page }) => {\n-  await page.goto('/dashboard', { waitUntil: 'networkidle' });\n+  await page.goto('/dashboard');\n   await page.getByRole('tab', { name: 'Activity' }).click();"
+          }
+        },
+        {
+          "ruleId": "no-networkidle",
+          "line": 6,
+          "column": 9,
+          "excerpt": "await page.waitForLoadState('networkidle');",
+          "severity": "counter",
+          "why": "'networkidle' means 500 ms without network traffic, which polling or analytics can prevent forever and a fast render can satisfy too early; assert on the UI instead.",
+          "fix": {
+            "description": "Replace the load-state wait with an assertion on the element the test needs.",
+            "diff": "--- a/generated.spec.ts\n+++ b/generated.spec.ts\n@@ -5,3 +5,3 @@\n   await page.getByRole('tab', { name: 'Activity' }).click();\n-  await page.waitForLoadState('networkidle');\n+  await expect(page.getByRole('…', { name: '…' })).toBeVisible(); // wait for what the page should show, not for the network to go quiet\n   await expect(page.getByRole('list', { name: 'Activity feed' })).toBeVisible();"
+          }
+        },
+        {
+          "ruleId": "no-brittle-selector",
+          "line": 12,
+          "column": 20,
+          "excerpt": "await page.click('.toolbar .actions > button:nth-child(2)');",
+          "severity": "reshape",
+          "why": "nth-child pins the test to element order; inserting a sibling anywhere above it silently retargets the step.",
+          "fix": {
+            "description": "Locate by role and accessible name instead of position.",
+            "diff": "--- a/generated.spec.ts\n+++ b/generated.spec.ts\n@@ -11,3 +11,3 @@\n   await page.goto('/dashboard');\n-  await page.click('.toolbar .actions > button:nth-child(2)');\n+  await page.getByRole('button', { name: '…' }).click();\n   await page.waitForTimeout(2000);"
+          }
+        },
+        {
+          "ruleId": "no-wait-for-timeout",
+          "line": 13,
+          "column": 9,
+          "excerpt": "await page.waitForTimeout(2000);",
+          "severity": "counter",
+          "why": "A fixed sleep waits for time, not for the element or state the test needs, so it is slow when the app is fast and flaky when CI is slow.",
+          "fix": {
+            "description": "Replace the sleep with a web-first assertion on the element you were waiting for.",
+            "diff": "--- a/generated.spec.ts\n+++ b/generated.spec.ts\n@@ -12,3 +12,3 @@\n   await page.click('.toolbar .actions > button:nth-child(2)');\n-  await page.waitForTimeout(2000);\n+  await expect(page.getByRole('…', { name: '…' })).toBeVisible(); // wait for the element the sleep was covering for\n   await expect(page.getByRole('listitem').first()).toContainText('Just now');"
+          }
+        }
+      ],
+      "t": 2
+    },
+    {
+      "type": "arcana:start",
+      "t": 1550
+    },
+    {
+      "type": "arcana:result",
+      "verdict": {
+        "verdict": "COUNTERED",
+        "reasons": [
+          "3 counter-severity findings: no-networkidle ×2, no-wait-for-timeout.",
+          "Arcana scored assertion quality 2/5: the tests do not prove what they claim.",
+          "Also 1 reshape finding: no-brittle-selector."
+        ],
+        "provisional": false,
+        "warnings": [],
+        "file": "generated.spec.ts",
+        "reaction": {
+          "findings": [
+            {
+              "ruleId": "no-networkidle",
+              "line": 4,
+              "excerpt": "await page.goto('/dashboard', { waitUntil: 'networkidle' });",
+              "severity": "counter",
+              "why": "waitUntil: 'networkidle' ties navigation to network silence, which long-polling or analytics beacons can delay indefinitely; wait for a visible element instead."
+            },
+            {
+              "ruleId": "no-networkidle",
+              "line": 6,
+              "excerpt": "await page.waitForLoadState('networkidle');",
+              "severity": "counter",
+              "why": "'networkidle' means 500 ms without network traffic, which polling or analytics can prevent forever and a fast render can satisfy too early; assert on the UI instead."
+            },
+            {
+              "ruleId": "no-brittle-selector",
+              "line": 12,
+              "excerpt": "await page.click('.toolbar .actions > button:nth-child(2)');",
+              "severity": "reshape",
+              "why": "nth-child pins the test to element order; inserting a sibling anywhere above it silently retargets the step."
+            },
+            {
+              "ruleId": "no-wait-for-timeout",
+              "line": 13,
+              "excerpt": "await page.waitForTimeout(2000);",
+              "severity": "counter",
+              "why": "A fixed sleep waits for time, not for the element or state the test needs, so it is slow when the app is fast and flaky when CI is slow."
+            }
+          ]
+        },
+        "arcana": {
+          "status": "ok",
+          "result": {
+            "assertionQuality": 2,
+            "independence": 3,
+            "coverageValue": 3,
+            "findings": [
+              {
+                "issue": "Assertion only checks visibility of the list container, not that it contains any items. An empty list would still pass.",
+                "why": "A visible but empty activity feed is not a successful load; the test should assert at least one list item is present.",
+                "line": 7
+              },
+              {
+                "issue": "'Just now' timestamp assertion is fragile and time-dependent. It could fail if the refresh takes longer than expected or the server returns a different relative-time string.",
+                "why": "The text 'Just now' is locale-sensitive and timing-sensitive; a slightly delayed response could render as '1 minute ago', causing a false negative.",
+                "line": 11
+              },
+              {
+                "issue": "page.waitForTimeout(2000) is an arbitrary hard-coded delay instead of waiting for a deterministic signal (e.g., a network response or a DOM change).",
+                "why": "Hard waits make tests slow and brittle: too short on a slow CI machine, wasteful on a fast one. Use page.waitForResponse or waitForSelector instead.",
+                "line": 10
+              },
+              {
+                "issue": "The refresh button is located via a fragile nth-child CSS selector '.toolbar .actions > button:nth-child(2)'. Any change to button order breaks the test.",
+                "why": "Positional selectors couple the test to layout implementation details; prefer getByRole or getByTestId with an explicit label/name.",
+                "line": 9
+              },
+              {
+                "issue": "Test 'refresh button reloads the feed' does not first open the Activity tab, so it may be asserting on a different list or finding no list at all.",
+                "why": "The first test shows the Activity tab must be clicked to expose the feed, but the second test skips this step, creating an implicit dependency on tab state that is not guaranteed.",
+                "line": 8
+              },
+              {
+                "issue": "Neither test cleans up state or seeds known data, so the assertion on 'Just now' depends on external state (a real or mocked event having just occurred).",
+                "why": "Without controlling the data, the test is non-deterministic; it should mock/intercept the API to return a fixture with a known timestamp.",
+                "line": 11
+              },
+              {
+                "issue": "Double networkidle wait in the first test (once in goto options, once via waitForLoadState) is redundant and adds unnecessary latency.",
+                "why": "Calling waitUntil:'networkidle' in goto already waits for network idle; the subsequent waitForLoadState('networkidle') on line 6 repeats that wait for no additional safety.",
+                "line": 4
+              }
+            ],
+            "summary": "Both tests have significant quality issues. The first test's assertion is too shallow (visible container only), and the second relies on a hard wait, a fragile CSS positional selector, a missing tab-click precondition, and a time-sensitive text match. Neither test controls its data, making them non-deterministic in CI. Independence is partial: each navigates independently, but the second test has an undeclared dependency on tab state established by the first. Coverage intent is reasonable (feed load and refresh are worth protecting), but the implementation does not reliably prove the behaviour it claims to test."
+          },
+          "attempts": 1,
+          "model": "claude-sonnet-4-6"
+        }
+      },
+      "arcana": {
+        "status": "ok",
+        "result": {
+          "assertionQuality": 2,
+          "independence": 3,
+          "coverageValue": 3,
+          "findings": [
+            {
+              "issue": "Assertion only checks visibility of the list container, not that it contains any items. An empty list would still pass.",
+              "why": "A visible but empty activity feed is not a successful load; the test should assert at least one list item is present.",
+              "line": 7
+            },
+            {
+              "issue": "'Just now' timestamp assertion is fragile and time-dependent. It could fail if the refresh takes longer than expected or the server returns a different relative-time string.",
+              "why": "The text 'Just now' is locale-sensitive and timing-sensitive; a slightly delayed response could render as '1 minute ago', causing a false negative.",
+              "line": 11
+            },
+            {
+              "issue": "page.waitForTimeout(2000) is an arbitrary hard-coded delay instead of waiting for a deterministic signal (e.g., a network response or a DOM change).",
+              "why": "Hard waits make tests slow and brittle: too short on a slow CI machine, wasteful on a fast one. Use page.waitForResponse or waitForSelector instead.",
+              "line": 10
+            },
+            {
+              "issue": "The refresh button is located via a fragile nth-child CSS selector '.toolbar .actions > button:nth-child(2)'. Any change to button order breaks the test.",
+              "why": "Positional selectors couple the test to layout implementation details; prefer getByRole or getByTestId with an explicit label/name.",
+              "line": 9
+            },
+            {
+              "issue": "Test 'refresh button reloads the feed' does not first open the Activity tab, so it may be asserting on a different list or finding no list at all.",
+              "why": "The first test shows the Activity tab must be clicked to expose the feed, but the second test skips this step, creating an implicit dependency on tab state that is not guaranteed.",
+              "line": 8
+            },
+            {
+              "issue": "Neither test cleans up state or seeds known data, so the assertion on 'Just now' depends on external state (a real or mocked event having just occurred).",
+              "why": "Without controlling the data, the test is non-deterministic; it should mock/intercept the API to return a fixture with a known timestamp.",
+              "line": 11
+            },
+            {
+              "issue": "Double networkidle wait in the first test (once in goto options, once via waitForLoadState) is redundant and adds unnecessary latency.",
+              "why": "Calling waitUntil:'networkidle' in goto already waits for network idle; the subsequent waitForLoadState('networkidle') on line 6 repeats that wait for no additional safety.",
+              "line": 4
+            }
+          ],
+          "summary": "Both tests have significant quality issues. The first test's assertion is too shallow (visible container only), and the second relies on a hard wait, a fragile CSS positional selector, a missing tab-click precondition, and a time-sensitive text match. Neither test controls its data, making them non-deterministic in CI. Independence is partial: each navigates independently, but the second test has an undeclared dependency on tab state established by the first. Coverage intent is reasonable (feed load and refresh are worth protecting), but the implementation does not reliably prove the behaviour it claims to test."
+        },
+        "attempts": 1,
+        "model": "claude-sonnet-4-6"
+      },
+      "t": 19803
+    }
+  ]
+}

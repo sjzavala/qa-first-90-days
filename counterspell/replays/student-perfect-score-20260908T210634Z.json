@@ -1,0 +1,167 @@
+{
+  "version": 1,
+  "id": "student-perfect-score-20260908T210634Z",
+  "title": "Student Ada opens \"Intro to Testing\", answers all three questions corre…",
+  "flow": "Student Ada opens \"Intro to Testing\", answers all three questions correctly, submits, and sees 3 / 3 and 100%.",
+  "flowId": "student-perfect-score",
+  "recordedAt": "2026-09-08T21:06:34.391Z",
+  "summary": {
+    "verdict": "RESHAPED",
+    "counter": 0,
+    "reshape": 0
+  },
+  "events": [
+    {
+      "type": "cast:start",
+      "flow": "Student Ada opens \"Intro to Testing\", answers all three questions correctly, submits, and sees 3 / 3 and 100%.",
+      "flowId": "student-perfect-score",
+      "t": 0
+    },
+    {
+      "type": "cast:chunk",
+      "text": "import",
+      "t": 1762
+    },
+    {
+      "type": "cast:chunk",
+      "text": " { test, expect } from '@playwright/test';\n\ntest.beforeEach(async ({ request }) => {\n  await request.post('http://localhost:3180/api/_reset');\n});\n\ntest('Ada completes Intro to Testing with a",
+      "t": 2380
+    },
+    {
+      "type": "cast:chunk",
+      "text": " perfect score', async ({ page }) => {\n  await page.goto('http://localhost:5180/#/student/s1');\n\n  await expect(page.getByTestId('open-assignment-a1')).toBeVisible();\n  await page",
+      "t": 3035
+    },
+    {
+      "type": "cast:chunk",
+      "text": ".getByTestId('open-assignment-a1').click();\n\n  await expect(page.getByTestId('quiz-title')).toBeVisible();\n\n  await page.getByTestId('answer-q1-1').click();\n  await page.get",
+      "t": 3690
+    },
+    {
+      "type": "cast:chunk",
+      "text": "ByTestId('answer-q2-1').click();\n  await page.getByTestId('answer-q3-1').click();\n\n  await expect(page.getByTestId('submit-quiz')).toBeEnabled();\n  await page.getByTestId('submit-quiz').click();\n\n  await expect",
+      "t": 4368
+    },
+    {
+      "type": "cast:chunk",
+      "text": "(page.getByTestId('quiz-result')).toBeVisible();\n  await expect(page.getByTestId('result-score')).toHaveText('3 / 3');\n  await expect(page.getByTestId('result-percent')).toHaveText('100%');\n});",
+      "t": 5033
+    },
+    {
+      "type": "cast:end",
+      "spec": "import { test, expect } from '@playwright/test';\n\ntest.beforeEach(async ({ request }) => {\n  await request.post('http://localhost:3180/api/_reset');\n});\n\ntest('Ada completes Intro to Testing with a perfect score', async ({ page }) => {\n  await page.goto('http://localhost:5180/#/student/s1');\n\n  await expect(page.getByTestId('open-assignment-a1')).toBeVisible();\n  await page.getByTestId('open-assignment-a1').click();\n\n  await expect(page.getByTestId('quiz-title')).toBeVisible();\n\n  await page.getByTestId('answer-q1-1').click();\n  await page.getByTestId('answer-q2-1').click();\n  await page.getByTestId('answer-q3-1').click();\n\n  await expect(page.getByTestId('submit-quiz')).toBeEnabled();\n  await page.getByTestId('submit-quiz').click();\n\n  await expect(page.getByTestId('quiz-result')).toBeVisible();\n  await expect(page.getByTestId('result-score')).toHaveText('3 / 3');\n  await expect(page.getByTestId('result-percent')).toHaveText('100%');\n});\n",
+      "t": 5089
+    },
+    {
+      "type": "reaction",
+      "findings": [],
+      "t": 5094
+    },
+    {
+      "type": "arcana:start",
+      "t": 6632
+    },
+    {
+      "type": "arcana:result",
+      "verdict": {
+        "verdict": "RESHAPED",
+        "reasons": [
+          "Arcana scored assertionQuality 3/5, coverageValue 3/5; below the 4/5 bar for RESOLVES."
+        ],
+        "provisional": false,
+        "warnings": [],
+        "file": "generated.spec.ts",
+        "reaction": {
+          "findings": []
+        },
+        "arcana": {
+          "status": "ok",
+          "result": {
+            "assertionQuality": 3,
+            "independence": 4,
+            "coverageValue": 3,
+            "findings": [
+              {
+                "issue": "Assumes answer-q1-1, answer-q2-1, answer-q3-1 are always correct without any comment or reference to fixture data; if the reset endpoint seeds different correct answers the test silently produces a wrong score",
+                "why": "The mapping between answer index '1' and correctness is implicit, making the assertion fragile and hard to audit",
+                "line": 16
+              },
+              {
+                "issue": "No assertion that the quiz title matches 'Intro to Testing'; getByTestId('quiz-title') only confirms visibility, not content",
+                "why": "A wrong quiz could be opened and the test would still pass; assertionQuality is weakened",
+                "line": 13
+              },
+              {
+                "issue": "result-score and result-percent are checked independently but their consistency is not verified; e.g., '3 / 3' and '100%' could be two separate unrelated elements both coincidentally correct",
+                "why": "Minor, but a single combined assertion or cross-referencing would be stronger proof of correctness",
+                "line": 22
+              },
+              {
+                "issue": "No assertion that the assignment is marked complete / graded on the student dashboard after submission (e.g., a 'completed' badge or grade entry); the test does not verify the persisted outcome",
+                "why": "The user-visible outcome of 'completing' an assignment includes its recorded state, which is untested",
+                "line": 23
+              },
+              {
+                "issue": "The beforeEach reset calls a fixed localhost URL that is not parameterised via baseURL or env config; running in CI against a different host will silently skip the reset",
+                "why": "Independence degrades in non-default environments because state isolation may fail",
+                "line": 4
+              },
+              {
+                "issue": "open-assignment-a1 is located and clicked twice (line 9 and 10) without storing a locator reference; minor duplication, but more importantly there is no assertion that the navigation actually succeeded before interacting with quiz questions",
+                "why": "A slow page transition could cause the answer clicks to miss; an explicit URL or page-state assertion would guard against this",
+                "line": 9
+              }
+            ],
+            "summary": "The spec covers a straightforward happy-path quiz submission and uses a reset hook for isolation, which is good. However, assertion quality is limited: the quiz identity is unverified, the correctness of chosen answers is assumed without documentation, the persisted completion state is never checked, and the score assertions only confirm text strings rather than end-to-end data integrity. Coverage value is moderate — the happy path is worth protecting, but edge cases (wrong answers, partial scores, re-attempts) are absent. Independence is solid within a single environment but is fragile across environments due to hardcoded URLs."
+          },
+          "attempts": 1,
+          "model": "claude-sonnet-4-6"
+        }
+      },
+      "arcana": {
+        "status": "ok",
+        "result": {
+          "assertionQuality": 3,
+          "independence": 4,
+          "coverageValue": 3,
+          "findings": [
+            {
+              "issue": "Assumes answer-q1-1, answer-q2-1, answer-q3-1 are always correct without any comment or reference to fixture data; if the reset endpoint seeds different correct answers the test silently produces a wrong score",
+              "why": "The mapping between answer index '1' and correctness is implicit, making the assertion fragile and hard to audit",
+              "line": 16
+            },
+            {
+              "issue": "No assertion that the quiz title matches 'Intro to Testing'; getByTestId('quiz-title') only confirms visibility, not content",
+              "why": "A wrong quiz could be opened and the test would still pass; assertionQuality is weakened",
+              "line": 13
+            },
+            {
+              "issue": "result-score and result-percent are checked independently but their consistency is not verified; e.g., '3 / 3' and '100%' could be two separate unrelated elements both coincidentally correct",
+              "why": "Minor, but a single combined assertion or cross-referencing would be stronger proof of correctness",
+              "line": 22
+            },
+            {
+              "issue": "No assertion that the assignment is marked complete / graded on the student dashboard after submission (e.g., a 'completed' badge or grade entry); the test does not verify the persisted outcome",
+              "why": "The user-visible outcome of 'completing' an assignment includes its recorded state, which is untested",
+              "line": 23
+            },
+            {
+              "issue": "The beforeEach reset calls a fixed localhost URL that is not parameterised via baseURL or env config; running in CI against a different host will silently skip the reset",
+              "why": "Independence degrades in non-default environments because state isolation may fail",
+              "line": 4
+            },
+            {
+              "issue": "open-assignment-a1 is located and clicked twice (line 9 and 10) without storing a locator reference; minor duplication, but more importantly there is no assertion that the navigation actually succeeded before interacting with quiz questions",
+              "why": "A slow page transition could cause the answer clicks to miss; an explicit URL or page-state assertion would guard against this",
+              "line": 9
+            }
+          ],
+          "summary": "The spec covers a straightforward happy-path quiz submission and uses a reset hook for isolation, which is good. However, assertion quality is limited: the quiz identity is unverified, the correctness of chosen answers is assumed without documentation, the persisted completion state is never checked, and the score assertions only confirm text strings rather than end-to-end data integrity. Coverage value is moderate — the happy path is worth protecting, but edge cases (wrong answers, partial scores, re-attempts) are absent. Independence is solid within a single environment but is fragile across environments due to hardcoded URLs."
+        },
+        "attempts": 1,
+        "model": "claude-sonnet-4-6"
+      },
+      "t": 23085
+    }
+  ]
+}
