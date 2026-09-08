@@ -282,7 +282,10 @@ html { scroll-padding-top: 90px; }
 .section-dark .success-list li { background: var(--dark-surface); border-color: var(--dark-line); }
 .section-dark .success-list li::before { color: var(--accent-on-dark); }
 .pipeline-compact li { gap: 10px; }
-.pipeline-compact h4 { margin-bottom: 4px; }
+.pipeline-compact h4 { margin-bottom: 0; }
+.pipeline-compact p { margin: 0; }
+.prior-art { font-size: 12.5px; color: var(--muted); letter-spacing: 0.02em; }
+.prior-art:hover { color: var(--accent-dark); }
 .pipeline-strip { margin-top: 18px; font-family: var(--font-mono); font-size: 13.5px; color: var(--muted); line-height: 1.7; max-width: 64rem; }
 .embed-caption { padding: 12px 24px 0; background: var(--dark-surface); border-top: 1px solid var(--dark-line); color: var(--accent-on-dark); font-family: var(--font-display); font-weight: 600; font-size: 13.5px; }
 .embed-caption + .embed-hint { border-top: 0; padding-top: 6px; }

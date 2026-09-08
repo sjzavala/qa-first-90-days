@@ -263,7 +263,11 @@ test.describe('Day 90 · Counterspell embed', () => {
       'https://github.com/sjzavala/flake-radar',
       'https://github.com/sjzavala/claude-agent-swarm',
     ]);
-    await expect(page.getByTestId('pipeline-strip')).toContainText("These aren't proposals — they're repos.");
+    await expect(page.getByTestId('pipeline-strip')).toHaveText('Each stage has working prior art — built and open-sourced before anyone asked. At StrongMind, these become your pipeline: adapted to your stack, owned by your teams.');
+    await expect(page.locator('[data-testid="pipeline"] a.prior-art')).toHaveCount(4);
+    await expect(page.locator('[data-testid="pipeline"] a.prior-art')).toHaveText(Array(4).fill(/^working prior art/));
+    await expect(steps.nth(0).locator('p')).toContainText('A person approves every one.');
+    await expect(steps.nth(4).locator('p')).toHaveText('Every automated decision lands where a human can argue with it.');
   });
 });
 
@@ -282,6 +286,7 @@ test.describe('Copy', () => {
     await expect(page.getByTestId('day30-success').locator('li')).toHaveCount(4);
     await expect(page.getByTestId('day60-success').locator('li')).toHaveCount(3);
     await expect(page.getByTestId('day90-success').locator('li')).toHaveCount(4);
+    await expect(page.getByTestId('day90-success').locator('li').nth(2)).toHaveText('A governance gate — Counterspell or its equivalent in your stack — reviewing every AI-generated test; acceptance rate tracked');
     await expect(page.locator('#metrics .closer')).toContainText('which is the point of the whole function.');
   });
 
@@ -291,7 +296,10 @@ test.describe('Copy', () => {
     await expect(page.getByTestId('day90-intro-line')).toHaveText('Counterspell is internal tooling — QA and engineers only. It gates AI-generated tests before they enter the suite, the way a linter gates code. No student ever sees it; every student depends on it.');
     // "directly above": the intro is the element immediately preceding the embed.
     expect(await page.getByTestId('course-app-demo').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day60-intro-line');
-    expect(await page.getByTestId('counterspell-embed').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day90-intro-line');
+    // The honest caveat follows the intro line and sits directly above the embed.
+    await expect(page.getByTestId('day90-caveat')).toContainText('One honest caveat: I built this against a stand-in app, not your system.');
+    expect(await page.getByTestId('day90-caveat').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day90-intro-line');
+    expect(await page.getByTestId('counterspell-embed').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day90-caveat');
   });
 });
 

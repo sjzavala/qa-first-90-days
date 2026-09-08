@@ -204,6 +204,7 @@
         </div>
 
         <p class="embed-intro" data-testid="day90-intro-line">Counterspell is internal tooling — QA and engineers only. It gates AI-generated tests before they enter the suite, the way a linter gates code. No student ever sees it; every student depends on it.</p>
+        <p class="embed-intro" data-testid="day90-caveat">One honest caveat: I built this against a stand-in app, not your system. I don't know your stack, your CI, or your suite yet — that's what Day 30 is for. Counterspell here is proof of an approach: that AI-generated tests can be gated, logged, and argued with. Whether it becomes this tool adapted, or these rules rebuilt inside what you already run, is a decision we'd make together with your teams.</p>
 
         <div class="embed" data-testid="counterspell-embed">
           <div class="embed-bar">
@@ -218,19 +219,19 @@
 
         <h3 class="sub-title">The pipeline behind it</h3>
         <ol class="pipeline pipeline-compact" data-testid="pipeline">
-          <li><span class="pipe-num">01</span><h4>Produce</h4><a class="text-link" href="https://github.com/sjzavala/claude-qa-tms" target="_blank" rel="noopener">claude-qa-tms <span class="arrow" aria-hidden="true">↗</span></a></li>
-          <li><span class="pipe-num">02</span><h4>Select</h4><a class="text-link" href="https://github.com/sjzavala/playwright-test-selector" target="_blank" rel="noopener">playwright-test-selector <span class="arrow" aria-hidden="true">↗</span></a></li>
-          <li><span class="pipe-num">03</span><h4>Trust</h4><a class="text-link" href="https://github.com/sjzavala/flake-radar" target="_blank" rel="noopener">flake-radar <span class="arrow" aria-hidden="true">↗</span></a></li>
-          <li><span class="pipe-num">04</span><h4>Measure</h4><a class="text-link" href="https://github.com/sjzavala/claude-agent-swarm" target="_blank" rel="noopener">claude-agent-swarm <span class="arrow" aria-hidden="true">↗</span></a></li>
-          <li><span class="pipe-num">05</span><h4>Explain</h4><a class="text-link" href="#counterspell-frame">Counterspell, above <span class="arrow" aria-hidden="true">↑</span></a></li>
+          <li><span class="pipe-num">01</span><h4>Produce</h4><p>AI test generation with human review: agents explore the product, file cases, and draft specs that trace back to them. A person approves every one.</p><a class="text-link prior-art" href="https://github.com/sjzavala/claude-qa-tms" target="_blank" rel="noopener" title="claude-qa-tms">working prior art <span class="arrow" aria-hidden="true">↗</span></a></li>
+          <li><span class="pipe-num">02</span><h4>Select</h4><p>Change-based test selection: run only what a change can affect. Anything the selector can't justify escalates to the full suite.</p><a class="text-link prior-art" href="https://github.com/sjzavala/playwright-test-selector" target="_blank" rel="noopener" title="playwright-test-selector">working prior art <span class="arrow" aria-hidden="true">↗</span></a></li>
+          <li><span class="pipe-num">03</span><h4>Trust</h4><p>Flake scoring and quarantine with expiry: flakiness judged on evidence, quarantined with a due date — never forever.</p><a class="text-link prior-art" href="https://github.com/sjzavala/flake-radar" target="_blank" rel="noopener" title="flake-radar">working prior art <span class="arrow" aria-hidden="true">↗</span></a></li>
+          <li><span class="pipe-num">04</span><h4>Measure</h4><p>Tooling that has to earn its keep: benchmarks decide whether the extra automation and agents are worth their cost.</p><a class="text-link prior-art" href="https://github.com/sjzavala/claude-agent-swarm" target="_blank" rel="noopener" title="claude-agent-swarm">working prior art <span class="arrow" aria-hidden="true">↗</span></a></li>
+          <li><span class="pipe-num">05</span><h4>Explain</h4><p>Every automated decision lands where a human can argue with it.</p><a class="text-link" href="#counterspell-frame">Counterspell, above <span class="arrow" aria-hidden="true">↑</span></a></li>
         </ol>
-        <p class="pipeline-strip" data-testid="pipeline-strip">Produce → claude-qa-tms · Select → playwright-test-selector · Trust → flake-radar · Measure → claude-agent-swarm · Explain → every verdict lands where a human can argue with it. These aren't proposals — they're repos.</p>
+        <p class="pipeline-strip" data-testid="pipeline-strip">Each stage has working prior art — built and open-sourced before anyone asked. At StrongMind, these become your pipeline: adapted to your stack, owned by your teams.</p>
 
         <h3 class="sub-title">Success at day 90</h3>
         <ul class="success-list" data-testid="day90-success">
           <li>Quality gates written with Release and in use: merge vs. release, go/no-go format</li>
           <li>Standards published; second team onboarded from docs alone</li>
-          <li>Counterspell-style review on every AI-generated test; acceptance rate tracked</li>
+          <li>A governance gate — Counterspell or its equivalent in your stack — reviewing every AI-generated test; acceptance rate tracked</li>
           <li>Metrics dashboard live against the day-one baseline</li>
         </ul>
       </div>
