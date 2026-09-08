@@ -2,7 +2,7 @@
 
 A panel-presentation site. Same stack and design system as [the portfolio](https://sjzavala.github.io/portfolio/): plain HTML, CSS and JS, Space Grotesk + DM Sans + JetBrains Mono, copper accent, numbered sections. Static, deploys to GitHub Pages, and tests itself.
 
-> Copy is scaffolded, not written. Every dashed **TODO** box and every `TODO` cell is a place to paste final copy. Delete the box once the copy is in; nothing depends on it.
+> Copy lives in `qa-first-90-days-site-copy.md` and is pasted into `index.html` verbatim, section by section. The "Q&A pocket lines" at the bottom of that file are for the talk and are deliberately not on the site.
 
 ## Art direction
 
@@ -52,8 +52,5 @@ npm test
 
 `e2e/site.spec.js` covers: title and headings, seven slides in order, nav targets, keyboard navigation (arrows, J/K, digits, Home/End, HUD, ignoring form controls), the six clips and their posters answering 200, the runner log showing a green run, the Counterspell iframe booting in replay mode and playing a recording with no backend, the five pipeline steps and four repo links, metrics rows for every phase, the footer badge, external-link hygiene, and no horizontal overflow. Chromium and Mobile Safari.
 
-`.github/workflows/ci.yml` runs the suite on every push and deploys to GitHub Pages only when it is green. One-time setup: **Settings → Pages → Source: GitHub Actions**. The badge in the footer points at that workflow, so it renders once the repo exists at `github.com/sjzavala/qa-first-90-days`.
+`.github/workflows/ci.yml` stages the deployable artifact (`index.html css js assets media counterspell`) into `dist/`, runs the suite **against that staged copy** (`SITE_DIR=dist`), and deploys it to GitHub Pages only when green. Testing the artifact rather than the source tree is what catches a file that was left out of the deploy. During staging the footer badge's link is rewritten to the exact Actions run that built the page. One-time setup: **Settings → Pages → Source: GitHub Actions**. The badge in the footer points at that workflow, so it renders once the repo exists at `github.com/sjzavala/qa-first-90-days`.
 
-## Links that assume repos exist
-
-The Day 60 panel links to `github.com/sjzavala/course-app` and the footer to this repo's Actions. Both are local-only at the time of writing; push them (or change the URLs) before presenting.

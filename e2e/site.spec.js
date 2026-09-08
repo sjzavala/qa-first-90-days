@@ -12,7 +12,7 @@ test.describe('Presentation smoke', () => {
     await expect(page).toHaveTitle(/first 90 days/);
     const h1 = page.getByRole('heading', { level: 1 });
     await expect(h1).toHaveCount(1);
-    await expect(h1).toContainText('QA at StrongMind');
+    await expect(h1).toHaveText('The first 90 days of quality at StrongMind.');
   });
 
   test('seven slides, each with a heading, in order', async ({ page }) => {
@@ -155,6 +155,7 @@ test.describe('Day 90 · Counterspell embed', () => {
     await expect(frame.getByTestId('replay-select').locator('option')).not.toHaveCount(0);
     await expect(frame.getByTestId('replay-select').locator('option').first()).not.toHaveText(/No recordings/);
     await expect(page.locator('#counterspell-open')).toHaveAttribute('href', /counterspell\/index\.html\?mode=replay/);
+    await expect(page.getByTestId('embed-caption')).toHaveText('Live mode available during the presentation · replays shown otherwise');
   });
 
   test('a replay plays inside the embed without any backend', async ({ page }) => {
@@ -176,15 +177,35 @@ test.describe('Day 90 · Counterspell embed', () => {
       'https://github.com/sjzavala/claude-qa-tms',
       'https://github.com/sjzavala/playwright-test-selector',
       'https://github.com/sjzavala/flake-radar',
-      'https://github.com/sjzavala/self-healing-e2e',
+      'https://github.com/sjzavala/claude-agent-swarm',
     ]);
+    await expect(page.getByTestId('pipeline-strip')).toContainText("These aren't proposals — they're repos.");
+  });
+});
+
+test.describe('Copy', () => {
+  test('no TODO placeholders remain anywhere on the page', async ({ page }) => {
+    await page.goto('/');
+    const text = await page.locator('body').innerText();
+    expect(text).not.toMatch(/TODO/);
+    expect(await page.locator('.todo, .todo-text').count()).toBe(0);
+  });
+
+  test('every slide carries its copy: intro, table or success list', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('#you .closer')).toContainText('Same architecture, pointed at quality.');
+    await expect(page.locator('#you [data-testid="risk-table"] tbody tr')).toHaveCount(5);
+    await expect(page.getByTestId('day30-success').locator('li')).toHaveCount(4);
+    await expect(page.getByTestId('day60-success').locator('li')).toHaveCount(3);
+    await expect(page.getByTestId('day90-success').locator('li')).toHaveCount(4);
+    await expect(page.locator('#metrics .closer')).toContainText('which is the point of the whole function.');
   });
 });
 
 test.describe('Metrics and footer', () => {
   test('metrics table has rows for all three phases', async ({ page }) => {
     await page.goto('/#metrics');
-    for (const phase of ['30', '60', '90']) {
+    for (const phase of ['30', '60', '90', 'ongoing']) {
       expect(await page.locator(`[data-testid="metrics-table"] tr[data-phase="${phase}"]`).count(), `phase ${phase}`).toBeGreaterThan(0);
     }
   });
@@ -194,7 +215,8 @@ test.describe('Metrics and footer', () => {
     const badge = page.getByTestId('ci-badge');
     await expect(badge).toHaveAttribute('alt', /smoke suite/i);
     await expect(badge).toHaveAttribute('src', /actions\/workflows\/ci\.yml\/badge\.svg$/);
-    await expect(page.getByTestId('ci-badge-link')).toHaveAttribute('href', /actions\/workflows\/ci\.yml$/);
+    // Source tree links to the workflow; the staged artifact links to the run that built it.
+    await expect(page.getByTestId('ci-badge-link')).toHaveAttribute('href', /actions\/(workflows\/ci\.yml|runs\/\d+)$/);
   });
 
   test('every external link opens in a new tab with rel=noopener', async ({ page }) => {

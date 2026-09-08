@@ -2,6 +2,8 @@
 const { defineConfig, devices } = require('@playwright/test');
 
 const PORT = 4180;
+// CI stages the deployable artifact into dist/ and points SITE_DIR at it; locally the source tree is served.
+const SITE_DIR = process.env.SITE_DIR || '.';
 
 module.exports = defineConfig({
   testDir: './e2e',
@@ -19,7 +21,7 @@ module.exports = defineConfig({
     { name: 'Mobile Safari', use: { ...devices['iPhone 13'] } },
   ],
   webServer: {
-    command: `npx http-server -p ${PORT} -c-1 -s .`,
+    command: `npx http-server -p ${PORT} -c-1 -s ${SITE_DIR}`,
     url: `http://127.0.0.1:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 30_000,

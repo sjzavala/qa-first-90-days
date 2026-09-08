@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>QA at StrongMind — my first 90 days</title>
+  <title>The first 90 days of quality at StrongMind</title>
   <meta name="description" content="Panel presentation: a 30/60/90-day plan for QA at StrongMind, with a demo course app, a self-testing surface, and the Counterspell governance gate embedded live.">
   <meta name="color-scheme" content="light">
   <link rel="icon" type="image/png" sizes="64x64" href="assets/art/web/emblem-64.png">
@@ -44,20 +44,17 @@
            srcset="assets/art/web/hero-840.webp 840w, assets/art/web/hero-1260.webp 1260w, assets/art/web/hero-1680.webp 1680w"
            sizes="100vw" alt="" aria-hidden="true" fetchpriority="high" width="1680" height="720">
       <div class="hero-copy">
-        <p class="eyebrow">Panel presentation · StrongMind QA</p>
-        <h1 id="hero-title">QA at StrongMind&nbsp;—<br>my first 90 days.</h1>
-        <!-- TODO(copy): the one line under the title -->
-        <div class="todo todo-inline" data-todo="hero-line">
-          <span class="todo-tag">TODO · one line</span>
-          <p>The single sentence that frames the whole plan. Something a panelist could repeat back.</p>
-        </div>
+        <p class="eyebrow">QA Engineering · Test Orchestration · Panel Presentation</p>
+        <h1 id="hero-title">The first 90 days of quality at&nbsp;StrongMind.</h1>
+        <p class="hero-sub">A plan for founding the QA function — and the tooling I'd bring with me. Most of it already exists. This site is part of the demo: it tests itself in CI on every push.</p>
         <div class="phase-strip" aria-label="Phases">
           <span><b>30</b>learn the terrain</span>
           <span><b>60</b>one team, one spine</span>
           <span><b>90</b>practice into process</span>
         </div>
         <div class="cta-row">
-          <a class="btn btn-dark" href="#you">Start <span class="arrow" aria-hidden="true">↓</span></a>
+          <a class="btn btn-dark" href="#you">The plan <span class="arrow" aria-hidden="true">↓</span></a>
+          <a class="btn btn-outline" href="#day-90">Counterspell <span class="arrow" aria-hidden="true">↗</span></a>
           <span class="keys-hint mono">↓ ↑ or J K to move · 1–7 to jump</span>
         </div>
       </div>
@@ -70,38 +67,26 @@
           <span class="section-num">02</span>
           <div>
             <p class="eyebrow">What I know about you</p>
-            <h2 id="you-title">The product map, and where the risk sits.</h2>
-            <!-- TODO(copy): two or three sentences of context -->
-            <div class="todo" data-todo="you-intro">
-              <span class="todo-tag">TODO · paste copy</span>
-              <p>What StrongMind builds, who uses it, and what a bad release costs. Two or three sentences.</p>
-            </div>
+            <h2 id="you-title">Your products, ranked by what a defect costs.</h2>
+            <p class="section-sub">StrongMind runs a courseware platform serving 6–12 digital curriculum to schools and districts, analytics that teachers act on, a family-facing homeschool product, and Course Builder — AI-generated curriculum on an agentic architecture. Different products, different failure costs. Quality effort should follow the cost.</p>
           </div>
         </div>
 
-        <h3 class="sub-title">Product map</h3>
-        <div class="card-grid four product-map" data-testid="product-map">
-          <!-- TODO(copy): one card per product / surface. Duplicate or delete cards as needed. -->
-          <article class="card"><span class="card-index">01</span><h3>Product</h3><p class="todo-text">TODO · name, audience, one line on what it does</p></article>
-          <article class="card"><span class="card-index">02</span><h3>Product</h3><p class="todo-text">TODO · name, audience, one line on what it does</p></article>
-          <article class="card"><span class="card-index">03</span><h3>Product</h3><p class="todo-text">TODO · name, audience, one line on what it does</p></article>
-          <article class="card"><span class="card-index">04</span><h3>Product</h3><p class="todo-text">TODO · name, audience, one line on what it does</p></article>
-        </div>
-
-        <h3 class="sub-title">Risk ranking</h3>
+        <h3 class="sub-title">Risk table (highest first)</h3>
         <div class="table-wrap">
           <table class="data-table" data-testid="risk-table">
-            <thead><tr><th>Rank</th><th>Surface</th><th>Risk if it breaks</th><th>Why it ranks here</th></tr></thead>
+            <thead><tr><th>Surface</th><th>Worst escaped defect</th><th>Why it ranks here</th></tr></thead>
             <tbody>
-              <!-- TODO(copy): one row per surface, highest risk first -->
-              <tr><td class="mono">1</td><td>TODO</td><td>TODO</td><td class="muted">TODO</td></tr>
-              <tr><td class="mono">2</td><td>TODO</td><td>TODO</td><td class="muted">TODO</td></tr>
-              <tr><td class="mono">3</td><td>TODO</td><td>TODO</td><td class="muted">TODO</td></tr>
-              <tr><td class="mono">4</td><td>TODO</td><td>TODO</td><td class="muted">TODO</td></tr>
-              <tr><td class="mono">5</td><td>TODO</td><td>TODO</td><td class="muted">TODO</td></tr>
+              <tr><td>Grades &amp; progress data</td><td>A student sees a wrong grade; a district report is wrong</td><td class="muted">Trust and compliance — the defect you can't apologize your way out of</td></tr>
+              <tr><td>Assessment submission</td><td>A quiz submits but doesn't save</td><td class="muted">One lost submission = one family's trust, at scale</td></tr>
+              <tr><td>Enrollment &amp; rostering</td><td>A student can't reach their course</td><td class="muted">Blocks learning on day one; support load spikes</td></tr>
+              <tr><td>AI-generated content (Course Builder)</td><td>Wrong content ships at scale</td><td class="muted">Not a bug — a governance gap. Generation is cheap; judgment is the product</td></tr>
+              <tr><td>Content delivery</td><td>A lesson renders broken</td><td class="muted">Visible, frequent, usually recoverable</td></tr>
             </tbody>
           </table>
         </div>
+
+        <p class="closer">You already govern AI-generated curriculum — Course Builder evaluates what its agents produce before it ships. I bring the same discipline to AI-generated tests. Same architecture, pointed at quality.</p>
       </div>
     </section>
 
@@ -111,39 +96,24 @@
         <div class="section-head">
           <span class="section-num">03</span>
           <div>
-            <p class="eyebrow">Day 30</p>
-            <h2 id="day30-title">Learn the terrain.</h2>
-            <div class="todo" data-todo="day30-intro">
-              <span class="todo-tag">TODO · paste copy</span>
-              <p>What the first month is for, in one paragraph. What you will deliberately not do yet.</p>
-            </div>
+            <p class="eyebrow">Day 30 — Learn the terrain</p>
+            <h2 id="day30-title">Archaeology before architecture.</h2>
           </div>
         </div>
 
         <div class="two-col">
-          <div>
-            <h3 class="sub-title">The plan</h3>
-            <ol class="steps-list" data-testid="day30-plan">
-              <!-- TODO(copy): the week-by-week plan -->
-              <li><strong>Week 1</strong><p class="todo-text">TODO · who I meet, what I read, what I run locally</p></li>
-              <li><strong>Week 2</strong><p class="todo-text">TODO · shadow releases, map the current test estate</p></li>
-              <li><strong>Week 3</strong><p class="todo-text">TODO · first small win on the highest-risk surface</p></li>
-              <li><strong>Week 4</strong><p class="todo-text">TODO · written findings, agreed priorities for Day 60</p></li>
-            </ol>
+          <div class="prose">
+            <p>The fastest way for a first QA hire to fail is to ship a framework for a company they haven't understood. Month one is deliberate: watch releases happen, read the last incidents, and ask every product team the same question — how do you know it works before it ships? Map the answers without judgment. Then agree the risk ranking above with Engineering and Release, so month two builds on a shared map, not my assumptions.</p>
+            <p><strong>And one visible win.</strong> Trust is earned with something small and real in the first weeks — a flake root-caused, a CI run made faster, a readiness checklist for one team. Listening buys the map; the win buys the room.</p>
           </div>
           <div>
-            <h3 class="sub-title">Success measures</h3>
-            <div class="table-wrap">
-              <table class="data-table" data-testid="day30-measures">
-                <thead><tr><th>By Day 30</th><th>Evidence</th></tr></thead>
-                <tbody>
-                  <!-- TODO(copy): concrete, checkable measures -->
-                  <tr><td>TODO</td><td class="muted">TODO</td></tr>
-                  <tr><td>TODO</td><td class="muted">TODO</td></tr>
-                  <tr><td>TODO</td><td class="muted">TODO</td></tr>
-                </tbody>
-              </table>
-            </div>
+            <h3 class="sub-title">Success at day 30</h3>
+            <ul class="success-list" data-testid="day30-success">
+              <li>Current-state writeup delivered: how each team ships and verifies today</li>
+              <li>Risk map agreed with the EM and Release</li>
+              <li>One visible improvement shipped</li>
+              <li>Baseline started: escaped defects, pipeline times, flake incidents — day-one numbers, so day-90 claims are measurable</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -155,11 +125,11 @@
         <div class="section-head">
           <span class="section-num">04</span>
           <div>
-            <p class="eyebrow">Day 60</p>
-            <h2 id="day60-title">One team, one spine.</h2>
-            <div class="todo todo-dark" data-todo="day60-intro">
-              <span class="todo-tag">TODO · paste copy</span>
-              <p>The shared E2E spine: one framework, one set of conventions, one place results land. Why a demo app is the fastest way to agree on the conventions.</p>
+            <p class="eyebrow">Day 60 — One team, one spine</p>
+            <h2 id="day60-title">Deep on one team before wide on all of them.</h2>
+            <div class="prose prose-dark">
+              <p>Month two builds the framework where the risk map points — one product team, full vertical slice. Playwright, with isolation and determinism designed in from test one: no shared state, no fixed waits, retries as reporting rather than fixes. A merge gate on that team's PRs, fast enough to trust. Conventions written down as the tests are written, so test two hundred looks like test two — and team two onboards from docs, not from my calendar.</p>
+              <p><strong>The demo below is that month, in miniature.</strong> A small course app — assignment list, quiz submission, grade display — with the real suite running against it in CI. This is the shape of the deliverable, built the way I'd build it there.</p>
             </div>
           </div>
         </div>
@@ -199,10 +169,12 @@
           </div>
         </div>
 
-        <div class="todo todo-dark" data-todo="day60-outcomes">
-          <span class="todo-tag">TODO · paste copy</span>
-          <p>What "one spine" means for StrongMind's real products by Day 60: conventions adopted, first suites migrated, who owns what.</p>
-        </div>
+        <h3 class="sub-title">Success at day 60</h3>
+        <ul class="success-list" data-testid="day60-success">
+          <li>The riskiest flow covered by a suite the team trusts</li>
+          <li>Merge gate live; time-to-feedback measured and published</li>
+          <li>Conventions doc exists; a second engineer has added a test using only the docs</li>
+        </ul>
       </div>
     </section>
 
@@ -218,11 +190,14 @@
         <div class="section-head">
           <span class="section-num">05</span>
           <div>
-            <p class="eyebrow">Day 90</p>
-            <h2 id="day90-title">Practice into process.</h2>
-            <div class="todo" data-todo="day90-intro">
-              <span class="todo-tag">TODO · paste copy</span>
-              <p>Why AI-generated tests need a gate, and what the gate decides. Set up the live demo below in two sentences.</p>
+            <p class="eyebrow">Day 90 — Practice into process</p>
+            <h2 id="day90-title">From one team's suite to the company's quality system.</h2>
+            <div class="prose">
+              <p>Month three turns practice into process. With Release, we write the gates: what blocks a merge, what blocks a release, and who makes the go/no-go call on what evidence. A merge gate is automated and binary. A release gate is a judgment call with evidence — and a green build you don't believe is worse than a red one. The standards get published, the second team onboards, and the AI layer starts — governed from day one, not bolted on after.</p>
+            </div>
+            <h3 class="sub-heading" id="counterspell-title">Counterspell — AI casts the test. Counterspell decides if it resolves.</h3>
+            <div class="prose">
+              <p>Generation is a cantrip now — anyone can cast it, it costs nothing. Judgment is the leveled slot. Counterspell reviews every AI-generated spec in two passes: reaction checks (deterministic — fixed waits, networkidle, brittle selectors get countered on sight) and an arcana check (does the assertion mean anything, is it independent, does it add coverage). Verdicts: RESOLVES, RESHAPED, COUNTERED — every ruling logged, every decision arguable. Try it below, or watch a recorded cast.</p>
             </div>
           </div>
         </div>
@@ -234,47 +209,27 @@
             <a class="text-link" id="counterspell-open" href="counterspell/index.html?mode=replay" target="_blank" rel="noopener">Open full screen <span class="arrow" aria-hidden="true">↗</span></a>
           </div>
           <iframe id="counterspell-frame" data-testid="counterspell-frame" src="counterspell/index.html?mode=replay" title="Counterspell: a governance gate for AI-generated Playwright tests"></iframe>
+          <p class="embed-caption" data-testid="embed-caption">Live mode available during the presentation · replays shown otherwise</p>
           <p class="embed-hint mono dim">Click inside the demo to use it; click the page outside it to get the arrow keys back.</p>
         </div>
 
         <h3 class="sub-title">The pipeline behind it</h3>
-        <ol class="pipeline" data-testid="pipeline">
-          <li>
-            <span class="pipe-num">01</span>
-            <h4>Produce</h4>
-            <p>Explore the app, file the cases, generate traceable specs.</p>
-            <a class="text-link" href="https://github.com/sjzavala/claude-qa-tms" target="_blank" rel="noopener">claude-qa-tms <span class="arrow" aria-hidden="true">↗</span></a>
-          </li>
-          <li>
-            <span class="pipe-num">02</span>
-            <h4>Select</h4>
-            <p>Run only the specs a change can affect; escalate when narrowing can't be justified.</p>
-            <a class="text-link" href="https://github.com/sjzavala/playwright-test-selector" target="_blank" rel="noopener">playwright-test-selector <span class="arrow" aria-hidden="true">↗</span></a>
-          </li>
-          <li>
-            <span class="pipe-num">03</span>
-            <h4>Trust</h4>
-            <p>Score flakiness on evidence. Quarantine with an expiry date, never forever.</p>
-            <a class="text-link" href="https://github.com/sjzavala/flake-radar" target="_blank" rel="noopener">flake-radar <span class="arrow" aria-hidden="true">↗</span></a>
-          </li>
-          <li>
-            <span class="pipe-num">04</span>
-            <h4>Measure</h4>
-            <p>Known bugs as tracked state; an agent that repairs one selector and proves it.</p>
-            <a class="text-link" href="https://github.com/sjzavala/self-healing-e2e" target="_blank" rel="noopener">self-healing-e2e <span class="arrow" aria-hidden="true">↗</span></a>
-          </li>
-          <li>
-            <span class="pipe-num">05</span>
-            <h4>Explain</h4>
-            <p>Every automated decision lands where a person can argue with it. That is what the gate above does.</p>
-            <a class="text-link" href="#counterspell-frame">Counterspell, above <span class="arrow" aria-hidden="true">↑</span></a>
-          </li>
+        <ol class="pipeline pipeline-compact" data-testid="pipeline">
+          <li><span class="pipe-num">01</span><h4>Produce</h4><a class="text-link" href="https://github.com/sjzavala/claude-qa-tms" target="_blank" rel="noopener">claude-qa-tms <span class="arrow" aria-hidden="true">↗</span></a></li>
+          <li><span class="pipe-num">02</span><h4>Select</h4><a class="text-link" href="https://github.com/sjzavala/playwright-test-selector" target="_blank" rel="noopener">playwright-test-selector <span class="arrow" aria-hidden="true">↗</span></a></li>
+          <li><span class="pipe-num">03</span><h4>Trust</h4><a class="text-link" href="https://github.com/sjzavala/flake-radar" target="_blank" rel="noopener">flake-radar <span class="arrow" aria-hidden="true">↗</span></a></li>
+          <li><span class="pipe-num">04</span><h4>Measure</h4><a class="text-link" href="https://github.com/sjzavala/claude-agent-swarm" target="_blank" rel="noopener">claude-agent-swarm <span class="arrow" aria-hidden="true">↗</span></a></li>
+          <li><span class="pipe-num">05</span><h4>Explain</h4><a class="text-link" href="#counterspell-frame">Counterspell, above <span class="arrow" aria-hidden="true">↑</span></a></li>
         </ol>
+        <p class="pipeline-strip" data-testid="pipeline-strip">Produce → claude-qa-tms · Select → playwright-test-selector · Trust → flake-radar · Measure → claude-agent-swarm · Explain → every verdict lands where a human can argue with it. These aren't proposals — they're repos.</p>
 
-        <div class="todo" data-todo="day90-outcomes">
-          <span class="todo-tag">TODO · paste copy</span>
-          <p>What "process" looks like on Day 90: where the gate sits in the workflow, who reviews verdicts, what gets automated next.</p>
-        </div>
+        <h3 class="sub-title">Success at day 90</h3>
+        <ul class="success-list" data-testid="day90-success">
+          <li>Quality gates written with Release and in use: merge vs. release, go/no-go format</li>
+          <li>Standards published; second team onboarded from docs alone</li>
+          <li>Counterspell-style review on every AI-generated test; acceptance rate tracked</li>
+          <li>Metrics dashboard live against the day-one baseline</li>
+        </ul>
       </div>
     </section>
 
@@ -285,28 +240,23 @@
           <span class="section-num">06</span>
           <div>
             <p class="eyebrow">How you'll know it's working</p>
-            <h2 id="metrics-title">Measure it, or don't claim it.</h2>
-            <div class="todo" data-todo="metrics-intro">
-              <span class="todo-tag">TODO · paste copy</span>
-              <p>One paragraph on why these signals and not vanity ones. Where each number comes from.</p>
-            </div>
+            <h2 id="metrics-title">Measure it or don't claim it.</h2>
           </div>
         </div>
 
         <div class="table-wrap">
           <table class="data-table metrics" data-testid="metrics-table">
-            <thead><tr><th>Phase</th><th>Signal</th><th>Baseline</th><th>Target</th><th>Source</th></tr></thead>
+            <thead><tr><th>Phase</th><th>What's measured</th><th>What good looks like</th></tr></thead>
             <tbody>
-              <!-- TODO(copy): fill the cells; add rows per phase as needed -->
-              <tr data-phase="30"><td><span class="tag">Day 30</span></td><td>TODO</td><td class="mono">TODO</td><td class="mono">TODO</td><td class="muted">TODO</td></tr>
-              <tr data-phase="30"><td></td><td>TODO</td><td class="mono">TODO</td><td class="mono">TODO</td><td class="muted">TODO</td></tr>
-              <tr data-phase="60"><td><span class="tag">Day 60</span></td><td>TODO</td><td class="mono">TODO</td><td class="mono">TODO</td><td class="muted">TODO</td></tr>
-              <tr data-phase="60"><td></td><td>TODO</td><td class="mono">TODO</td><td class="mono">TODO</td><td class="muted">TODO</td></tr>
-              <tr data-phase="90"><td><span class="tag">Day 90</span></td><td>TODO</td><td class="mono">TODO</td><td class="mono">TODO</td><td class="muted">TODO</td></tr>
-              <tr data-phase="90"><td></td><td>TODO</td><td class="mono">TODO</td><td class="mono">TODO</td><td class="muted">TODO</td></tr>
+              <tr data-phase="30"><td><span class="tag">Day 30</span></td><td>Baseline captured</td><td class="muted">Escaped defects, flake incidents, pipeline time — recorded, published</td></tr>
+              <tr data-phase="60"><td><span class="tag">Day 60</span></td><td>Feedback speed</td><td class="muted">Merge-gate runtime the team actually waits for; suite green streak</td></tr>
+              <tr data-phase="90"><td><span class="tag">Day 90</span></td><td>Trust</td><td class="muted">Flake rate trending down; zero P1s shipped through a green gate</td></tr>
+              <tr data-phase="ongoing"><td><span class="tag">Ongoing</span></td><td>The real one</td><td class="muted">Escaped defects fall quarter over quarter — the only metric users feel</td></tr>
             </tbody>
           </table>
         </div>
+
+        <p class="closer">Every number here is observable. None of them require taking my word for it — which is the point of the whole function.</p>
       </div>
     </section>
 
@@ -318,7 +268,7 @@
           <div>
             <p class="eyebrow">Footer</p>
             <h2 id="tests-title">This site tests itself.</h2>
-            <p class="section-sub">A Playwright smoke suite runs against this page on every push: navigation, keyboard controls, the embedded demo, the clips, the links, the layout. If it turns red, the deploy doesn't happen.</p>
+            <p class="section-sub">This site tests itself — a Playwright suite runs against it in CI on every push.</p>
           </div>
         </div>
         <div class="tests-row">
@@ -335,7 +285,7 @@
   <footer class="site-footer">
     <div class="section-inner footer-inner">
       <span class="footer-name">Seve Zavala</span>
-      <span class="footer-role">Senior SDET · built with Claude Code · tested with Playwright</span>
+      <span class="footer-role">Built with Claude Code · Reviewed by me · Counterspell verdicts logged</span>
       <span class="footer-year">© <span data-year>2026</span></span>
     </div>
   </footer>
