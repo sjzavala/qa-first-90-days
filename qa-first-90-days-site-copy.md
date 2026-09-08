@@ -40,9 +40,9 @@ Voice: short, declarative, portfolio-style. Numbers where they exist. No filler.
 
 **Heading:** Archaeology before architecture.
 
-**Body:** The fastest way for a first QA hire to fail is to ship a framework for a company they haven't understood. Month one is deliberate: watch releases happen, read the last incidents, and ask every product team the same question — how do you know it works before it ships? Map the answers without judgment. Then agree the risk ranking above with Engineering and Release, so month two builds on a shared map, not my assumptions.
+**Body:** The fastest way for a first QA hire to fail is to ship a framework for a company they haven't understood. Month one is deliberate: watch releases happen, read the last incidents, and ask every product team the same question — how do you know it works before it ships? Map the answers without judgment. Then align on the risk ranking above with Engineering and Release, so month two builds on a shared map, not my assumptions.
 
-**And one visible win.** Trust is earned with something small and real in the first weeks — a flake root-caused, a CI run made faster, a readiness checklist for one team. Listening buys the map; the win buys the room.
+**And one visible win.** Trust is earned with something small and real in the first weeks — a flake root-caused, a CI run made faster, a readiness checklist for one team. Listening produces the map; the win earns the room to act on it.
 
 **Success at day 30:**
 - Current-state writeup delivered: how each team ships and verifies today
@@ -60,6 +60,8 @@ Voice: short, declarative, portfolio-style. Numbers where they exist. No filler.
 
 **The demo below is that month, in miniature.** A small course app — assignment list, quiz submission, grade display — with the real suite running against it in CI. This is the shape of the deliverable, built the way I'd build it there.
 
+**Embed intro:** This app is a stand-in for your product — the LMS silhouette: assignments, a quiz, a grade. Students would see something like this. Everything below it is what engineers see: the suite and tooling that guard it.
+
 [demo embed]
 
 **Success at day 60:**
@@ -73,20 +75,33 @@ Voice: short, declarative, portfolio-style. Numbers where they exist. No filler.
 
 **Heading:** From one team's suite to the company's quality system.
 
-**Body:** Month three turns practice into process. With Release, we write the gates: what blocks a merge, what blocks a release, and who makes the go/no-go call on what evidence. A merge gate is automated and binary. A release gate is a judgment call with evidence — and a green build you don't believe is worse than a red one. The standards get published, the second team onboards, and the AI layer starts — governed from day one, not bolted on after.
+**Body:** Month three turns practice into process. With Release, we write the gates: what blocks a merge, what blocks a release, and who makes the go/no-go call on what evidence. A merge gate is automated and binary. A release gate is a judgment call with evidence — and a green build you don't believe is worse than a red one. Gates are written with the teams that live under them, not handed down. The standards get published, the second team onboards, and the AI layer starts — governed from day one, not bolted on after.
 
-**Heading 2:** Counterspell — AI casts the test. Counterspell decides if it resolves.
+**Heading 2:** Counterspell — AI writes the test. Counterspell decides whether it ships.
 
-**Body 2:** Generation is a cantrip now — anyone can cast it, it costs nothing. Judgment is the leveled slot. Counterspell reviews every AI-generated spec in two passes: reaction checks (deterministic — fixed waits, networkidle, brittle selectors get countered on sight) and an arcana check (does the assertion mean anything, is it independent, does it add coverage). Verdicts: RESOLVES, RESHAPED, COUNTERED — every ruling logged, every decision arguable. Try it below, or watch a recorded cast.
+**Body 2:** Generating a test is now cheap: anyone can do it in seconds. Judging whether it deserves a place in the suite is the expensive part, and it is where quality is won or lost. Counterspell reviews every AI-generated spec in two passes: deterministic anti-pattern checks (fixed waits, networkidle, brittle selectors and missing assertions are flagged on sight) and a semantic validation pass that scores test value (does the assertion prove the behaviour, is the test independent, does it add coverage). Verdicts map to standard outcomes: RESOLVES (accepted), RESHAPED (refactor required, with suggested fixes), COUNTERED (rejected). Every ruling is logged with its reasons, so every decision can be audited and argued with. Try it below, or watch a recorded run.
+
+**Embed intro:** Counterspell is internal tooling — QA and engineers only. It gates AI-generated tests before they enter the suite, the way a linter gates code. No student ever sees it; every student depends on it.
+
+**Reference-architecture note:** This is a reference architecture. It validates the orchestration pattern — generate, lint, validate, log, decide — against a zero-dependency fixture app before adapting it to StrongMind's live stack in Month 1. The pattern is what transfers: AI-generated tests can be gated, logged, and argued with. Whether it lands as this tool adapted or as these rules rebuilt inside what you already run is a decision we make together with your teams, on your stack.
+
+**Embed caption:** Live mode available during the presentation · replays shown otherwise
 
 [Counterspell embed]
 
-**Pipeline strip (links under the diagram):** Produce → claude-qa-tms · Select → playwright-test-selector · Trust → flake-radar · Measure → claude-agent-swarm · Explain → every verdict lands where a human can argue with it. These aren't proposals — they're repos.
+**Pipeline (verb, capability, prior-art link):**
+- 01 Produce — AI test generation with human review: agents explore the product, file cases, and draft specs that trace back to them. A person approves every one. (working prior art ↗ claude-qa-tms)
+- 02 Select — Change-based test selection: run only what a change can affect. Anything the selector can't justify escalates to the full suite. (working prior art ↗ playwright-test-selector)
+- 03 Trust — Flake scoring and quarantine with expiry: flakiness judged on evidence, quarantined with a due date — never forever. (working prior art ↗ flake-radar)
+- 04 Measure — Tooling that has to earn its keep: benchmarks decide whether the extra automation and agents are worth their cost. (working prior art ↗ claude-agent-swarm)
+- 05 Explain — Every automated decision lands where a human can argue with it. (Counterspell, above ↑)
+
+**Closer:** Each stage has working prior art — built and open-sourced before anyone asked. At StrongMind, these become your pipeline: adapted to your stack, owned by your teams.
 
 **Success at day 90:**
 - Quality gates written with Release and in use: merge vs. release, go/no-go format
 - Standards published; second team onboarded from docs alone
-- Counterspell-style review on every AI-generated test; acceptance rate tracked
+- A governance gate — Counterspell or its equivalent in your stack — reviewing every AI-generated test; acceptance rate tracked
 - Metrics dashboard live against the day-one baseline
 
 ---

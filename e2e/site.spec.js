@@ -297,7 +297,7 @@ test.describe('Copy', () => {
     // "directly above": the intro is the element immediately preceding the embed.
     expect(await page.getByTestId('course-app-demo').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day60-intro-line');
     // The honest caveat follows the intro line and sits directly above the embed.
-    await expect(page.getByTestId('day90-caveat')).toContainText('One honest caveat: I built this against a stand-in app, not your system.');
+    await expect(page.getByTestId('day90-caveat')).toContainText('This is a reference architecture. It validates the orchestration pattern');
     expect(await page.getByTestId('day90-caveat').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day90-intro-line');
     expect(await page.getByTestId('counterspell-embed').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day90-caveat');
   });
