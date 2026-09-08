@@ -6,8 +6,9 @@
   <title>The first 90 days of quality at StrongMind</title>
   <meta name="description" content="Panel presentation: a 30/60/90-day plan for QA at StrongMind, with a demo course app, a self-testing surface, and the Counterspell governance gate embedded live.">
   <meta name="color-scheme" content="light">
-  <link rel="icon" type="image/png" sizes="64x64" href="assets/art/web/emblem-64.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="assets/art/web/emblem-192.png">
+  <link rel="icon" type="image/svg+xml" href="assets/art/web/mark.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/art/web/mark-32.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="assets/art/web/mark-128.png">
   <link rel="preload" as="image" href="assets/art/web/hero-1680.webp" imagesrcset="assets/art/web/hero-840.webp 840w, assets/art/web/hero-1260.webp 1260w, assets/art/web/hero-1680.webp 1680w" imagesizes="100vw">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +21,7 @@
   <header class="site-header">
     <nav class="nav" aria-label="Main navigation">
       <a class="brand" href="#top">
-        <span class="brand-mark" aria-hidden="true"><img src="assets/art/web/emblem-64.png" alt="" width="34" height="34"></span>
+        <span class="brand-mark" aria-hidden="true"><img src="assets/art/web/mark.svg" alt="" width="34" height="34" data-testid="nav-mark"></span>
         <span class="brand-name">QA at StrongMind</span>
       </a>
       <div class="nav-links" id="nav-links">
@@ -30,7 +31,6 @@
         <a href="#day-90">Day 90</a>
         <a href="#metrics">Metrics</a>
         <a href="#tests">Tests</a>
-        <a class="btn btn-outline btn-small" href="https://sjzavala.github.io/portfolio/" target="_blank" rel="noopener">Portfolio <span class="arrow" aria-hidden="true">↗</span></a>
       </div>
     </nav>
   </header>
@@ -149,25 +149,24 @@
           </div>
 
           <div class="clip-grid" data-testid="clip-grid">
-            <figure class="clip"><video src="media/student-quiz.webm" poster="media/student-quiz.png" muted autoplay loop playsinline preload="metadata" aria-label="Student completes a quiz and sees the grade"></video><figcaption><span class="ok">✓</span> student completes a quiz and sees the grade</figcaption></figure>
-            <figure class="clip"><video src="media/submit-disabled.webm" poster="media/submit-disabled.png" muted autoplay loop playsinline preload="metadata" aria-label="Submit stays disabled until every question is answered"></video><figcaption><span class="ok">✓</span> submit stays disabled until every question is answered</figcaption></figure>
-            <figure class="clip"><video src="media/graded-status.webm" poster="media/graded-status.png" muted autoplay loop playsinline preload="metadata" aria-label="A graded assignment shows its status on the list"></video><figcaption><span class="ok">✓</span> a graded assignment shows its status on the list</figcaption></figure>
-            <figure class="clip"><video src="media/switch-student.webm" poster="media/switch-student.png" muted autoplay loop playsinline preload="metadata" aria-label="Switching student shows a clean slate"></video><figcaption><span class="ok">✓</span> switching student shows a clean slate</figcaption></figure>
-            <figure class="clip"><video src="media/teacher-filter.webm" poster="media/teacher-filter.png" muted autoplay loop playsinline preload="metadata" aria-label="Teacher sees submissions and filters by assignment"></video><figcaption><span class="ok">✓</span> teacher sees submissions and filters by assignment</figcaption></figure>
-            <figure class="clip"><video src="media/teacher-empty.webm" poster="media/teacher-empty.png" muted autoplay loop playsinline preload="metadata" aria-label="Teacher view shows the empty state after a reset"></video><figcaption><span class="ok">✓</span> teacher view shows the empty state after a reset</figcaption></figure>
+            <figure class="clip" data-test-title="student completes a quiz and sees the grade" tabindex="0" role="button" aria-label="Show the test for: student completes a quiz and sees the grade"><video src="media/student-quiz.webm" poster="media/student-quiz.png" muted autoplay loop playsinline preload="metadata" aria-label="Student completes a quiz and sees the grade"></video><figcaption><span class="ok">✓</span> student completes a quiz and sees the grade</figcaption></figure>
+            <figure class="clip" data-test-title="submit stays disabled until every question is answered" tabindex="0" role="button" aria-label="Show the test for: submit stays disabled until every question is answered"><video src="media/submit-disabled.webm" poster="media/submit-disabled.png" muted autoplay loop playsinline preload="metadata" aria-label="Submit stays disabled until every question is answered"></video><figcaption><span class="ok">✓</span> submit stays disabled until every question is answered</figcaption></figure>
+            <figure class="clip" data-test-title="a graded assignment shows its status on the list" tabindex="0" role="button" aria-label="Show the test for: a graded assignment shows its status on the list"><video src="media/graded-status.webm" poster="media/graded-status.png" muted autoplay loop playsinline preload="metadata" aria-label="A graded assignment shows its status on the list"></video><figcaption><span class="ok">✓</span> a graded assignment shows its status on the list</figcaption></figure>
+            <figure class="clip" data-test-title="switching student shows a clean slate" tabindex="0" role="button" aria-label="Show the test for: switching student shows a clean slate"><video src="media/switch-student.webm" poster="media/switch-student.png" muted autoplay loop playsinline preload="metadata" aria-label="Switching student shows a clean slate"></video><figcaption><span class="ok">✓</span> switching student shows a clean slate</figcaption></figure>
+            <figure class="clip" data-test-title="teacher sees submissions and filters by assignment" tabindex="0" role="button" aria-label="Show the test for: teacher sees submissions and filters by assignment"><video src="media/teacher-filter.webm" poster="media/teacher-filter.png" muted autoplay loop playsinline preload="metadata" aria-label="Teacher sees submissions and filters by assignment"></video><figcaption><span class="ok">✓</span> teacher sees submissions and filters by assignment</figcaption></figure>
+            <figure class="clip" data-test-title="teacher view shows the empty state after a reset" tabindex="0" role="button" aria-label="Show the test for: teacher view shows the empty state after a reset"><video src="media/teacher-empty.webm" poster="media/teacher-empty.png" muted autoplay loop playsinline preload="metadata" aria-label="Teacher view shows the empty state after a reset"></video><figcaption><span class="ok">✓</span> teacher view shows the empty state after a reset</figcaption></figure>
           </div>
 
-          <div class="runner" aria-label="Playwright run output">
-            <div class="runner-bar"><span><span class="dot" aria-hidden="true"></span> npx playwright test</span><span class="mono dim">course-app · chromium · 1 worker</span></div>
-            <pre class="runner-log" data-testid="runner-log">Running 6 tests using 1 worker
-  <span class="ok">✓</span>  1 [chromium] › e2e/course-app.spec.js:9:1  › student completes a quiz and sees the grade (587ms)
-  <span class="ok">✓</span>  2 [chromium] › e2e/course-app.spec.js:23:1 › submit stays disabled until every question is answered (226ms)
-  <span class="ok">✓</span>  3 [chromium] › e2e/course-app.spec.js:34:1 › a graded assignment shows its status on the list (348ms)
-  <span class="ok">✓</span>  4 [chromium] › e2e/course-app.spec.js:48:1 › switching student shows a clean slate (312ms)
-  <span class="ok">✓</span>  5 [chromium] › e2e/course-app.spec.js:62:1 › teacher sees submissions and filters by assignment (111ms)
-  <span class="ok">✓</span>  6 [chromium] › e2e/course-app.spec.js:77:1 › teacher view shows the empty state after a reset (106ms)
-
-  6 passed (4.3s)</pre>
+          <div class="runner" data-testid="runner" data-state="idle">
+            <div class="runner-bar">
+              <span><span class="dot" aria-hidden="true"></span> npx playwright test</span>
+              <span class="mono dim">course-app · chromium · 1 worker</span>
+              <button type="button" class="btn btn-accent btn-small" data-testid="run-suite" data-run-suite>Run the suite</button>
+            </div>
+            <div class="runner-log" data-testid="runner-log" data-runner-log role="log" aria-live="polite" aria-relevant="additions" tabindex="0">
+              <div class="log-cmd">› npx playwright test</div>
+              <div class="log-hint mono dim" data-runner-hint>6 tests recorded from a real run · press Run the suite · click a ✓ to watch that test</div>
+            </div>
           </div>
         </div>
 
@@ -187,7 +186,7 @@
           <img src="assets/art/web/counterspell-1456.webp"
                srcset="assets/art/web/counterspell-728.webp 728w, assets/art/web/counterspell-1000.webp 1000w, assets/art/web/counterspell-1456.webp 1456w"
                sizes="(max-width: 1180px) 100vw, 1180px" alt="A hand held up against a stream of generated code, stopping it at a translucent gate" width="1456" height="816" loading="lazy">
-          <figcaption><span class="eyebrow">Day 90</span>The gate between generated and trusted.</figcaption>
+          <figcaption><span class="eyebrow">Day 90</span><span class="sep" aria-hidden="true"> · </span>The gate between generated and trusted.</figcaption>
         </figure>
         <div class="section-head">
           <span class="section-num">05</span>
@@ -264,15 +263,18 @@
       </div>
     </section>
 
+    <div class="emblem-divider" aria-hidden="true" data-testid="emblem-divider">
+      <img src="assets/art/web/emblem-256.png" srcset="assets/art/web/emblem-256.png 1x, assets/art/web/emblem-512.png 2x" alt="" width="200" height="200" loading="lazy">
+    </div>
+
     <!-- 07 · THIS SITE TESTS ITSELF -->
     <section class="section section-dark slide" id="tests" data-slide="7" aria-labelledby="tests-title">
       <div class="section-inner">
         <div class="section-head">
           <span class="section-num">07</span>
           <div>
-            <p class="eyebrow">Footer</p>
+            <p class="eyebrow">Proof</p>
             <h2 id="tests-title">This site tests itself.</h2>
-            <p class="section-sub">This site tests itself — a Playwright suite runs against it in CI on every push.</p>
           </div>
         </div>
         <div class="tests-row">
@@ -280,7 +282,6 @@
             <img data-testid="ci-badge" src="https://github.com/sjzavala/qa-first-90-days/actions/workflows/ci.yml/badge.svg" alt="Site smoke suite status on GitHub Actions" width="160" height="20">
           </a>
           <a class="text-link" href="https://github.com/sjzavala/qa-first-90-days/tree/main/e2e" target="_blank" rel="noopener">View the suite <span class="arrow" aria-hidden="true">↗</span></a>
-          <a class="text-link" href="https://sjzavala.github.io/portfolio/#qa-lab" target="_blank" rel="noopener">The portfolio does this too <span class="arrow" aria-hidden="true">↗</span></a>
         </div>
       </div>
     </section>

@@ -97,7 +97,131 @@
     open.setAttribute('href', src);
   }
 
-  /* ---------- 4. Year ---------- */
+  /* ---------- 4. Day 60: replayed test run, linked to the clips ---------- */
+
+  // The six tests and their durations from the recorded run (list reporter output, media/suite-run.txt).
+  const SUITE = [
+    { line: 9,  title: 'student completes a quiz and sees the grade',            ms: 587 },
+    { line: 23, title: 'submit stays disabled until every question is answered', ms: 226 },
+    { line: 34, title: 'a graded assignment shows its status on the list',       ms: 348 },
+    { line: 48, title: 'switching student shows a clean slate',                  ms: 312 },
+    { line: 62, title: 'teacher sees submissions and filters by assignment',     ms: 111 },
+    { line: 77, title: 'teacher view shows the empty state after a reset',       ms: 106 },
+  ];
+  // The real durations sum to 1.7 s. Stretched ×4 so the replay lands in the 5–8 s window and each pass is watchable.
+  const PACE = 4;
+  const SUMMARY = '  6 passed (4.3s)';
+
+  const runner = document.querySelector('[data-testid="runner"]');
+  const log = document.querySelector('[data-runner-log]');
+  const runBtn = document.querySelector('[data-run-suite]');
+  const hint = document.querySelector('[data-runner-hint]');
+  const clips = Array.from(document.querySelectorAll('.clip[data-test-title]'));
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sleep = (ms) => new Promise((r) => setTimeout(r, reduced ? 0 : ms));
+  let running = false;
+
+  function clearActive() {
+    clips.forEach((c) => c.classList.remove('active'));
+    log.querySelectorAll('.log-line.active').forEach((l) => l.classList.remove('active'));
+  }
+
+  function lineFor(title) {
+    return log.querySelector(`.log-line[data-test-title="${CSS.escape(title)}"]`);
+  }
+
+  /** Terminal → clip: highlight both, scroll to the clip, play it from the start. */
+  function showClip(title) {
+    const clip = clips.find((c) => c.dataset.testTitle === title);
+    if (!clip) return;
+    clearActive();
+    clip.classList.add('active');
+    lineFor(title)?.classList.add('active');
+    clip.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+    const video = clip.querySelector('video');
+    if (video) { video.currentTime = 0; video.play().catch(() => {}); }
+  }
+
+  /** Clip → terminal: highlight the line and scroll it into view inside the pane only. */
+  function showLine(title) {
+    if (runner.dataset.state !== 'done') renderRun(true);
+    clearActive();
+    const clip = clips.find((c) => c.dataset.testTitle === title);
+    clip?.classList.add('active');
+    const line = lineFor(title);
+    if (!line) return;
+    line.classList.add('active');
+    log.scrollTop = line.offsetTop - log.offsetTop - 12;
+    line.focus({ preventScroll: true });
+  }
+
+  function makeLine(t, n) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'log-line';
+    b.dataset.testTitle = t.title;
+    b.dataset.logLine = String(n);
+    b.setAttribute('aria-label', `Passed: ${t.title}, ${t.ms} ms. Watch this test.`);
+    b.innerHTML = `  <span class="ok">✓</span>  ${n} [chromium] › e2e/course-app.spec.js:${t.line}:1 › ${t.title} <span class="dim">(${t.ms}ms)</span>`;
+    b.addEventListener('click', () => showClip(t.title));
+    return b;
+  }
+
+  function resetLog() {
+    log.innerHTML = '';
+    const cmd = document.createElement('div');
+    cmd.className = 'log-cmd';
+    cmd.textContent = '› npx playwright test';
+    log.appendChild(cmd);
+    return cmd;
+  }
+
+  /** Replay the recorded run. `instant` renders everything at once (reduced motion, or a clip click before any run). */
+  async function renderRun(instant) {
+    if (running) return;
+    running = true;
+    runner.dataset.state = 'running';
+    runBtn.disabled = true;
+    runBtn.textContent = 'Running…';
+    const fast = instant || reduced;
+    resetLog();
+    const head = document.createElement('div');
+    head.textContent = 'Running 6 tests using 1 worker';
+    head.className = 'log-cursor';
+    log.appendChild(head);
+    if (!fast) await sleep(700);
+    head.classList.remove('log-cursor');
+    let n = 0;
+    for (const t of SUITE) {
+      if (!fast) await sleep(t.ms * PACE);
+      n += 1;
+      log.appendChild(makeLine(t, n));
+      log.scrollTop = log.scrollHeight;
+    }
+    if (!fast) await sleep(350);
+    const summary = document.createElement('div');
+    summary.className = 'log-summary';
+    summary.dataset.logLine = '7';
+    summary.textContent = SUMMARY;
+    log.appendChild(summary);
+    log.scrollTop = log.scrollHeight;
+    runner.dataset.state = 'done';
+    runBtn.disabled = false;
+    runBtn.textContent = 'Replay ↺';
+    running = false;
+  }
+
+  if (runner && log && runBtn) {
+    runBtn.addEventListener('click', () => { void renderRun(false); });
+    if (hint) hint.hidden = false;
+    clips.forEach((clip) => {
+      const go = () => showLine(clip.dataset.testTitle);
+      clip.addEventListener('click', go);
+      clip.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+    });
+  }
+
+  /* ---------- 5. Year ---------- */
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = String(new Date().getFullYear());
 })();

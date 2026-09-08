@@ -226,7 +226,7 @@ a:hover .arrow, .btn:hover .arrow { transform: translate(2px, -2px); }
 
 html { scroll-padding-top: 90px; }
 .slide { scroll-margin-top: 76px; }
-.brand-mark { width: 34px; height: 34px; display: inline-grid; place-items: center; background: #000; border-radius: 50%; overflow: hidden; }
+.brand-mark { width: 34px; height: 34px; display: inline-grid; place-items: center; border-radius: 9px; overflow: hidden; }
 .brand-mark img { width: 34px; height: 34px; display: block; }
 
 /* ---------- Hero: full-bleed art behind the title ---------- */
@@ -331,9 +331,25 @@ html { scroll-padding-top: 90px; }
 .clip figcaption { font-family: var(--font-mono); font-size: 12px; color: var(--dark-muted); padding: 10px 14px; }
 .clip .ok { color: var(--accent-on-dark); margin-right: 6px; }
 .runner { background: #050a0b; }
-.runner-bar { display: flex; justify-content: space-between; align-items: center; padding: 12px 28px; border-bottom: 1px solid var(--dark-line); font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
-.runner-log { margin: 0; padding: 20px 28px 24px; font-family: var(--font-mono); font-size: 13px; line-height: 1.7; color: #cfe0dd; white-space: pre; overflow-x: auto; }
+.runner-bar { display: flex; justify-content: flex-start; gap: 22px; align-items: center; padding: 10px 28px 10px 28px; border-bottom: 1px solid var(--dark-line); font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
+.runner-bar .btn { margin-left: auto; }
+.runner-log { margin: 0; padding: 18px 28px 22px; font-family: var(--font-mono); font-size: 13px; line-height: 1.75; color: #cfe0dd; white-space: pre; overflow: auto; max-height: 300px; min-height: 120px; scroll-behavior: smooth; }
 .runner-log .ok { color: var(--accent-on-dark); }
+.log-cmd { color: #fff; font-weight: 500; }
+.log-hint { white-space: normal; }
+.log-line { display: block; width: 100%; text-align: left; background: none; border: 0; padding: 0 6px; margin: 0 -6px; border-radius: 6px; font: inherit; color: inherit; white-space: pre; cursor: pointer; }
+.log-line:hover { background: rgba(91, 248, 235, 0.08); }
+.log-line.active { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+.log-line:focus-visible { outline: 2px solid var(--accent-on-dark); outline-offset: 1px; }
+.log-summary { margin-top: 6px; color: #fff; font-weight: 500; }
+.log-cursor::after { content: "▍"; color: var(--accent-on-dark); animation: blink 1s steps(2) infinite; }
+@keyframes blink { to { visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .log-cursor::after { animation: none; } .runner-log { scroll-behavior: auto; } }
+.clip { cursor: pointer; outline-offset: -3px; transition: box-shadow 0.2s; }
+.clip:focus-visible { outline: 3px solid var(--accent-on-dark); }
+.clip.active { box-shadow: inset 0 0 0 3px var(--accent); }
+.clip.active figcaption { color: var(--accent-on-dark); }
+.banner figcaption .sep { color: var(--accent-on-dark); }
 .dim { color: var(--dark-muted); }
 .mono { font-family: var(--font-mono); font-size: 0.9em; }
 .demo-links { padding-top: 6px; }
@@ -345,7 +361,7 @@ html { scroll-padding-top: 90px; }
 .banner img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; display: block; }
 .banner::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7, 16, 18, 0) 40%, rgba(7, 16, 18, 0.75) 100%); }
 .banner figcaption { position: absolute; left: 28px; bottom: 22px; z-index: 1; color: #fff; font-family: var(--font-display); font-weight: 600; font-size: 14px; letter-spacing: 0.02em; }
-.banner figcaption .eyebrow { color: var(--accent-on-dark); display: block; margin-bottom: 4px; }
+.banner figcaption .eyebrow { color: var(--accent-on-dark); display: inline; margin-right: 2px; }
 
 /* ---------- Day 90 embed + pipeline ---------- */
 .embed { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--dark); margin-bottom: 44px; }
@@ -361,6 +377,10 @@ html { scroll-padding-top: 90px; }
 .pipeline h4 { font-size: 21px; letter-spacing: -0.02em; }
 .pipeline p { color: var(--muted); font-size: 14.5px; flex: 1; }
 .pipeline .text-link { font-size: 14px; margin-top: 6px; }
+
+/* ---------- Emblem divider: the full art, seen large, between Metrics and Proof ---------- */
+.emblem-divider { background: var(--dark); display: grid; place-items: center; padding: 56px 0 8px; margin-bottom: -1px; }
+.emblem-divider img { width: 200px; height: 200px; opacity: 0.35; mix-blend-mode: screen; }
 
 /* ---------- Tests / footer ---------- */
 .tests-row { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Counterspell mark">
+  <!-- Inner mark of assets/art/emblem.png, simplified for small sizes: braces, flask, check. Teal from the art. -->
+  <defs>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.6"/>
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#071012"/>
+  <g fill="none" stroke="#5bf8eb" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- glow pass -->
+    <g filter="url(#glow)" opacity="0.85">
+      <path d="M17 18c-4 0-5 2-5 6v4c0 2-1.5 4-4 4 2.5 0 4 2 4 4v4c0 4 1 6 5 6"/>
+      <path d="M47 18c4 0 5 2 5 6v4c0 2 1.5 4 4 4-2.5 0-4 2-4 4v4c0 4-1 6-5 6"/>
+      <path d="M26 12h12M28 12v28a4 4 0 0 0 8 0V12"/>
+      <path d="M28.5 31l3 3 4.5-6"/>
+    </g>
+    <!-- crisp pass -->
+    <path d="M17 18c-4 0-5 2-5 6v4c0 2-1.5 4-4 4 2.5 0 4 2 4 4v4c0 4 1 6 5 6"/>
+    <path d="M47 18c4 0 5 2 5 6v4c0 2 1.5 4 4 4-2.5 0-4 2-4 4v4c0 4-1 6-5 6"/>
+    <path d="M26 12h12M28 12v28a4 4 0 0 0 8 0V12"/>
+    <path d="M28.5 31l3 3 4.5-6"/>
+  </g>
+</svg>

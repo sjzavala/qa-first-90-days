@@ -49,14 +49,17 @@ test.describe('Art direction', () => {
     expect(natural).toBeGreaterThan(0);
   });
 
-  test('Day 90 opens with the Counterspell banner and the emblem is the favicon', async ({ page, request }) => {
+  test('Day 90 opens with the banner; the simplified mark is the favicon and nav icon; the full emblem sits above Proof', async ({ page, request }) => {
     await page.goto('/#day-90');
     const banner = page.getByTestId('day90-art').locator('img');
     await expect(banner).toHaveAttribute('srcset', /counterspell-728\.webp 728w/);
     await expect(banner).toHaveAttribute('alt', /.+/);
-    const icon = page.locator('link[rel="icon"]');
-    await expect(icon).toHaveAttribute('href', 'assets/art/web/emblem-64.png');
-    expect((await request.get('/assets/art/web/emblem-64.png')).status()).toBe(200);
+    await expect(page.getByTestId('day90-art').locator('figcaption')).toHaveText('Day 90 · The gate between generated and trusted.');
+    const icons = await page.locator('link[rel="icon"]').evaluateAll((ls) => ls.map((l) => l.getAttribute('href')));
+    expect(icons).toEqual(['assets/art/web/mark.svg', 'assets/art/web/mark-32.png']);
+    for (const href of icons) expect((await request.get(`/${href}`)).status(), href).toBe(200);
+    await expect(page.getByTestId('nav-mark')).toHaveAttribute('src', 'assets/art/web/mark.svg');
+    await expect(page.getByTestId('emblem-divider').locator('img')).toHaveAttribute('src', 'assets/art/web/emblem-256.png');
   });
 
   test('the embedded Counterspell carries the emblem too', async ({ page }) => {
@@ -136,13 +139,94 @@ test.describe('Day 60 · course app demo', () => {
     }
   });
 
-  test('runner log shows a green run and the repo link is set', async ({ page }) => {
+  test('repo link is set and the terminal starts idle with a Run button', async ({ page }) => {
     await page.goto('/#day-60');
-    await expect(page.getByTestId('runner-log')).toContainText('6 passed');
-    await expect(page.getByTestId('runner-log')).not.toContainText('failed');
     const repo = page.locator('[data-testid="course-app-demo"]').getByRole('link', { name: /course-app on GitHub/ });
     await expect(repo).toHaveAttribute('href', 'https://github.com/sjzavala/course-app');
     await expect(repo).toHaveAttribute('target', '_blank');
+    await expect(page.getByTestId('runner')).toHaveAttribute('data-state', 'idle');
+    await expect(page.getByTestId('run-suite')).toHaveText('Run the suite');
+    await expect(page.locator('[data-log-line]')).toHaveCount(0);
+  });
+
+  test('Run the suite replays the recorded run line by line and ends with the summary', async ({ page }) => {
+    await page.goto('/#day-60');
+    const runner = page.getByTestId('runner');
+    const btn = page.getByTestId('run-suite');
+    const t0 = Date.now();
+    await btn.click();
+    await expect(runner).toHaveAttribute('data-state', 'running');
+    await expect(btn).toBeDisabled();
+    // Lines arrive progressively, not all at once.
+    await expect(page.locator('.log-line')).toHaveCount(1, { timeout: 5000 });
+    const early = await page.locator('[data-log-line]').count();
+    await expect(runner).toHaveAttribute('data-state', 'done', { timeout: 20000 });
+    const elapsed = (Date.now() - t0) / 1000;
+    expect(early).toBeLessThan(7);
+    expect(elapsed).toBeGreaterThan(4);
+    expect(elapsed).toBeLessThan(12);
+    await expect(page.locator('[data-log-line]')).toHaveCount(7); // six tests + summary
+    await expect(page.locator('.log-line .ok')).toHaveCount(6);
+    await expect(page.locator('.log-summary')).toHaveText(/6 passed/);
+    await expect(btn).toHaveText(/Replay/);
+    // Replay affordance runs it again from scratch.
+    await btn.click();
+    await expect(runner).toHaveAttribute('data-state', 'running');
+    await expect(runner).toHaveAttribute('data-state', 'done', { timeout: 20000 });
+    await expect(page.locator('[data-log-line]')).toHaveCount(7);
+  });
+
+  test('reduced-motion users get the whole output instantly', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/#day-60');
+    await page.getByTestId('run-suite').click();
+    await expect(page.getByTestId('runner')).toHaveAttribute('data-state', 'done', { timeout: 2000 });
+    await expect(page.locator('[data-log-line]')).toHaveCount(7);
+  });
+
+  test('a ✓ line links to its clip, and a clip links back to its line', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/#day-60');
+    await page.getByTestId('run-suite').click();
+    await expect(page.getByTestId('runner')).toHaveAttribute('data-state', 'done', { timeout: 2000 });
+    const title = 'switching student shows a clean slate';
+    const line = page.locator(`.log-line[data-test-title="${title}"]`);
+    const clip = page.locator(`.clip[data-test-title="${title}"]`);
+    await expect(line).toHaveRole('button');
+    await line.click();
+    await expect(clip).toHaveClass(/active/);
+    await expect(line).toHaveClass(/active/);
+    await expect(clip).toBeInViewport();
+    expect(await clip.locator('video').evaluate((v) => v.paused)).toBe(false);
+    // Reverse: a different clip highlights its line and clears the previous one.
+    const other = 'teacher view shows the empty state after a reset';
+    await page.locator(`.clip[data-test-title="${other}"]`).click();
+    await expect(page.locator(`.log-line[data-test-title="${other}"]`)).toHaveClass(/active/);
+    await expect(line).not.toHaveClass(/active/);
+    await expect(page.locator('.clip.active')).toHaveCount(1);
+  });
+
+  test('clip click before any run renders the output so the line can be highlighted', async ({ page }) => {
+    await page.goto('/#day-60');
+    await page.locator('.clip[data-test-title="a graded assignment shows its status on the list"]').click();
+    await expect(page.getByTestId('runner')).toHaveAttribute('data-state', 'done', { timeout: 3000 });
+    await expect(page.locator('.log-line.active')).toHaveText(/a graded assignment shows its status on the list/);
+  });
+
+  test('log lines and clips are keyboard operable', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/#day-60');
+    await page.getByTestId('run-suite').click();
+    await expect(page.getByTestId('runner')).toHaveAttribute('data-state', 'done', { timeout: 2000 });
+    const line = page.locator('.log-line').first();
+    await line.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('.clip').first()).toHaveClass(/active/);
+    const clip = page.locator('.clip').nth(1);
+    await expect(clip).toHaveAttribute('tabindex', '0');
+    await clip.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('.log-line').nth(1)).toHaveClass(/active/);
   });
 });
 
@@ -226,6 +310,13 @@ test.describe('Metrics and footer', () => {
     await expect(badge).toHaveAttribute('src', /actions\/workflows\/ci\.yml\/badge\.svg$/);
     // Source tree links to the workflow; the staged artifact links to the run that built it.
     await expect(page.getByTestId('ci-badge-link')).toHaveAttribute('href', /actions\/(workflows\/ci\.yml|runs\/\d+)$/);
+  });
+
+  test('no link to the portfolio remains anywhere on the page', async ({ page }) => {
+    await page.goto('/');
+    expect(await page.locator('a[href*="portfolio"]').count()).toBe(0);
+    await expect(page.locator('#tests .section-sub')).toHaveCount(0);
+    await expect(page.locator('#tests .eyebrow')).toHaveText('Proof');
   });
 
   test('every external link opens in a new tab with rel=noopener', async ({ page }) => {
