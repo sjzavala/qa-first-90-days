@@ -287,6 +287,10 @@ html { scroll-padding-top: 90px; }
 .embed-caption { padding: 12px 24px 0; background: var(--dark-surface); border-top: 1px solid var(--dark-line); color: var(--accent-on-dark); font-family: var(--font-display); font-weight: 600; font-size: 13.5px; }
 .embed-caption + .embed-hint { border-top: 0; padding-top: 6px; }
 
+/* Intro line directly above an embed */
+.embed-intro { margin: 0 0 18px; font-size: 17px; color: var(--muted); max-width: 52rem; }
+.embed-intro-dark { color: var(--dark-muted); }
+
 /* ---------- TODO placeholders (remove when copy lands) ---------- */
 .todo { margin-top: 22px; padding: 16px 18px; border: 1.5px dashed rgba(47, 214, 201, 0.6); border-radius: var(--radius-sm); background: var(--accent-soft); max-width: 52rem; }
 .todo-inline { margin-top: 0; margin-bottom: 8px; }

@@ -200,6 +200,15 @@ test.describe('Copy', () => {
     await expect(page.getByTestId('day90-success').locator('li')).toHaveCount(4);
     await expect(page.locator('#metrics .closer')).toContainText('which is the point of the whole function.');
   });
+
+  test('each embed has its intro line directly above it', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.getByTestId('day60-intro-line')).toHaveText('This app is a stand-in for your product — the LMS silhouette: assignments, a quiz, a grade. Students would see something like this. Everything below it is what engineers see: the suite and tooling that guard it.');
+    await expect(page.getByTestId('day90-intro-line')).toHaveText('Counterspell is internal tooling — QA and engineers only. It gates AI-generated tests before they enter the suite, the way a linter gates code. No student ever sees it; every student depends on it.');
+    // "directly above": the intro is the element immediately preceding the embed.
+    expect(await page.getByTestId('course-app-demo').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day60-intro-line');
+    expect(await page.getByTestId('counterspell-embed').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day90-intro-line');
+  });
 });
 
 test.describe('Metrics and footer', () => {
