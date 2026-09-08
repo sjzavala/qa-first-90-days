@@ -251,6 +251,28 @@ test.describe('Day 90 · Counterspell embed', () => {
     await expect(frame.getByTestId('verdict')).toBeVisible({ timeout: 30000 });
   });
 
+  test('merge gate and release gate are contrasted in two cards under the Day 90 narrative', async ({ page }) => {
+    await page.goto('/#day-90');
+    const cards = page.locator('[data-testid="gate-comparison"] .gate-card');
+    await expect(cards).toHaveCount(2);
+    await expect(cards.nth(0).locator('h4')).toHaveText('Merge Gate (Automated & Binary)');
+    await expect(cards.nth(1).locator('h4')).toHaveText('Release Gate (Evidence & Judgment)');
+    await expect(cards.nth(0).locator('dt')).toHaveText(['Trigger', 'Scope', 'Target SLA', 'Criteria']);
+    await expect(cards.nth(1).locator('dt')).toHaveText(['Trigger', 'Scope', 'Evaluation', 'Output']);
+    await expect(cards.nth(0).locator('dd').nth(2)).toHaveText('Fast feedback (< 5 minutes)');
+    await expect(cards.nth(1).locator('dd').nth(3)).toContainText('joint sign-off (EM, Release, QA)');
+    // Sits under the narrative and above the Counterspell heading.
+    expect(await page.getByTestId('gate-comparison').evaluate((el) => el.nextElementSibling?.id)).toBe('counterspell-title');
+    await expect(page.locator('#counterspell-title')).toHaveText('Counterspell — The Automated Governance Gate for AI-Generated Tests');
+  });
+
+  test('Counterspell copy uses engineering terms, not RPG ones', async ({ page }) => {
+    await page.goto('/');
+    const text = await page.locator('#day-90').innerText();
+    for (const rpg of ['cantrip', 'leveled slot', 'reaction check', 'arcana', 'RESOLVES', 'RESHAPED', 'COUNTERED']) expect(text.toLowerCase()).not.toContain(rpg.toLowerCase());
+    for (const eng of ['deterministic rule checks', 'semantic analysis', 'ACCEPTED', 'REFACTORED', 'REJECTED']) expect(text).toContain(eng);
+  });
+
   test('pipeline has five steps linking the four repos', async ({ page }) => {
     await page.goto('/#day-90');
     const steps = page.locator('[data-testid="pipeline"] > li');
@@ -297,7 +319,7 @@ test.describe('Copy', () => {
     // "directly above": the intro is the element immediately preceding the embed.
     expect(await page.getByTestId('course-app-demo').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day60-intro-line');
     // The honest caveat follows the intro line and sits directly above the embed.
-    await expect(page.getByTestId('day90-caveat')).toContainText('This is a reference architecture. It validates the orchestration pattern');
+    await expect(page.getByTestId('day90-caveat')).toHaveText("This reference architecture validates the orchestration pattern in a zero-dependency fixture before adapting to StrongMind's live stack in Month 1. The Day 30 discovery phase determines whether these gating rules run natively in your existing CI/CD or as an integrated service.");
     expect(await page.getByTestId('day90-caveat').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day90-intro-line');
     expect(await page.getByTestId('counterspell-embed').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day90-caveat');
   });

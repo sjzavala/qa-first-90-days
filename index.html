@@ -103,7 +103,7 @@
 
         <div class="two-col">
           <div class="prose">
-            <p>The fastest way for a first QA hire to fail is to ship a framework for a company they haven't understood. Month one is deliberate: watch releases happen, read the last incidents, and ask every product team the same question — how do you know it works before it ships? Map the answers without judgment. Then align on the risk ranking above with Engineering and Release, so month two builds on a shared map, not my assumptions.</p>
+            <p>The fastest way for a first QA hire to fail is to ship a framework for a company they haven't understood. Month one is deliberate: watch releases happen, read the last incidents, and ask every product team the same question — how do you know it works before it ships? Map the answers without judgment. Then align on the risk ranking with Engineering and Release, so month two builds on a shared map, not my assumptions.</p>
             <p><strong>And one visible win.</strong> Trust is earned with something small and real in the first weeks — a flake root-caused, a CI run made faster, a readiness checklist for one team. Listening produces the map; the win earns the room to act on it.</p>
           </div>
           <div>
@@ -196,20 +196,42 @@
             <div class="prose">
               <p>Month three turns practice into process. With Release, we write the gates: what blocks a merge, what blocks a release, and who makes the go/no-go call on what evidence. A merge gate is automated and binary. A release gate is a judgment call with evidence — and a green build you don't believe is worse than a red one. Gates are written with the teams that live under them, not handed down. The standards get published, the second team onboards, and the AI layer starts — governed from day one, not bolted on after.</p>
             </div>
-            <h3 class="sub-heading" id="counterspell-title">Counterspell — AI writes the test. Counterspell decides whether it ships.</h3>
+            <div class="gates" data-testid="gate-comparison" role="group" aria-label="Merge gate compared with release gate">
+              <article class="gate-card gate-merge">
+                <p class="eyebrow">Merge gate</p>
+                <h4>Merge Gate <span class="muted">(Automated &amp; Binary)</span></h4>
+                <dl>
+                  <div><dt>Trigger</dt><dd>PR commit or pull request event</dd></div>
+                  <div><dt>Scope</dt><dd>Delta-only test execution (change-impacted flows)</dd></div>
+                  <div><dt>Target SLA</dt><dd>Fast feedback (&lt; 5 minutes)</dd></div>
+                  <div><dt>Criteria</dt><dd>100% deterministic green; blocks merge automatically on red</dd></div>
+                </dl>
+              </article>
+              <article class="gate-card gate-release">
+                <p class="eyebrow">Release gate</p>
+                <h4>Release Gate <span class="muted">(Evidence &amp; Judgment)</span></h4>
+                <dl>
+                  <div><dt>Trigger</dt><dd>Release candidate / deployment cut to staging</dd></div>
+                  <div><dt>Scope</dt><dd>Full regression, synthetic smoke, data migrations, API contract parity</dd></div>
+                  <div><dt>Evaluation</dt><dd>Thresholds (zero P0/P1 defects, flake score &le; 1%, latency budgets maintained)</dd></div>
+                  <div><dt>Output</dt><dd>Auditable Release Brief with joint sign-off (EM, Release, QA)</dd></div>
+                </dl>
+              </article>
+            </div>
+            <h3 class="sub-heading" id="counterspell-title">Counterspell — The Automated Governance Gate for AI-Generated Tests</h3>
             <div class="prose">
-              <p>Generating a test is now cheap: anyone can do it in seconds. Judging whether it deserves a place in the suite is the expensive part, and it is where quality is won or lost. Counterspell reviews every AI-generated spec in two passes: deterministic anti-pattern checks (fixed waits, networkidle, brittle selectors and missing assertions are flagged on sight) and a semantic validation pass that scores test value (does the assertion prove the behaviour, is the test independent, does it add coverage). Verdicts map to standard outcomes: RESOLVES (accepted), RESHAPED (refactor required, with suggested fixes), COUNTERED (rejected). Every ruling is logged with its reasons, so every decision can be audited and argued with. Try it below, or watch a recorded run.</p>
+              <p>Generating a test is now cheap: anyone can do it in seconds. Judging whether it deserves a place in the suite is the expensive part, and it is where quality is won or lost. Counterspell reviews every AI-generated spec in two passes: deterministic rule checks (anti-pattern detection for hardcoded waits, brittle selectors, and networkidle) and semantic analysis (assertion value, test independence, and coverage delta). Each spec receives one of three verdicts: ACCEPTED, REFACTORED (with suggested fixes), or REJECTED. Every ruling is logged with its reasons, so every decision can be audited and argued with. Try it below, or watch a recorded run.</p>
             </div>
           </div>
         </div>
 
         <p class="embed-intro" data-testid="day90-intro-line">Counterspell is internal tooling — QA and engineers only. It gates AI-generated tests before they enter the suite, the way a linter gates code. No student ever sees it; every student depends on it.</p>
-        <p class="embed-intro" data-testid="day90-caveat">This is a reference architecture. It validates the orchestration pattern — generate, lint, validate, log, decide — against a zero-dependency fixture app before adapting it to StrongMind's live stack in Month 1. The pattern is what transfers: AI-generated tests can be gated, logged, and argued with. Whether it lands as this tool adapted or as these rules rebuilt inside what you already run is a decision we make together with your teams, on your stack.</p>
+        <p class="embed-intro" data-testid="day90-caveat">This reference architecture validates the orchestration pattern in a zero-dependency fixture before adapting to StrongMind's live stack in Month 1. The Day 30 discovery phase determines whether these gating rules run natively in your existing CI/CD or as an integrated service.</p>
 
         <div class="embed" data-testid="counterspell-embed">
           <div class="embed-bar">
             <span class="eyebrow">Live demo · Counterspell</span>
-            <span class="mono dim">deterministic checks run in this browser · semantic validation via replay unless a backend is configured</span>
+            <span class="mono dim">deterministic rule checks run in this browser · semantic analysis via replay unless a backend is configured</span>
             <a class="text-link" id="counterspell-open" href="counterspell/index.html?mode=replay" target="_blank" rel="noopener">Open full screen <span class="arrow" aria-hidden="true">↗</span></a>
           </div>
           <iframe id="counterspell-frame" data-testid="counterspell-frame" src="counterspell/index.html?mode=replay" title="Counterspell: a governance gate for AI-generated Playwright tests"></iframe>
