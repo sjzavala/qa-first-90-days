@@ -285,9 +285,9 @@ test.describe('Day 90 · Counterspell embed', () => {
       'https://github.com/sjzavala/flake-radar',
       'https://github.com/sjzavala/claude-agent-swarm',
     ]);
-    await expect(page.getByTestId('pipeline-strip')).toHaveText('Each stage has working prior art — built and open-sourced before anyone asked. At StrongMind, these become your pipeline: adapted to your stack, owned by your teams.');
+    await expect(page.getByTestId('pipeline-strip')).toHaveText('Each phase is backed by open-source tooling I've built to solve these specific orchestration challenges. At StrongMind, they serve as tested blueprints—adapted to your stack, integrated with your CI/CD, and owned by your engineers.');
     await expect(page.locator('[data-testid="pipeline"] a.prior-art')).toHaveCount(4);
-    await expect(page.locator('[data-testid="pipeline"] a.prior-art')).toHaveText(Array(4).fill(/^working prior art/));
+    await expect(page.locator('[data-testid="pipeline"] a.prior-art')).toHaveText(Array(4).fill(/^reference implementation/));
     await expect(steps.nth(0).locator('p')).toContainText('A human engineer reviews every proposed spec.');
     await expect(steps.nth(1).locator('p')).toContainText('Counterspell evaluates the spec before it reaches the codebase');
     await expect(steps.nth(1).locator('a')).toHaveAttribute('href', '#counterspell-frame');

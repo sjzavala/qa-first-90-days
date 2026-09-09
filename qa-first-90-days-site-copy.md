@@ -116,13 +116,13 @@ Every evaluation outputs an auditable verdict—**ACCEPTED**, **REFACTORED**, or
 [Counterspell embed]
 
 **Pipeline (lifecycle of an AI-generated test, draft → telemetry):**
-- 01 Draft — AI explores product flows and drafts test specifications traced directly to user stories and acceptance criteria. A human engineer reviews every proposed spec. (working prior art ↗ claude-qa-tms)
+- 01 Draft — AI explores product flows and drafts test specifications traced directly to user stories and acceptance criteria. A human engineer reviews every proposed spec. (reference implementation ↗ claude-qa-tms)
 - 02 Govern — Counterspell evaluates the spec before it reaches the codebase: deterministic anti-pattern checks (no fixed waits or brittle selectors) followed by semantic validation of assertion value. (Counterspell, above ↑)
-- 03 Target — Change-based test selection runs only the flows touched by a pull request's diff, keeping PR feedback under 5 minutes. Ambiguous changes escalate to full suites. (working prior art ↗ playwright-test-selector)
-- 04 Stabilize — Evidence-based flake detection that automatically quarantines unstable tests with strict expiration dates—ensuring merge gates stay trusted and flaky tests never live forever. (working prior art ↗ flake-radar)
-- 05 Evaluate — Telemetry and benchmarking that measure tooling ROI: tracking pipeline execution speeds, agent token efficiency, and defect escape prevention over time. (working prior art ↗ claude-agent-swarm)
+- 03 Target — Change-based test selection runs only the flows touched by a pull request's diff, keeping PR feedback under 5 minutes. Ambiguous changes escalate to full suites. (reference implementation ↗ playwright-test-selector)
+- 04 Stabilize — Evidence-based flake detection that automatically quarantines unstable tests with strict expiration dates—ensuring merge gates stay trusted and flaky tests never live forever. (reference implementation ↗ flake-radar)
+- 05 Evaluate — Telemetry and benchmarking that measure tooling ROI: tracking pipeline execution speeds, agent token efficiency, and defect escape prevention over time. (reference implementation ↗ claude-agent-swarm)
 
-**Closer:** Each stage has working prior art — built and open-sourced before anyone asked. At StrongMind, these become your pipeline: adapted to your stack, owned by your teams.
+**Closer:** Each phase is backed by open-source tooling I've built to solve these specific orchestration challenges. At StrongMind, they serve as tested blueprints—adapted to your stack, integrated with your CI/CD, and owned by your engineers.
 
 **Success at day 90:**
 - Quality gates written with Release and in use: merge vs. release, go/no-go format
