@@ -150,21 +150,21 @@ Every evaluation outputs an auditable verdict—**ACCEPTED**, **REFACTORED**, or
 
 ---
 
-## 7. In Practice & In Closing
+## 7. The Road Ahead
 
-**Eyebrow:** In Practice & In Closing
+**Eyebrow:** The Road Ahead
 
-**Heading:** Real quality starts at home. 🧙‍♂️
+**Heading:** From tactical gates to an engineering habit. 🧙‍♂️
 
-**Body:** Before asking an engineering team to adopt automated gates, the presentation itself should clear that bar. This site runs its own Playwright smoke suite in GitHub Actions on every push—verifying navigation, responsive layout, and interactive state before publishing.
-
-[badge] · View the suite ↗
+**Body:** A 90-day plan is only successful if the momentum outlasts the onboarding window. By establishing clear baselines, proving value on a single team, and introducing governed automation, test orchestration stops being a bottleneck and becomes an everyday engineering habit. The goal isn't just a green suite—it's giving product teams the confidence to ship faster because they trust their safety net.
 
 **Closing block:**
 
 **Thank you for taking the time to explore this.**
 
-Founding a test orchestration function is as much about team trust and developer experience as it is about pipelines. I'm excited for our conversation and look forward to digging into how we can tailor this roadmap for StrongMind.
+Founding this function is as much about team enablement and developer experience as it is about pipelines. I'm excited for our conversation and look forward to discussing how we can tailor this roadmap to StrongMind.
+
+**CI footnote:** *Practice what you preach: this deck runs its own Playwright smoke suite on every push.* [badge] · View the suite ↗
 
 **Footer sub-line:** Built with Claude Code · Reviewed by me · Counterspell verdicts logged
 

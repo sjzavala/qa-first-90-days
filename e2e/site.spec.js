@@ -401,18 +401,22 @@ test.describe('Metrics and footer', () => {
     expect(await page.locator('#tests a').count()).toBe(2);
   });
 
-  test('the closing section pairs the self-test proof with a thank-you', async ({ page }) => {
+  test('the closing section looks past day 90, thanks the panel, and keeps the self-test proof as a footnote', async ({ page }) => {
     await page.goto('/#tests');
-    await expect(page.locator('#tests .eyebrow')).toHaveText('In Practice & In Closing');
-    await expect(page.locator('#tests-title')).toContainText('Real quality starts at home.');
+    await expect(page.locator('#tests .eyebrow')).toHaveText('The Road Ahead');
+    await expect(page.locator('#tests-title')).toContainText('From tactical gates to an engineering habit.');
     await expect(page.locator('#tests-title .mage')).toHaveAttribute('aria-hidden', 'true');
-    await expect(page.locator('#tests .section-sub')).toHaveText('Before asking an engineering team to adopt automated gates, the presentation itself should clear that bar. This site runs its own Playwright smoke suite in GitHub Actions on every push—verifying navigation, responsive layout, and interactive state before publishing.');
+    await expect(page.locator('#tests .prose p')).toHaveText("A 90-day plan is only successful if the momentum outlasts the onboarding window. By establishing clear baselines, proving value on a single team, and introducing governed automation, test orchestration stops being a bottleneck and becomes an everyday engineering habit. The goal isn't just a green suite—it's giving product teams the confidence to ship faster because they trust their safety net.");
     const thanks = page.getByTestId('closing-thanks');
     await expect(thanks.locator('p')).toHaveCount(2);
     await expect(thanks.locator('p strong').first()).toHaveText('Thank you for taking the time to explore this.');
-    await expect(thanks.locator('p').nth(1)).toContainText('tailor this roadmap for StrongMind.');
-    // Order inside the section: badge row first, then the close.
-    expect(await thanks.evaluate((el) => el.previousElementSibling?.classList.contains('tests-row'))).toBe(true);
+    await expect(thanks.locator('p').nth(1)).toContainText('tailor this roadmap to StrongMind.');
+    const footnote = page.getByTestId('site-ci-footnote');
+    await expect(footnote.locator('p')).toContainText('Practice what you preach: this deck runs its own Playwright smoke suite on every push.');
+    await expect(footnote.getByTestId('ci-badge')).toBeVisible();
+    await expect(footnote.locator('a.text-link')).toHaveAttribute('href', /tree\/main\/e2e$/);
+    // Order: the outlook, then the thank-you, then the proof footnote.
+    expect(await page.getByTestId('road-ahead').evaluate((el) => [...el.children].map((c) => c.className))).toEqual(['prose prose-dark', 'closing-thanks', 'site-ci-footnote']);
   });
 
   test('every external link opens in a new tab with rel=noopener', async ({ page }) => {

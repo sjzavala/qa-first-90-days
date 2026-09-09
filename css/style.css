@@ -426,10 +426,15 @@ html { scroll-padding-top: 90px; }
 /* ---------- Tests / footer ---------- */
 .tests-row { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
 .section-head h2 .mage { font-size: 0.72em; letter-spacing: 0; margin-left: 0.12em; vertical-align: -0.04em; }
-.closing-thanks { margin-top: 48px; padding-top: 30px; border-top: 1px solid var(--dark-line); max-width: 52rem; display: grid; gap: 12px; }
+.road-ahead { max-width: 52rem; }
+.road-ahead .prose p { font-size: 18px; line-height: 1.6; }
+.closing-thanks { margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--dark-line); display: grid; gap: 12px; }
 .closing-thanks p { font-size: 18px; line-height: 1.6; color: var(--dark-muted); }
 .closing-thanks p:first-child { font-size: 22px; letter-spacing: -0.015em; }
 .closing-thanks strong { color: #fff; font-weight: 600; }
+.site-ci-footnote { margin-top: 2rem; opacity: 0.85; display: grid; gap: 14px; }
+.site-ci-footnote p, .site-ci-footnote small { font-size: 14px; color: var(--dark-muted); }
+.site-ci-footnote .text-link small { color: inherit; }
 .badge-link img { display: block; height: 20px; width: auto; }
 .site-footer { background: var(--dark); color: #fff; padding: 26px 0; border-top: 1px solid var(--dark-line); }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
