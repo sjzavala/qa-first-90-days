@@ -325,6 +325,24 @@ test.describe('Copy', () => {
   });
 });
 
+test.describe('The plan at a glance', () => {
+  test('a 3×3 swimlane table with its intro line closes the "What I know about you" section', async ({ page }) => {
+    await page.goto('/#you');
+    await expect(page.getByTestId('glance-intro')).toHaveText('Three lanes, ninety days — the technical work is only the first column.');
+    const table = page.getByTestId('glance-table');
+    await expect(table.locator('thead th')).toHaveText(['Phase', 'Core responsibilities', 'Team & culture', 'Operations']);
+    const rows = table.locator('tbody tr');
+    await expect(rows).toHaveCount(3);
+    await expect(rows.locator('th[scope="row"]')).toHaveText(['Day 30', 'Day 60', 'Day 90']);
+    for (let i = 0; i < 3; i++) await expect(rows.nth(i).locator('td')).toHaveCount(3);
+    await expect(rows.nth(0).locator('td').nth(0)).toHaveText('Release archaeology; risk map agreed with EM and Release; one visible fix shipped; metrics baseline started');
+    await expect(rows.nth(2).locator('td').nth(2)).toHaveText("Metrics dashboard live; quarterly quality review format proposed; docs current enough that day 91 doesn't depend on my memory");
+    // Placement: after the Course Builder closer, still inside #you, before Day 30.
+    expect(await table.evaluate((t) => t.closest('section')?.id)).toBe('you');
+    expect(await page.locator('#you .closer').evaluate((el) => el.compareDocumentPosition(document.querySelector('[data-testid="glance-table"]')) & Node.DOCUMENT_POSITION_FOLLOWING)).toBeTruthy();
+  });
+});
+
 test.describe('Metrics and footer', () => {
   test('metrics table has rows for all three phases', async ({ page }) => {
     await page.goto('/#metrics');
