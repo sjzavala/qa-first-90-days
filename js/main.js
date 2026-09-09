@@ -2,7 +2,9 @@
    1. keyboard navigation between slides (↓ ↑, J K, 1–7, Home/End)
    2. scroll spy: nav highlight + HUD position
    3. pass ?api= through to the embedded Counterspell so a live backend can be used
-   4. footer year */
+   4. Day 60 replayed test run
+   5. footer year
+   6. motion: reading progress, reveal on scroll, hero drift, cursor glow (off under reduced motion) */
 
 (function () {
   'use strict';
@@ -17,8 +19,18 @@
   let current = 0;
 
   function setCurrent(index) {
-    current = Math.max(0, Math.min(slides.length - 1, index));
-    if (hudCurrent) hudCurrent.textContent = pad2(current + 1);
+    const next = Math.max(0, Math.min(slides.length - 1, index));
+    const changed = next !== current || !slides[next].classList.contains('is-current');
+    current = next;
+    slides.forEach((s, i) => s.classList.toggle('is-current', i === current));
+    if (hudCurrent) {
+      hudCurrent.textContent = pad2(current + 1);
+      if (changed) {
+        hudCurrent.classList.remove('tick');
+        void hudCurrent.offsetWidth; // restart the animation
+        hudCurrent.classList.add('tick');
+      }
+    }
     const id = slides[current].id;
     navLinks.forEach((a) => {
       const match = a.getAttribute('href') === `#${id}`;
@@ -28,9 +40,16 @@
     document.body.dataset.currentSlide = String(current + 1);
   }
 
+  // While a keyboard jump is scrolling, the spy stays quiet so the counter doesn't tick through
+  // the slides in between (or, on a quick reversal, land on the wrong one). Released on scrollend
+  // where supported, otherwise after the smooth scroll has had time to finish.
+  let navLockUntil = 0;
+  window.addEventListener('scrollend', () => { navLockUntil = 0; });
+
   function goTo(index) {
     const target = slides[Math.max(0, Math.min(slides.length - 1, index))];
     if (!target) return;
+    navLockUntil = Date.now() + 900;
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setCurrent(slides.indexOf(target));
     // Update the hash without adding history entries for every keypress.
@@ -74,6 +93,7 @@
 
   if ('IntersectionObserver' in window) {
     const spy = new IntersectionObserver((entries) => {
+      if (Date.now() < navLockUntil) return;
       entries.forEach((entry) => {
         if (entry.isIntersecting) setCurrent(slides.indexOf(entry.target));
       });
@@ -224,4 +244,97 @@
   /* ---------- 5. Year ---------- */
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = String(new Date().getFullYear());
+
+  /* ---------- 6. Motion ---------- */
+  // `html.motion` is set in <head> before first paint unless the visitor prefers reduced motion.
+  // Everything below is additive: without it the page is fully rendered and static.
+
+  const progress = document.querySelector('[data-testid="progress"]');
+  const heroArt = document.querySelector('.hero-bg');
+  const motion = document.documentElement.classList.contains('motion');
+
+  // Reading progress along the top edge (also under reduced motion: it only tracks, it doesn't animate).
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      ticking = false;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      if (progress) {
+        progress.style.setProperty('--progress', p.toFixed(4));
+        progress.dataset.progress = p.toFixed(2);
+      }
+      // Hero art drifts at a twentieth of the scroll while the hero is on screen; the 1.1 scale leaves headroom.
+      if (motion && heroArt && window.scrollY < window.innerHeight) {
+        heroArt.style.setProperty('--drift', `${(window.scrollY * 0.05).toFixed(1)}px`);
+      }
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll();
+
+  if (motion && 'IntersectionObserver' in window) {
+    // Reveal on scroll. Groups stagger via --i. Elements already on screen at load
+    // (a hash landing, the hero) are left alone so nothing that was painted disappears.
+    const inView = (el) => {
+      const r = el.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    };
+    const stage = (selector, kind, group) => {
+      document.querySelectorAll(selector).forEach((el) => {
+        if (inView(el) || el.classList.contains('reveal') || el.classList.contains('reveal-fade')) return;
+        el.classList.add(kind);
+        if (group) {
+          const siblings = Array.from(el.parentElement.children).filter((c) => c.classList.contains(kind));
+          el.style.setProperty('--i', String(siblings.indexOf(el)));
+        }
+      });
+    };
+    stage('.section-head, .section-head + .two-col > .prose, .closer, .table-wrap, .demo-panel, .banner, .embed, .sub-heading, .closing-thanks, .site-ci-footnote, .table-intro, .pipeline-strip, .sub-heading + .prose', 'reveal', false);
+    stage('.success-list li, .gate-card, .pipeline li, .clip, .road-ahead > .prose', 'reveal', true);
+    stage('.data-table tbody tr', 'reveal-fade', true);
+    stage('.emblem-divider img', 'reveal-emblem', false);
+
+    const settle = (el) => {
+      el.classList.remove('reveal', 'reveal-fade', 'reveal-emblem');
+      el.style.removeProperty('--i');
+    };
+    const revealer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        revealer.unobserve(el);
+        el.classList.add('is-in');
+        // Hand over to the hover transitions once the entrance has finished (with a fallback if transitionend never fires).
+        // transitionend bubbles from children (arrows, tags), so only the element's own transition counts.
+        const done = (e) => {
+          if (e && e.target !== el) return;
+          el.removeEventListener('transitionend', done);
+          settle(el);
+        };
+        el.addEventListener('transitionend', done);
+        setTimeout(done, 2400);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    document.querySelectorAll('.reveal, .reveal-fade, .reveal-emblem').forEach((el) => revealer.observe(el));
+
+    // Cursor glow on the dark sections: the accent light follows the pointer.
+    if (window.matchMedia('(hover: hover)').matches) {
+      document.querySelectorAll('.hero, #tests').forEach((section) => {
+        const glow = document.createElement('div');
+        glow.className = 'glow';
+        glow.setAttribute('aria-hidden', 'true');
+        section.classList.add('has-glow');
+        section.prepend(glow);
+        section.addEventListener('pointermove', (e) => {
+          const r = section.getBoundingClientRect();
+          glow.style.setProperty('--mx', `${e.clientX - r.left}px`);
+          glow.style.setProperty('--my', `${e.clientY - r.top}px`);
+        }, { passive: true });
+      });
+    }
+  }
 })();

@@ -470,3 +470,66 @@ html { scroll-padding-top: 90px; }
   .steps-list li { grid-template-columns: 1fr; }
   .phase-strip { flex-wrap: wrap; }
 }
+
+/* ===========================================================================
+   Motion. Everything here is gated: `html.motion` is set before first paint
+   unless the visitor prefers reduced motion; the reveal classes are added by
+   main.js only under that flag. Without JS, or with reduced motion, every
+   element renders in its final state. Cyan only, per the art direction.
+   =========================================================================== */
+
+/* Reading progress: a hairline of the accent along the top edge. */
+.progress { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 70; pointer-events: none; transform-origin: 0 50%; transform: scaleX(var(--progress, 0)); background: linear-gradient(90deg, var(--accent-dark), var(--accent) 60%, var(--accent-on-dark)); box-shadow: 0 0 14px rgba(47, 214, 201, 0.55); }
+.motion .progress { transition: transform 0.12s linear; }
+
+/* Reveal on scroll. `--i` staggers siblings. The class is removed once the transition ends so hover transitions take over. */
+/* Hidden state snaps (no transition), so staging an element never fades it out; only the entrance animates. */
+html.motion .reveal { opacity: 0; transform: translateY(24px); will-change: opacity, transform; }
+html.motion .reveal.is-in { opacity: 1; transform: none; transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); transition-delay: calc(var(--i, 0) * 85ms); }
+html.motion .reveal-fade { opacity: 0; }
+html.motion .reveal-fade.is-in { opacity: 1; transition: opacity 0.6s var(--ease); transition-delay: calc(var(--i, 0) * 60ms); }
+html.motion .emblem-divider img.reveal-emblem { opacity: 0; transform: scale(0.82); }
+html.motion .emblem-divider img.reveal-emblem.is-in { opacity: 0.35; transform: none; transition: opacity 1.2s var(--ease), transform 1.2s var(--ease); }
+.motion .emblem-divider img.is-in { animation: breathe 7s ease-in-out 1.2s infinite; }
+@keyframes breathe { 0%, 100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.03); } }
+
+/* Hero entrance: the art settles in, the copy rises line by line, the HUD slides up last. */
+@keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes settle { from { opacity: 0.4; transform: scale(1.18); } to { opacity: 1; transform: scale(1.1); } }
+.motion .hero-bg { transform: scale(1.1) translateY(var(--drift, 0px)); animation: settle 1.6s var(--ease) backwards; }
+.motion .hero-copy > * { animation: rise 0.9s var(--ease) both; }
+.motion .hero-copy > :nth-child(1) { animation-delay: 0.15s; }
+.motion .hero-copy > :nth-child(2) { animation-delay: 0.28s; }
+.motion .hero-copy > :nth-child(3) { animation-delay: 0.42s; }
+.motion .hero-copy > :nth-child(4) { animation-delay: 0.56s; }
+.motion .hero-copy > :nth-child(5) { animation-delay: 0.7s; }
+.motion .hud { animation: rise 0.6s var(--ease) 1s both; }
+
+/* Cursor glow on the dark sections: a soft accent light that follows the pointer. Pointer devices only. */
+.has-glow { position: relative; isolation: isolate; }
+.has-glow > .section-inner, .has-glow > .hero-copy { position: relative; z-index: 1; }
+.glow { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.6s var(--ease); mix-blend-mode: screen; background: radial-gradient(640px circle at var(--mx, 50%) var(--my, 50%), rgba(47, 214, 201, 0.24), rgba(47, 214, 201, 0.06) 45%, transparent 70%); }
+@media (hover: hover) { .has-glow:hover .glow { opacity: 1; } }
+
+/* The active slide draws a short accent line under its number; the HUD counter ticks over. */
+.section-num { position: relative; }
+.section-num::after { content: ""; position: absolute; left: 0; bottom: -8px; width: 28px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: 0 50%; transition: transform 0.55s var(--ease) 0.2s; }
+.slide.is-current .section-num::after { transform: scaleX(1); }
+@keyframes tick { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+[data-hud-current] { display: inline-block; }
+.motion [data-hud-current].tick { animation: tick 0.35s var(--ease); }
+
+/* Hover: cards and pipeline stages lift toward the accent; table rows light up; the mage bobs. */
+.motion .gate-card, .motion .pipeline li, .motion .card, .motion .clip { transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease); }
+.motion .gate-card:hover, .motion .pipeline li:hover, .motion .card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 22px 44px -26px rgba(11, 122, 114, 0.5), 0 0 0 1px var(--accent-soft); }
+.motion .pipeline li:hover .pipe-num { color: var(--accent-dark); }
+.motion .clip:hover { box-shadow: inset 0 0 0 2px var(--dark-line); }
+.motion .clip:hover video { filter: brightness(1.12); }
+.motion .clip video { transition: filter 0.35s var(--ease); }
+.data-table tbody tr { transition: background-color 0.25s; }
+.data-table tbody tr:hover { background: var(--accent-soft); }
+.data-table tbody tr:hover .tag { background: var(--accent); color: var(--dark); }
+.tag { transition: background 0.25s, color 0.25s; }
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-5px) rotate(-6deg); } }
+.motion .mage { display: inline-block; animation: bob 3.2s ease-in-out infinite; }
+.motion .btn-accent:not(:disabled):hover, .motion .hero .btn-dark:hover { box-shadow: 0 0 0 4px var(--accent-soft), 0 10px 30px -12px rgba(47, 214, 201, 0.6); }

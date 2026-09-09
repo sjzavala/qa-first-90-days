@@ -14,9 +14,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Flag motion before first paint so the hero entrance starts hidden instead of flashing.
+    // Reduced-motion users get the page fully rendered with no entrance, reveal or parallax.
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+  </script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="progress" data-testid="progress" data-progress="0" aria-hidden="true"></div>
 
   <header class="site-header">
     <nav class="nav" aria-label="Main navigation">

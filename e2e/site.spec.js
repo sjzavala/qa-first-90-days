@@ -416,7 +416,7 @@ test.describe('Metrics and footer', () => {
     await expect(footnote.getByTestId('ci-badge')).toBeVisible();
     await expect(footnote.locator('a.text-link')).toHaveAttribute('href', /tree\/main\/e2e$/);
     // Order: the outlook, then the thank-you, then the proof footnote.
-    expect(await page.getByTestId('road-ahead').evaluate((el) => [...el.children].map((c) => c.className))).toEqual(['prose prose-dark', 'closing-thanks', 'site-ci-footnote']);
+    expect(await page.getByTestId('road-ahead').evaluate((el) => [...el.children].map((c) => c.classList[0]))).toEqual(['prose', 'closing-thanks', 'site-ci-footnote']);
   });
 
   test('every external link opens in a new tab with rel=noopener', async ({ page }) => {
@@ -434,5 +434,72 @@ test.describe('Metrics and footer', () => {
     await page.goto('/');
     const o = await page.evaluate(() => ({ s: document.documentElement.scrollWidth, c: document.documentElement.clientWidth }));
     expect(o.s).toBeLessThanOrEqual(o.c);
+  });
+});
+
+test.describe('Motion', () => {
+  test('a reading-progress bar tracks the scroll position along the top edge', async ({ page }) => {
+    await page.goto('/');
+    const bar = page.getByTestId('progress');
+    await expect(bar).toHaveAttribute('data-progress', '0.00');
+    await expect(bar).toHaveCSS('transform', /^matrix\(0,/);
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await expect(bar).toHaveAttribute('data-progress', '1.00');
+    await expect(bar).toHaveCSS('transform', /^matrix\(1,/);
+  });
+
+  test('content below the fold reveals as it scrolls into view, staggered, then settles', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('html')).toHaveClass(/motion/);
+    const table = page.locator('#metrics .table-wrap');
+    await expect(table).toHaveClass(/\breveal\b/);
+    expect(await table.evaluate((el) => getComputedStyle(el).opacity)).toBe('0');
+    // Siblings are numbered for the stagger; rows fade rather than move.
+    expect(await page.locator('#day-90 .pipeline li').nth(2).evaluate((el) => el.style.getPropertyValue('--i'))).toBe('2');
+    await expect(page.locator('[data-testid="metrics-table"] tbody tr').nth(1)).toHaveClass(/reveal-fade/);
+    await table.scrollIntoViewIfNeeded();
+    await expect(table).toHaveClass(/is-in/);
+    // Once the entrance has played the reveal class is dropped so hover transitions take over.
+    await expect(table).not.toHaveClass(/\breveal\b/, { timeout: 5000 });
+    expect(await table.evaluate((el) => getComputedStyle(el).opacity)).toBe('1');
+    await expect(page.locator('[data-testid="metrics-table"] tbody tr').nth(3)).toHaveClass(/is-in/);
+  });
+
+  test('the hero rises in on load, the active slide underlines its number and the HUD counter ticks', async ({ page }) => {
+    await page.goto('/');
+    const title = page.locator('#hero-title');
+    expect(await title.evaluate((el) => getComputedStyle(el).animationName)).toBe('rise');
+    await expect.poll(() => title.evaluate((el) => getComputedStyle(el).opacity)).toBe('1');
+    await expect(page.locator('#hero')).toHaveClass(/is-current/);
+    await page.keyboard.press('ArrowDown');
+    await expect(page.locator('#you')).toHaveClass(/is-current/);
+    await expect(page.locator('#hero')).not.toHaveClass(/is-current/);
+    await expect(page.locator('[data-hud-current]')).toHaveClass(/tick/);
+    await expect.poll(() => page.locator('#you .section-num').evaluate((el) => getComputedStyle(el, '::after').transform)).toBe('matrix(1, 0, 0, 1, 0, 0)');
+  });
+
+  test('the accent glow follows the pointer across the dark sections', async ({ page, isMobile }) => {
+    test.skip(isMobile, 'no pointer hover on touch devices');
+    await page.goto('/');
+    const glow = page.locator('#hero .glow');
+    await expect(glow).toHaveCount(1);
+    await expect(page.locator('#tests .glow')).toHaveCount(1);
+    await page.mouse.move(300, 420);
+    await expect(glow).toHaveCSS('opacity', '1');
+    expect(await glow.evaluate((el) => el.style.getPropertyValue('--mx'))).toMatch(/^\d+px$/);
+    await page.mouse.move(300, 2000);
+    await expect(glow).toHaveCSS('opacity', '0');
+  });
+
+  test('reduced motion renders everything in place: no entrance, no reveals, no glow', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/');
+    await expect(page.locator('html')).not.toHaveClass(/motion/);
+    expect(await page.locator('.reveal, .reveal-fade, .reveal-emblem, .glow').count()).toBe(0);
+    expect(await page.locator('#metrics .table-wrap').evaluate((el) => getComputedStyle(el).opacity)).toBe('1');
+    expect(await page.locator('#hero-title').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+    // The progress bar still tracks; it just doesn't animate.
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await expect(page.getByTestId('progress')).toHaveAttribute('data-progress', '1.00');
   });
 });
