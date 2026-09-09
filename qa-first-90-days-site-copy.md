@@ -34,10 +34,7 @@ Voice: short, declarative, portfolio-style. Numbers where they exist. No filler.
 
 **Closer:** You already govern AI-generated curriculum — Course Builder evaluates what its agents produce before it ships. I bring the same discipline to AI-generated tests. Same architecture, pointed at quality.
 
-**The plan at a glance (intro line):** Three lanes, ninety days — the technical work is only the first column.
-
-| Phase | Core responsibilities | Team & culture | Operations |
-|---|---|---|---|
+---|---|---|---|
 | Day 30 | Release archaeology; risk map agreed with EM and Release; one visible fix shipped; metrics baseline started | 1:1s with every product team lead, the QA peers, and Release; learn how decisions get made here — and earn the right to be in them | Environments, access, CI permissions; pick the home for QA docs and standards; agree a reporting cadence with my manager |
 | Day 60 | Framework spine on team one; merge gate live; conventions doc; feedback time published | Pair with team-one engineers so the suite is ours, not mine; first brown-bag on the framework; QA peers involved in test design | Quality status reporting format established; tooling and licenses sorted; hiring input if the function grows |
 | Day 90 | Gates written with Release; standards published; team two onboarding from docs; AI governance pilot | Standards socialized before they're enforced — reviewed with leads, adopted with buy-in; go/no-go run as a partnership with Release | Metrics dashboard live; quarterly quality review format proposed; docs current enough that day 91 doesn't depend on my memory |
@@ -120,6 +117,12 @@ Voice: short, declarative, portfolio-style. Numbers where they exist. No filler.
 - Standards published; second team onboarded from docs alone
 - A governance gate — Counterspell or its equivalent in your stack — reviewing every AI-generated test; acceptance rate tracked
 - Metrics dashboard live against the day-one baseline
+
+**The plan at a glance (intro line):** Three lanes, ninety days — the technical work is only the first column.
+
+| Phase | Core responsibilities | Team & culture | Operations |
+|
+
 
 ---
 
