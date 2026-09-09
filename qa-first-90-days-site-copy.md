@@ -173,8 +173,6 @@ Founding this function is as much about team enablement and developer experience
 
 **CI footnote:** *Practice what you preach: this deck runs its own Playwright smoke suite on every push.* [badge] · View the suite ↗
 
-**Footer sub-line:** Built with Claude Code · Reviewed by me · Counterspell verdicts logged
-
 ---
 
 ## Q&A pocket lines (not on the site — for the talk)

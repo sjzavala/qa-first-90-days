@@ -402,6 +402,8 @@ test.describe('Metrics and footer', () => {
     await page.goto('/');
     expect(await page.locator('a[href*="portfolio"]').count()).toBe(0);
     expect(await page.locator('#tests a').count()).toBe(2);
+    await expect(page.locator('.site-footer')).not.toContainText(/Claude Code|Reviewed by me|verdicts logged/);
+    await expect(page.locator('.site-footer .footer-name')).toHaveText('Seve Zavala');
   });
 
   test('the closing section looks past day 90, thanks the panel, and keeps the self-test proof as a footnote', async ({ page }) => {
