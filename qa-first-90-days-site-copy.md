@@ -20,9 +20,11 @@ Voice: short, declarative, portfolio-style. Numbers where they exist. No filler.
 
 **Eyebrow:** Product Landscape & Risk Hierarchy
 
-**Heading:** Allocating quality effort by failure cost.
+**Heading:** Allocating quality by failure cost.
 
-**Intro:** StrongMind spans several distinct operational models: core 6–12 digital curriculum for districts, educator analytics, direct-to-family homeschool platforms, and agentic content generation via Course Builder. Each surface carries a fundamentally different blast radius when an issue escapes. Test automation shouldn't be distributed evenly across features—it should concentrate where an unhandled defect costs the business the most.
+**Intro:** StrongMind delivers across four distinct surfaces: district courseware, educator analytics, direct-to-family homeschool platforms, and agentic curriculum generation in Course Builder.
+
+Each surface carries a fundamentally different blast radius. Quality engineering shouldn't be spread uniformly across the catalog—it should concentrate where an unhandled defect does the most damage to institutional trust and core operations.
 
 **Risk table (highest first):**
 

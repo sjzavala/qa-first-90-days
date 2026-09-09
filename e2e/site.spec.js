@@ -306,8 +306,11 @@ test.describe('Copy', () => {
   test('every slide carries its copy: intro, table or success list', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('#you .eyebrow')).toHaveText('Product Landscape & Risk Hierarchy');
-    await expect(page.locator('#you-title')).toHaveText('Allocating quality effort by failure cost.');
-    await expect(page.locator('#you .section-sub')).toContainText('concentrate where an unhandled defect costs the business the most.');
+    await expect(page.locator('#you-title')).toHaveText('Allocating quality by failure cost.');
+    const youIntro = page.locator('#you .section-head .prose p');
+    await expect(youIntro).toHaveCount(2);
+    await expect(youIntro.first()).toContainText('StrongMind delivers across four distinct surfaces');
+    await expect(youIntro.nth(1)).toContainText('the most damage to institutional trust and core operations.');
     await expect(page.locator('#you .closer')).toContainText('rather than polluting the suite.');
     await expect(page.locator('#you [data-testid="risk-table"] thead th')).toHaveText(['Surface', 'Critical Failure Mode', 'Business & Engineering Impact']);
     await expect(page.locator('#you [data-testid="risk-table"] tbody tr').first().locator('td strong').first()).toHaveText('Grades & Progress Data');
