@@ -276,6 +276,14 @@
   window.addEventListener('resize', onScroll, { passive: true });
   onScroll();
 
+  // Narrow phones: the nav row scrolls sideways; fade its edge only while there is more to reach.
+  const navRow = document.querySelector('.nav-links');
+  function checkNavOverflow() {
+    if (navRow) navRow.classList.toggle('is-overflowing', navRow.scrollWidth > navRow.clientWidth + 1);
+  }
+  window.addEventListener('resize', checkNavOverflow, { passive: true });
+  checkNavOverflow();
+
   if (motion && 'IntersectionObserver' in window) {
     // Reveal on scroll. Groups stagger via --i. Elements already on screen at load
     // (a hash landing, the hero) are left alone so nothing that was painted disappears.
@@ -293,7 +301,7 @@
         }
       });
     };
-    stage('.section-head, .section-head + .two-col > .prose, .closer, .table-wrap, .demo-panel, .banner, .embed, .sub-heading, .closing-thanks, .site-ci-footnote, .table-intro, .pipeline-strip, .sub-heading + .prose', 'reveal', false);
+    stage('.section-head, .section-head + .two-col > .prose, .closer, .table-wrap, .demo-panel, .banner, .embed, .sub-heading, .closing-thanks, .site-ci-footnote, .table-intro, .pipeline-strip, .sub-heading + .prose, .conventions', 'reveal', false);
     stage('.success-list li, .gate-card, .pipeline li, .clip, .road-ahead > .prose', 'reveal', true);
     stage('.data-table tbody tr', 'reveal-fade', true);
     stage('.emblem-divider img', 'reveal-emblem', false);

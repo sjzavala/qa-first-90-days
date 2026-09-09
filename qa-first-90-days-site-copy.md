@@ -76,6 +76,11 @@ The fixture below is Month 2 in miniature: an LMS reference app (quizzes, submis
 - Merge gate live; time-to-feedback measured and published
 - Conventions doc exists; a second engineer has added a test using only the docs
 
+**Core test conventions (card under the success list):**
+- **Isolation:** Zero shared state; fixtures seed auth and database resets per worker.
+- **Selectors:** Semantic user-facing locators (`getByRole`, `getByLabel`) over brittle DOM paths.
+- **Async:** Web-first assertions only; zero hardcoded timeouts.
+
 ---
 
 ## 5. Day 90 — Practice into process

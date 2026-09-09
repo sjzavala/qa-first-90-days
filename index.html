@@ -211,6 +211,15 @@
           <li>Merge gate live; time-to-feedback measured and published</li>
           <li>Conventions doc exists; a second engineer has added a test using only the docs</li>
         </ul>
+
+        <aside class="conventions" data-testid="day60-conventions" aria-labelledby="conventions-title">
+          <p class="eyebrow" id="conventions-title">Core test conventions</p>
+          <dl>
+            <div><dt>Isolation</dt><dd>Zero shared state; fixtures seed auth and database resets per worker.</dd></div>
+            <div><dt>Selectors</dt><dd>Semantic user-facing locators (<code>getByRole</code>, <code>getByLabel</code>) over brittle DOM paths.</dd></div>
+            <div><dt>Async</dt><dd>Web-first assertions only; zero hardcoded timeouts.</dd></div>
+          </dl>
+        </aside>
       </div>
     </section>
 

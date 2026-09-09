@@ -506,3 +506,57 @@ test.describe('Motion', () => {
     await expect(page.getByTestId('progress')).toHaveAttribute('data-progress', '1.00');
   });
 });
+
+test.describe('Ergonomics', () => {
+  test('Day 60 closes with a compact conventions card: isolation, selectors, async', async ({ page }) => {
+    await page.goto('/#day-60');
+    const card = page.getByTestId('day60-conventions');
+    await expect(card.locator('dt')).toHaveText(['Isolation', 'Selectors', 'Async']);
+    await expect(card.locator('dd').nth(0)).toHaveText('Zero shared state; fixtures seed auth and database resets per worker.');
+    await expect(card.locator('dd').nth(1)).toHaveText('Semantic user-facing locators (getByRole, getByLabel) over brittle DOM paths.');
+    await expect(card.locator('dd').nth(2)).toHaveText('Web-first assertions only; zero hardcoded timeouts.');
+    await expect(card.locator('code')).toHaveCount(2);
+    // Sits directly under the success criteria.
+    expect(await card.evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day60-success');
+  });
+
+  test('the terminal log scrolls sideways inside its pane on a half-width window; the page never widens', async ({ page }) => {
+    await page.setViewportSize({ width: 720, height: 900 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/#day-60');
+    await page.getByTestId('run-suite').click();
+    await expect(page.getByTestId('runner')).toHaveAttribute('data-state', 'done');
+    const log = page.locator('.runner-log');
+    await expect(log).toHaveCSS('overflow-x', 'auto');
+    const m = await log.evaluate((el) => ({ inner: el.scrollWidth > el.clientWidth, pane: el.clientWidth, panel: el.closest('.demo-panel').clientWidth }));
+    expect(m.inner).toBe(true);
+    expect(m.pane).toBeLessThanOrEqual(m.panel);
+    const o = await page.evaluate(() => ({ s: document.documentElement.scrollWidth, c: document.documentElement.clientWidth }));
+    expect(o.s).toBeLessThanOrEqual(o.c);
+  });
+
+  test('the header is sticky, on top, and opaque enough to read over any section', async ({ page }) => {
+    await page.goto('/');
+    const header = page.locator('.site-header');
+    await expect(header).toHaveCSS('position', 'sticky');
+    await expect(header).toHaveCSS('top', '0px');
+    await expect(header).toHaveCSS('z-index', '50');
+    const alpha = await header.evaluate((el) => Number(getComputedStyle(el).backgroundColor.match(/[\d.]+(?=\)$)/)?.[0] ?? 1));
+    expect(alpha).toBeGreaterThanOrEqual(0.95);
+    // Still pinned at the top after scrolling deep into the page.
+    await page.evaluate(() => window.scrollTo(0, 4000));
+    expect((await header.boundingBox()).y).toBe(0);
+  });
+
+  test('the nav links stay visible and clickable on half-width and phone windows', async ({ page }) => {
+    for (const width of [720, 390]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto('/');
+      const links = page.locator('.nav-links > a');
+      await expect(links).toHaveCount(6);
+      for (let i = 0; i < 6; i++) await expect(links.nth(i)).toBeVisible();
+      await links.last().click();
+      await expect(page.locator('#tests')).toBeInViewport();
+    }
+  });
+});

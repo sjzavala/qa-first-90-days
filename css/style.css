@@ -166,7 +166,7 @@ a:hover .arrow, .btn:hover .arrow { transform: translate(2px, -2px); }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(247, 248, 246, 0.86);
+  background: rgba(247, 248, 246, 0.97);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
@@ -371,10 +371,10 @@ html { scroll-padding-top: 90px; }
 .clip video { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; background: #000; }
 .clip figcaption { font-family: var(--font-mono); font-size: 12px; color: var(--dark-muted); padding: 10px 14px; }
 .clip .ok { color: var(--accent-on-dark); margin-right: 6px; }
-.runner { background: #050a0b; }
+.runner { background: #050a0b; min-width: 0; max-width: 100%; }
 .runner-bar { display: flex; justify-content: flex-start; gap: 22px; align-items: center; padding: 10px 28px 10px 28px; border-bottom: 1px solid var(--dark-line); font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
 .runner-bar .btn { margin-left: auto; }
-.runner-log { margin: 0; padding: 18px 28px 22px; font-family: var(--font-mono); font-size: 13px; line-height: 1.75; color: #cfe0dd; white-space: pre; overflow: auto; max-height: 300px; min-height: 120px; scroll-behavior: smooth; }
+.runner-log { margin: 0; padding: 18px 28px 22px; font-family: var(--font-mono); font-size: 13px; line-height: 1.75; color: #cfe0dd; white-space: pre; overflow-x: auto; overflow-y: auto; overscroll-behavior-x: contain; max-height: 300px; min-height: 120px; scroll-behavior: smooth; }
 .runner-log .ok { color: var(--accent-on-dark); }
 .log-cmd { color: #fff; font-weight: 500; }
 .log-hint { white-space: normal; }
@@ -419,6 +419,15 @@ html { scroll-padding-top: 90px; }
 .pipeline p { color: var(--muted); font-size: 14.5px; flex: 1; }
 .pipeline .text-link { font-size: 14px; margin-top: 6px; }
 
+/* ---------- Day 60 conventions card: the spine in three rules ---------- */
+.conventions { margin-top: 22px; padding: 18px 22px 20px; background: var(--dark-surface); border: 1px solid var(--dark-line); border-left: 3px solid var(--accent); border-radius: var(--radius-sm); }
+.conventions .eyebrow { color: var(--accent-on-dark); margin-bottom: 12px; }
+.conventions dl { margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 28px; }
+.conventions dl > div { display: grid; gap: 4px; align-content: start; }
+.conventions dt { font-family: var(--font-display); font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
+.conventions dd { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--dark-muted); }
+.conventions code { font-family: var(--font-mono); font-size: 0.9em; color: var(--accent-on-dark); background: rgba(91, 248, 235, 0.08); border: 1px solid var(--dark-line); border-radius: 6px; padding: 1px 6px; }
+
 /* ---------- Emblem divider: the full art, seen large, between Metrics and Proof ---------- */
 .emblem-divider { background: var(--dark); display: grid; place-items: center; padding: 56px 0 8px; margin-bottom: -1px; }
 .emblem-divider img { width: 200px; height: 200px; opacity: 0.35; mix-blend-mode: screen; }
@@ -455,7 +464,8 @@ html { scroll-padding-top: 90px; }
   .pipeline li:not(:last-child)::after { display: none; }
 }
 @media (max-width: 900px) {
-  .nav-links { display: none; }
+  .nav-links { gap: 14px; }
+  .nav-links > a:not(.btn) { font-size: 14px; }
   .hero { min-height: 0; }
   .hero-copy { padding: 56px 0 64px; }
   .section-head, .two-col, .gates { grid-template-columns: 1fr; }
@@ -466,6 +476,13 @@ html { scroll-padding-top: 90px; }
   .hud-keys { display: none; }
 }
 @media (max-width: 640px) {
+  .brand-name { display: none; }
+  .nav { gap: 16px; }
+  .nav-links { gap: 11px; min-width: 0; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding: 4px 0; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links.is-overflowing { -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
+  .nav-links > a:not(.btn) { white-space: nowrap; font-size: 13.5px; }
+  .conventions dl { grid-template-columns: 1fr; }
   .card-grid.four, .pipeline, .clip-grid { grid-template-columns: 1fr; }
   .steps-list li { grid-template-columns: 1fr; }
   .phase-strip { flex-wrap: wrap; }
