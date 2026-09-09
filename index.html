@@ -75,18 +75,44 @@
         <h3 class="sub-title">Risk table (highest first)</h3>
         <div class="table-wrap">
           <table class="data-table" data-testid="risk-table">
-            <thead><tr><th>Surface</th><th>Worst escaped defect</th><th>Why it ranks here</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Surface</th>
+                <th>Critical Failure Mode</th>
+                <th>Business &amp; Engineering Impact</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td>Grades &amp; progress data</td><td>A student sees a wrong grade; a district report is wrong</td><td class="muted">Trust and compliance — the defect you can't apologize your way out of</td></tr>
-              <tr><td>Assessment submission</td><td>A quiz submits but doesn't save</td><td class="muted">One lost submission = one family's trust, at scale</td></tr>
-              <tr><td>Enrollment &amp; rostering</td><td>A student can't reach their course</td><td class="muted">Blocks learning on day one; support load spikes</td></tr>
-              <tr><td>AI-generated content (Course Builder)</td><td>Wrong content ships at scale</td><td class="muted">Not a bug — a governance gap. Generation is cheap; judgment is the product</td></tr>
-              <tr><td>Content delivery</td><td>A lesson renders broken</td><td class="muted">Visible, frequent, usually recoverable</td></tr>
+              <tr>
+                <td><strong>Grades &amp; Progress Data</strong></td>
+                <td>State/district reporting mismatch; inaccurate transcript calculations</td>
+                <td><strong>Regulatory &amp; Institutional Risk:</strong> Compliance violations and audit exposure that cannot be patched away.</td>
+              </tr>
+              <tr>
+                <td><strong>Assessment Submission</strong></td>
+                <td>Silent submission drops; unhandled payload loss during quiz completion</td>
+                <td><strong>Irreversible Data Loss:</strong> Erodes student and parent trust; triggers high-touch, unscalable customer support triage.</td>
+              </tr>
+              <tr>
+                <td><strong>Enrollment &amp; Rostering</strong></td>
+                <td>Identity/LTI sync desync; student course lockout at term start</td>
+                <td><strong>Operational Blocker:</strong> Halts instruction immediately; causes predictable day-one support spikes.</td>
+              </tr>
+              <tr>
+                <td><strong>AI Curriculum (Course Builder)</strong></td>
+                <td>Hallucinated or non-compliant instructional content published at scale</td>
+                <td><strong>Brand &amp; Pedagogical Liability:</strong> A governance failure rather than a code bug; requires evaluation rubrics over binary asserts.</td>
+              </tr>
+              <tr>
+                <td><strong>Content Delivery</strong></td>
+                <td>Lesson asset render failures; broken interactive modules</td>
+                <td><strong>Local Friction:</strong> High visibility and frequent, but recoverable with rapid rollback or hotfix.</td>
+              </tr>
             </tbody>
           </table>
         </div>
 
-        <p class="closer">You already govern AI-generated curriculum — Course Builder evaluates what its agents produce before it ships. I bring the same discipline to AI-generated tests. Same architecture, pointed at quality.</p>
+        <p class="closer">StrongMind already treats generative curriculum as something that requires automated evaluation before publishing. I bring that exact mindset to synthetic test engineering: generating tests with AI is fast, but it demands an automated gate to ensure it actually protects the product rather than polluting the suite.</p>
 
       </div>
     </section>

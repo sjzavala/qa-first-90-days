@@ -305,7 +305,9 @@ test.describe('Copy', () => {
 
   test('every slide carries its copy: intro, table or success list', async ({ page }) => {
     await page.goto('/');
-    await expect(page.locator('#you .closer')).toContainText('Same architecture, pointed at quality.');
+    await expect(page.locator('#you .closer')).toContainText('rather than polluting the suite.');
+    await expect(page.locator('#you [data-testid="risk-table"] thead th')).toHaveText(['Surface', 'Critical Failure Mode', 'Business & Engineering Impact']);
+    await expect(page.locator('#you [data-testid="risk-table"] tbody tr').first().locator('td strong').first()).toHaveText('Grades & Progress Data');
     await expect(page.locator('#you [data-testid="risk-table"] tbody tr')).toHaveCount(5);
     await expect(page.getByTestId('day30-success').locator('li')).toHaveCount(4);
     await expect(page.getByTestId('day60-success').locator('li')).toHaveCount(3);

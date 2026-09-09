@@ -24,15 +24,15 @@ Voice: short, declarative, portfolio-style. Numbers where they exist. No filler.
 
 **Risk table (highest first):**
 
-| Surface | Worst escaped defect | Why it ranks here |
+| Surface | Critical Failure Mode | Business & Engineering Impact |
 |---|---|---|
-| Grades & progress data | A student sees a wrong grade; a district report is wrong | Trust and compliance — the defect you can't apologize your way out of |
-| Assessment submission | A quiz submits but doesn't save | One lost submission = one family's trust, at scale |
-| Enrollment & rostering | A student can't reach their course | Blocks learning on day one; support load spikes |
-| AI-generated content (Course Builder) | Wrong content ships at scale | Not a bug — a governance gap. Generation is cheap; judgment is the product |
-| Content delivery | A lesson renders broken | Visible, frequent, usually recoverable |
+| **Grades & Progress Data** | State/district reporting mismatch; inaccurate transcript calculations | **Regulatory & Institutional Risk:** Compliance violations and audit exposure that cannot be patched away. |
+| **Assessment Submission** | Silent submission drops; unhandled payload loss during quiz completion | **Irreversible Data Loss:** Erodes student and parent trust; triggers high-touch, unscalable customer support triage. |
+| **Enrollment & Rostering** | Identity/LTI sync desync; student course lockout at term start | **Operational Blocker:** Halts instruction immediately; causes predictable day-one support spikes. |
+| **AI Curriculum (Course Builder)** | Hallucinated or non-compliant instructional content published at scale | **Brand & Pedagogical Liability:** A governance failure rather than a code bug; requires evaluation rubrics over binary asserts. |
+| **Content Delivery** | Lesson asset render failures; broken interactive modules | **Local Friction:** High visibility and frequent, but recoverable with rapid rollback or hotfix. |
 
-**Closer:** You already govern AI-generated curriculum — Course Builder evaluates what its agents produce before it ships. I bring the same discipline to AI-generated tests. Same architecture, pointed at quality.
+**Closer:** StrongMind already treats generative curriculum as something that requires automated evaluation before publishing. I bring that exact mindset to synthetic test engineering: generating tests with AI is fast, but it demands an automated gate to ensure it actually protects the product rather than polluting the suite.
 
 ---|---|---|---|
 | Day 30 | Release archaeology; risk map agreed with EM and Release; one visible fix shipped; metrics baseline started | 1:1s with every product team lead, the QA peers, and Release; learn how decisions get made here — and earn the right to be in them | Environments, access, CI permissions; pick the home for QA docs and standards; agree a reporting cadence with my manager |

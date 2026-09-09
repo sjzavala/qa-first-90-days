@@ -352,6 +352,7 @@ html { scroll-padding-top: 90px; }
 .data-table td { padding: 13px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
 .data-table tr:last-child td { border-bottom: 0; }
 .data-table .muted { color: var(--muted); }
+.data-table td strong { color: var(--text); font-weight: 600; }
 .metrics tr[data-phase="60"]:first-of-type td, .metrics tr[data-phase="90"]:first-of-type td { border-top: 2px solid var(--line); }
 .steps-list { display: grid; gap: 14px; counter-reset: step; }
 .steps-list li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 16px 18px; display: grid; grid-template-columns: 90px 1fr; gap: 12px; align-items: baseline; }
