@@ -270,7 +270,7 @@ test.describe('Day 90 · Counterspell embed', () => {
     await page.goto('/');
     const text = await page.locator('#day-90').innerText();
     for (const rpg of ['cantrip', 'leveled slot', 'reaction check', 'arcana', 'RESOLVES', 'RESHAPED', 'COUNTERED']) expect(text.toLowerCase()).not.toContain(rpg.toLowerCase());
-    for (const eng of ['deterministic rule checks', 'semantic analysis', 'ACCEPTED', 'REFACTORED', 'REJECTED']) expect(text).toContain(eng);
+    for (const eng of ['Deterministic Rules', 'Semantic Analysis', 'ACCEPTED', 'REFACTORED', 'REJECTED']) expect(text).toContain(eng);
   });
 
   test('pipeline has five steps linking the four repos', async ({ page }) => {
@@ -314,16 +314,23 @@ test.describe('Copy', () => {
     await expect(page.locator('#metrics .closer')).toContainText('which is the point of the whole function.');
   });
 
-  test('each embed has its intro line directly above it', async ({ page }) => {
+  test('the Day 60 intro line sits directly above the course-app embed', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByTestId('day60-intro-line')).toHaveText('This app is a stand-in for your product — the LMS silhouette: assignments, a quiz, a grade. Students would see something like this. Everything below it is what engineers see: the suite and tooling that guard it.');
-    await expect(page.getByTestId('day90-intro-line')).toHaveText('Counterspell is internal tooling — QA and engineers only. It gates AI-generated tests before they enter the suite, the way a linter gates code. No student ever sees it; every student depends on it.');
-    // "directly above": the intro is the element immediately preceding the embed.
     expect(await page.getByTestId('course-app-demo').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day60-intro-line');
-    // The honest caveat follows the intro line and sits directly above the embed.
-    await expect(page.getByTestId('day90-caveat')).toHaveText("This reference architecture validates the orchestration pattern in a zero-dependency fixture before adapting to StrongMind's live stack in Month 1. The Day 30 discovery phase determines whether these gating rules run natively in your existing CI/CD or as an integrated service.");
-    expect(await page.getByTestId('day90-caveat').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day90-intro-line');
-    expect(await page.getByTestId('counterspell-embed').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day90-caveat');
+  });
+
+  test('the Counterspell introduction is one consolidated block under its heading', async ({ page }) => {
+    await page.goto('/#day-90');
+    const prose = page.locator('#counterspell-title + .prose');
+    await expect(prose.locator('> p').first()).toContainText('Generating a test is cheap; maintaining a bad one is expensive.');
+    await expect(prose.locator('ul li')).toHaveCount(2);
+    await expect(prose.locator('ul li strong')).toHaveText(['Deterministic Rules:', 'Semantic Analysis:']);
+    await expect(prose.locator('ul li code')).toHaveText('networkidle');
+    await expect(prose.locator('> p').nth(1)).toContainText('ACCEPTED, REFACTORED, or REJECTED');
+    await expect(page.getByTestId('day90-caveat')).toHaveText("Note: This reference architecture uses a zero-dependency fixture to validate the pattern. Month 1 discovery will determine whether these gating rules run natively in StrongMind's existing CI/CD or as an integrated service.");
+    // Nothing loose between the heading block and the embed any more.
+    expect(await page.getByTestId('counterspell-embed').evaluate((el) => el.previousElementSibling?.classList.contains('section-head'))).toBe(true);
   });
 });
 

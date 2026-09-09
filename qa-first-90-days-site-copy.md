@@ -93,11 +93,16 @@ Voice: short, declarative, portfolio-style. Numbers where they exist. No filler.
 
 **Heading 2:** Counterspell — The Automated Governance Gate for AI-Generated Tests
 
-**Body 2:** Generating a test is now cheap: anyone can do it in seconds. Judging whether it deserves a place in the suite is the expensive part, and it is where quality is won or lost. Counterspell reviews every AI-generated spec in two passes: deterministic rule checks (anti-pattern detection for hardcoded waits, brittle selectors, and networkidle) and semantic analysis (assertion value, test independence, and coverage delta). Each spec receives one of three verdicts: ACCEPTED, REFACTORED (with suggested fixes), or REJECTED. Every ruling is logged with its reasons, so every decision can be audited and argued with. Try it below, or watch a recorded run.
+**Body 2 (consolidated block):**
 
-**Embed intro:** Counterspell is internal tooling — QA and engineers only. It gates AI-generated tests before they enter the suite, the way a linter gates code. No student ever sees it; every student depends on it.
+Generating a test is cheap; maintaining a bad one is expensive. **Counterspell** acts as an automated governance gate for AI-generated specs, evaluating every test across two layers before it enters the repository:
 
-**Reference-architecture note:** This reference architecture validates the orchestration pattern in a zero-dependency fixture before adapting to StrongMind's live stack in Month 1. The Day 30 discovery phase determines whether these gating rules run natively in your existing CI/CD or as an integrated service.
+- **Deterministic Rules:** Blocks anti-patterns instantly (hardcoded waits, brittle selectors, `networkidle`).
+- **Semantic Analysis:** Evaluates assertion substance, test independence, and net coverage gain.
+
+Every evaluation outputs an auditable verdict—**ACCEPTED**, **REFACTORED**, or **REJECTED**—with logged rationale that engineers can challenge. Try the interactive inspector below, or view a recorded run.
+
+*Note: This reference architecture uses a zero-dependency fixture to validate the pattern. Month 1 discovery will determine whether these gating rules run natively in StrongMind's existing CI/CD or as an integrated service.*
 
 **Embed caption:** Live mode available during the presentation · replays shown otherwise
 

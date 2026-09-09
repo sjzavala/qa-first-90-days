@@ -271,6 +271,11 @@ html { scroll-padding-top: 90px; }
 .prose { display: grid; gap: 16px; }
 .prose p { font-size: 17px; color: var(--muted); max-width: 52rem; }
 .prose strong { color: var(--text); font-weight: 600; }
+.prose ul { list-style: disc; margin: 0; padding-left: 22px; display: grid; gap: 8px; font-size: 17px; color: var(--muted); max-width: 52rem; }
+.prose ul strong { color: var(--text); font-weight: 600; }
+.prose code { font-family: var(--font-mono); font-size: 0.88em; background: var(--bg-tint); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+.text-subtle { color: var(--muted); }
+.text-subtle small { font-size: 14.5px; }
 .prose-dark p { color: var(--dark-muted); }
 .prose-dark strong { color: #fff; }
 .section-head .prose { margin-top: 22px; }

@@ -221,13 +221,19 @@
             </div>
             <h3 class="sub-heading" id="counterspell-title">Counterspell — The Automated Governance Gate for AI-Generated Tests</h3>
             <div class="prose">
-              <p>Generating a test is now cheap: anyone can do it in seconds. Judging whether it deserves a place in the suite is the expensive part, and it is where quality is won or lost. Counterspell reviews every AI-generated spec in two passes: deterministic rule checks (anti-pattern detection for hardcoded waits, brittle selectors, and networkidle) and semantic analysis (assertion value, test independence, and coverage delta). Each spec receives one of three verdicts: ACCEPTED, REFACTORED (with suggested fixes), or REJECTED. Every ruling is logged with its reasons, so every decision can be audited and argued with. Try it below, or watch a recorded run.</p>
+              <p>Generating a test is cheap; maintaining a bad one is expensive. <strong>Counterspell</strong> acts as an automated governance gate for AI-generated specs, evaluating every test across two layers before it enters the repository:</p>
+
+              <ul>
+                <li><strong>Deterministic Rules:</strong> Blocks anti-patterns instantly (hardcoded waits, brittle selectors, <code>networkidle</code>).</li>
+                <li><strong>Semantic Analysis:</strong> Evaluates assertion substance, test independence, and net coverage gain.</li>
+              </ul>
+
+              <p>Every evaluation outputs an auditable verdict—<strong>ACCEPTED</strong>, <strong>REFACTORED</strong>, or <strong>REJECTED</strong>—with logged rationale that engineers can challenge. Try the interactive inspector below, or view a recorded run.</p>
+
+              <p class="text-subtle" data-testid="day90-caveat"><small><em>Note: This reference architecture uses a zero-dependency fixture to validate the pattern. Month 1 discovery will determine whether these gating rules run natively in StrongMind's existing CI/CD or as an integrated service.</em></small></p>
             </div>
           </div>
         </div>
-
-        <p class="embed-intro" data-testid="day90-intro-line">Counterspell is internal tooling — QA and engineers only. It gates AI-generated tests before they enter the suite, the way a linter gates code. No student ever sees it; every student depends on it.</p>
-        <p class="embed-intro" data-testid="day90-caveat">This reference architecture validates the orchestration pattern in a zero-dependency fixture before adapting to StrongMind's live stack in Month 1. The Day 30 discovery phase determines whether these gating rules run natively in your existing CI/CD or as an integrated service.</p>
 
         <div class="embed" data-testid="counterspell-embed">
           <div class="embed-bar">
