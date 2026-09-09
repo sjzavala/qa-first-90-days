@@ -129,13 +129,12 @@
             <p class="eyebrow">Day 60 — One team, one spine</p>
             <h2 id="day60-title">Deep on one team before wide on all of them.</h2>
             <div class="prose prose-dark">
-              <p>Month two builds the framework where the risk map points — one product team, full vertical slice. Playwright, with isolation and determinism designed in from test one: no shared state, no fixed waits, retries as reporting rather than fixes. A merge gate on that team's PRs, fast enough to trust. Conventions written down as the tests are written, so test two hundred looks like test two — and team two onboards from docs, not from my calendar.</p>
-              <p><strong>The demo below is that month, in miniature.</strong> A small course app — assignment list, quiz submission, grade display — with the real suite running against it in CI. This is the shape of the deliverable, built the way I'd build it there.</p>
+              <p>Month two builds the foundation where the risk map points: a full vertical slice on a single product team. We set up Playwright with strict isolation and determinism from day one—zero shared state, dynamic assertions over fixed waits, and test retries tracked for triage rather than masked as passes. We ship a PR merge gate fast enough for engineers to actually wait on, backed by living documentation so test 200 matches the quality of test two—enabling team two to onboard from docs rather than my calendar.</p>
+
+              <p data-testid="day60-intro-line">The fixture below is Month 2 in miniature: an LMS reference app (quizzes, submissions, grade books) paired with a live, deterministic Playwright suite guarding those critical flows.</p>
             </div>
           </div>
         </div>
-
-        <p class="embed-intro embed-intro-dark" data-testid="day60-intro-line">This app is a stand-in for your product — the LMS silhouette: assignments, a quiz, a grade. Students would see something like this. Everything below it is what engineers see: the suite and tooling that guard it.</p>
 
         <div class="demo-panel" data-testid="course-app-demo">
           <div class="demo-head">

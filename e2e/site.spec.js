@@ -314,10 +314,14 @@ test.describe('Copy', () => {
     await expect(page.locator('#metrics .closer')).toContainText('which is the point of the whole function.');
   });
 
-  test('the Day 60 intro line sits directly above the course-app embed', async ({ page }) => {
-    await page.goto('/');
-    await expect(page.getByTestId('day60-intro-line')).toHaveText('This app is a stand-in for your product — the LMS silhouette: assignments, a quiz, a grade. Students would see something like this. Everything below it is what engineers see: the suite and tooling that guard it.');
-    expect(await page.getByTestId('course-app-demo').evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day60-intro-line');
+  test('the Day 60 narrative is one consolidated block, then the fixture app', async ({ page }) => {
+    await page.goto('/#day-60');
+    const prose = page.locator('#day-60 .section-head .prose');
+    await expect(prose.locator('p')).toHaveCount(2);
+    await expect(prose.locator('p').first()).toContainText('Month two builds the foundation where the risk map points: a full vertical slice on a single product team.');
+    await expect(page.getByTestId('day60-intro-line')).toHaveText('The fixture below is Month 2 in miniature: an LMS reference app (quizzes, submissions, grade books) paired with a live, deterministic Playwright suite guarding those critical flows.');
+    // Nothing loose between the heading block and the demo panel.
+    expect(await page.getByTestId('course-app-demo').evaluate((el) => el.previousElementSibling?.classList.contains('section-head'))).toBe(true);
   });
 
   test('the Counterspell introduction is one consolidated block under its heading', async ({ page }) => {
