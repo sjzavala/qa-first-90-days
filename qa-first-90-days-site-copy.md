@@ -103,12 +103,12 @@ Voice: short, declarative, portfolio-style. Numbers where they exist. No filler.
 
 [Counterspell embed]
 
-**Pipeline (verb, capability, prior-art link):**
-- 01 Produce — AI test generation with human review: agents explore the product, file cases, and draft specs that trace back to them. A person approves every one. (working prior art ↗ claude-qa-tms)
-- 02 Select — Change-based test selection: run only what a change can affect. Anything the selector can't justify escalates to the full suite. (working prior art ↗ playwright-test-selector)
-- 03 Trust — Flake scoring and quarantine with expiry: flakiness judged on evidence, quarantined with a due date — never forever. (working prior art ↗ flake-radar)
-- 04 Measure — Tooling that has to earn its keep: benchmarks decide whether the extra automation and agents are worth their cost. (working prior art ↗ claude-agent-swarm)
-- 05 Explain — Every automated decision lands where a human can argue with it. (Counterspell, above ↑)
+**Pipeline (lifecycle of an AI-generated test, draft → telemetry):**
+- 01 Draft — AI explores product flows and drafts test specifications traced directly to user stories and acceptance criteria. A human engineer reviews every proposed spec. (working prior art ↗ claude-qa-tms)
+- 02 Govern — Counterspell evaluates the spec before it reaches the codebase: deterministic anti-pattern checks (no fixed waits or brittle selectors) followed by semantic validation of assertion value. (Counterspell, above ↑)
+- 03 Target — Change-based test selection runs only the flows touched by a pull request's diff, keeping PR feedback under 5 minutes. Ambiguous changes escalate to full suites. (working prior art ↗ playwright-test-selector)
+- 04 Stabilize — Evidence-based flake detection that automatically quarantines unstable tests with strict expiration dates—ensuring merge gates stay trusted and flaky tests never live forever. (working prior art ↗ flake-radar)
+- 05 Evaluate — Telemetry and benchmarking that measure tooling ROI: tracking pipeline execution speeds, agent token efficiency, and defect escape prevention over time. (working prior art ↗ claude-agent-swarm)
 
 **Closer:** Each stage has working prior art — built and open-sourced before anyone asked. At StrongMind, these become your pipeline: adapted to your stack, owned by your teams.
 
