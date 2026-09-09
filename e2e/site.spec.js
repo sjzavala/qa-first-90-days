@@ -305,6 +305,9 @@ test.describe('Copy', () => {
 
   test('every slide carries its copy: intro, table or success list', async ({ page }) => {
     await page.goto('/');
+    await expect(page.locator('#you .eyebrow')).toHaveText('Product Landscape & Risk Hierarchy');
+    await expect(page.locator('#you-title')).toHaveText('Allocating quality effort by failure cost.');
+    await expect(page.locator('#you .section-sub')).toContainText('concentrate where an unhandled defect costs the business the most.');
     await expect(page.locator('#you .closer')).toContainText('rather than polluting the suite.');
     await expect(page.locator('#you [data-testid="risk-table"] thead th')).toHaveText(['Surface', 'Critical Failure Mode', 'Business & Engineering Impact']);
     await expect(page.locator('#you [data-testid="risk-table"] tbody tr').first().locator('td strong').first()).toHaveText('Grades & Progress Data');
@@ -313,7 +316,7 @@ test.describe('Copy', () => {
     await expect(page.getByTestId('day60-success').locator('li')).toHaveCount(3);
     await expect(page.getByTestId('day90-success').locator('li')).toHaveCount(4);
     await expect(page.getByTestId('day90-success').locator('li').nth(2)).toHaveText('A governance gate — Counterspell or its equivalent in your stack — reviewing every AI-generated test; acceptance rate tracked');
-    await expect(page.locator('#metrics .closer')).toContainText('which is the point of the whole function.');
+    await expect(page.locator('#metrics .closer')).toContainText('guided by data rather than subjective confidence.');
   });
 
   test('the Day 60 narrative is one consolidated block, then the fixture app', async ({ page }) => {
@@ -367,6 +370,22 @@ test.describe('Metrics and footer', () => {
     }
   });
 
+  test('metrics section reads as telemetry: intro, four columns, focus / telemetry / outcome per phase', async ({ page }) => {
+    await page.goto('/#metrics');
+    await expect(page.locator('#metrics .eyebrow')).toHaveText('Measuring Impact & Accountability');
+    await expect(page.locator('#metrics-title')).toHaveText('Verifiable signals, not subjective claims.');
+    await expect(page.locator('#metrics .section-sub')).toContainText('against our day-one baseline.');
+    const table = page.getByTestId('metrics-table');
+    await expect(table.locator('thead th')).toHaveText(['Phase', 'Milestone Focus', 'Primary Telemetry', 'Target Outcome']);
+    await expect(table.locator('tbody tr')).toHaveCount(4);
+    const day60 = table.locator('tr[data-phase="60"] td');
+    await expect(day60).toHaveText(['Day 60', 'Feedback Velocity', 'PR merge-gate p95 latency; first-run suite pass rate', 'Fast, predictable gates (< 5 min) engineers trust without bypassing.']);
+    await expect(table.locator('tr[data-phase="ongoing"] td').nth(1)).toHaveText('Production Health');
+    // Four columns never squeeze: the wrapper scrolls on narrow viewports, the page does not.
+    const o = await page.evaluate(() => ({ s: document.documentElement.scrollWidth, c: document.documentElement.clientWidth }));
+    expect(o.s).toBeLessThanOrEqual(o.c);
+  });
+
   test('the footer carries the CI badge and links to the suite', async ({ page }) => {
     await page.goto('/#tests');
     const badge = page.getByTestId('ci-badge');
@@ -379,8 +398,21 @@ test.describe('Metrics and footer', () => {
   test('no link to the portfolio remains anywhere on the page', async ({ page }) => {
     await page.goto('/');
     expect(await page.locator('a[href*="portfolio"]').count()).toBe(0);
-    await expect(page.locator('#tests .section-sub')).toHaveCount(0);
-    await expect(page.locator('#tests .eyebrow')).toHaveText('Proof');
+    expect(await page.locator('#tests a').count()).toBe(2);
+  });
+
+  test('the closing section pairs the self-test proof with a thank-you', async ({ page }) => {
+    await page.goto('/#tests');
+    await expect(page.locator('#tests .eyebrow')).toHaveText('In Practice & In Closing');
+    await expect(page.locator('#tests-title')).toContainText('Real quality starts at home.');
+    await expect(page.locator('#tests-title .mage')).toHaveAttribute('aria-hidden', 'true');
+    await expect(page.locator('#tests .section-sub')).toHaveText('Before asking an engineering team to adopt automated gates, the presentation itself should clear that bar. This site runs its own Playwright smoke suite in GitHub Actions on every push—verifying navigation, responsive layout, and interactive state before publishing.');
+    const thanks = page.getByTestId('closing-thanks');
+    await expect(thanks.locator('p')).toHaveCount(2);
+    await expect(thanks.locator('p strong').first()).toHaveText('Thank you for taking the time to explore this.');
+    await expect(thanks.locator('p').nth(1)).toContainText('tailor this roadmap for StrongMind.');
+    // Order inside the section: badge row first, then the close.
+    expect(await thanks.evaluate((el) => el.previousElementSibling?.classList.contains('tests-row'))).toBe(true);
   });
 
   test('every external link opens in a new tab with rel=noopener', async ({ page }) => {

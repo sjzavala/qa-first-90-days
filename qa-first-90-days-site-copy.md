@@ -16,11 +16,13 @@ Voice: short, declarative, portfolio-style. Numbers where they exist. No filler.
 
 ---
 
-## 2. What I know about you
+## 2. Product Landscape & Risk Hierarchy
 
-**Heading:** Your products, ranked by what a defect costs.
+**Eyebrow:** Product Landscape & Risk Hierarchy
 
-**Intro:** StrongMind runs a courseware platform serving 6–12 digital curriculum to schools and districts, analytics that teachers act on, a family-facing homeschool product, and Course Builder — AI-generated curriculum on an agentic architecture. Different products, different failure costs. Quality effort should follow the cost.
+**Heading:** Allocating quality effort by failure cost.
+
+**Intro:** StrongMind spans several distinct operational models: core 6–12 digital curriculum for districts, educator analytics, direct-to-family homeschool platforms, and agentic content generation via Course Builder. Each surface carries a fundamentally different blast radius when an issue escapes. Test automation shouldn't be distributed evenly across features—it should concentrate where an unhandled defect costs the business the most.
 
 **Risk table (highest first):**
 
@@ -129,26 +131,42 @@ Every evaluation outputs an auditable verdict—**ACCEPTED**, **REFACTORED**, or
 
 ---
 
-## 6. How you'll know it's working
+## 6. Measuring Impact & Accountability
 
-**Heading:** Measure it or don't claim it.
+**Eyebrow:** Measuring Impact & Accountability
 
-| Phase | What's measured | What good looks like |
-|---|---|---|
-| Day 30 | Baseline captured | Escaped defects, flake incidents, pipeline time — recorded, published |
-| Day 60 | Feedback speed | Merge-gate runtime the team actually waits for; suite green streak |
-| Day 90 | Trust | Flake rate trending down; zero P1s shipped through a green gate |
-| Ongoing | The real one | Escaped defects fall quarter over quarter — the only metric users feel |
+**Heading:** Verifiable signals, not subjective claims.
 
-**Closer:** Every number here is observable. None of them require taking my word for it — which is the point of the whole function.
+**Intro:** A QA function should justify its investment with clear, observable telemetry. We track signals across each milestone to evaluate feedback velocity, pipeline stability, and production quality against our day-one baseline.
+
+| Phase | Milestone Focus | Primary Telemetry | Target Outcome |
+|---|---|---|---|
+| **Day 30** | Baseline Discovery | Escaped defect count, CI cycle time, flake frequency | Historical baseline captured and published across teams. |
+| **Day 60** | Feedback Velocity | PR merge-gate p95 latency; first-run suite pass rate | Fast, predictable gates (< 5 min) engineers trust without bypassing. |
+| **Day 90** | System Trust | Flake score trends, quarantine expiry resolution, gate bypasses | Zero P0/P1 escapes past a green gate; flaky tests resolved under strict SLA. |
+| **Ongoing** | Production Health | Quarter-over-quarter escaped defects; mean time to detect (MTTD) | Sustained drop in user-facing defects; validated release confidence. |
+
+**Closer:** These indicators are instrumented directly into CI pipelines and incident tracking. They give Engineering, Release, and Product shared, objective visibility—ensuring quality decisions are guided by data rather than subjective confidence.
 
 ---
 
-## 7. Footer
+## 7. In Practice & In Closing
 
-**Line:** This site tests itself — a Playwright suite runs against it in CI on every push. [badge]
+**Eyebrow:** In Practice & In Closing
 
-**Sub-line:** Built with Claude Code · Reviewed by me · Counterspell verdicts logged
+**Heading:** Real quality starts at home. 🧙‍♂️
+
+**Body:** Before asking an engineering team to adopt automated gates, the presentation itself should clear that bar. This site runs its own Playwright smoke suite in GitHub Actions on every push—verifying navigation, responsive layout, and interactive state before publishing.
+
+[badge] · View the suite ↗
+
+**Closing block:**
+
+**Thank you for taking the time to explore this.**
+
+Founding a test orchestration function is as much about team trust and developer experience as it is about pipelines. I'm excited for our conversation and look forward to digging into how we can tailor this roadmap for StrongMind.
+
+**Footer sub-line:** Built with Claude Code · Reviewed by me · Counterspell verdicts logged
 
 ---
 

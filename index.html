@@ -66,9 +66,9 @@
         <div class="section-head">
           <span class="section-num">02</span>
           <div>
-            <p class="eyebrow">What I know about you</p>
-            <h2 id="you-title">Your products, ranked by what a defect costs.</h2>
-            <p class="section-sub">StrongMind runs a courseware platform serving 6–12 digital curriculum to schools and districts, analytics that teachers act on, a family-facing homeschool product, and Course Builder — AI-generated curriculum on an agentic architecture. Different products, different failure costs. Quality effort should follow the cost.</p>
+            <p class="eyebrow">Product Landscape &amp; Risk Hierarchy</p>
+            <h2 id="you-title">Allocating quality effort by failure cost.</h2>
+            <p class="section-sub">StrongMind spans several distinct operational models: core 6–12 digital curriculum for districts, educator analytics, direct-to-family homeschool platforms, and agentic content generation via Course Builder. Each surface carries a fundamentally different blast radius when an issue escapes. Test automation shouldn't be distributed evenly across features—it should concentrate where an unhandled defect costs the business the most.</p>
           </div>
         </div>
 
@@ -310,24 +310,25 @@
         <div class="section-head">
           <span class="section-num">06</span>
           <div>
-            <p class="eyebrow">How you'll know it's working</p>
-            <h2 id="metrics-title">Measure it or don't claim it.</h2>
+            <p class="eyebrow">Measuring Impact &amp; Accountability</p>
+            <h2 id="metrics-title">Verifiable signals, not subjective claims.</h2>
+            <p class="section-sub">A QA function should justify its investment with clear, observable telemetry. We track signals across each milestone to evaluate feedback velocity, pipeline stability, and production quality against our day-one baseline.</p>
           </div>
         </div>
 
         <div class="table-wrap">
           <table class="data-table metrics" data-testid="metrics-table">
-            <thead><tr><th>Phase</th><th>What's measured</th><th>What good looks like</th></tr></thead>
+            <thead><tr><th>Phase</th><th>Milestone Focus</th><th>Primary Telemetry</th><th>Target Outcome</th></tr></thead>
             <tbody>
-              <tr data-phase="30"><td><span class="tag">Day 30</span></td><td>Baseline captured</td><td class="muted">Escaped defects, flake incidents, pipeline time — recorded, published</td></tr>
-              <tr data-phase="60"><td><span class="tag">Day 60</span></td><td>Feedback speed</td><td class="muted">Merge-gate runtime the team actually waits for; suite green streak</td></tr>
-              <tr data-phase="90"><td><span class="tag">Day 90</span></td><td>Trust</td><td class="muted">Flake rate trending down; zero P1s shipped through a green gate</td></tr>
-              <tr data-phase="ongoing"><td><span class="tag">Ongoing</span></td><td>The real one</td><td class="muted">Escaped defects fall quarter over quarter — the only metric users feel</td></tr>
+              <tr data-phase="30"><td><span class="tag">Day 30</span></td><td><strong>Baseline Discovery</strong></td><td class="muted">Escaped defect count, CI cycle time, flake frequency</td><td>Historical baseline captured and published across teams.</td></tr>
+              <tr data-phase="60"><td><span class="tag">Day 60</span></td><td><strong>Feedback Velocity</strong></td><td class="muted">PR merge-gate p95 latency; first-run suite pass rate</td><td>Fast, predictable gates (&lt; 5 min) engineers trust without bypassing.</td></tr>
+              <tr data-phase="90"><td><span class="tag">Day 90</span></td><td><strong>System Trust</strong></td><td class="muted">Flake score trends, quarantine expiry resolution, gate bypasses</td><td>Zero P0/P1 escapes past a green gate; flaky tests resolved under strict SLA.</td></tr>
+              <tr data-phase="ongoing"><td><span class="tag">Ongoing</span></td><td><strong>Production Health</strong></td><td class="muted">Quarter-over-quarter escaped defects; mean time to detect (MTTD)</td><td>Sustained drop in user-facing defects; validated release confidence.</td></tr>
             </tbody>
           </table>
         </div>
 
-        <p class="closer">Every number here is observable. None of them require taking my word for it — which is the point of the whole function.</p>
+        <p class="closer">These indicators are instrumented directly into CI pipelines and incident tracking. They give Engineering, Release, and Product shared, objective visibility—ensuring quality decisions are guided by data rather than subjective confidence.</p>
       </div>
     </section>
 
@@ -341,8 +342,9 @@
         <div class="section-head">
           <span class="section-num">07</span>
           <div>
-            <p class="eyebrow">Proof</p>
-            <h2 id="tests-title">This site tests itself.</h2>
+            <p class="eyebrow">In Practice &amp; In Closing</p>
+            <h2 id="tests-title">Real quality starts at home. <span class="mage" aria-hidden="true">🧙‍♂️</span></h2>
+            <p class="section-sub">Before asking an engineering team to adopt automated gates, the presentation itself should clear that bar. This site runs its own Playwright smoke suite in GitHub Actions on every push—verifying navigation, responsive layout, and interactive state before publishing.</p>
           </div>
         </div>
         <div class="tests-row">
@@ -350,6 +352,10 @@
             <img data-testid="ci-badge" src="https://github.com/sjzavala/qa-first-90-days/actions/workflows/ci.yml/badge.svg" alt="Site smoke suite status on GitHub Actions" width="160" height="20">
           </a>
           <a class="text-link" href="https://github.com/sjzavala/qa-first-90-days/tree/main/e2e" target="_blank" rel="noopener">View the suite <span class="arrow" aria-hidden="true">↗</span></a>
+        </div>
+        <div class="closing-thanks" data-testid="closing-thanks">
+          <p><strong>Thank you for taking the time to explore this.</strong></p>
+          <p>Founding a test orchestration function is as much about team trust and developer experience as it is about pipelines. I'm excited for our conversation and look forward to digging into how we can tailor this roadmap for StrongMind.</p>
         </div>
       </div>
     </section>
