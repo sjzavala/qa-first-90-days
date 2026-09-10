@@ -1,7 +1,7 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-const SLIDES = ['hero', 'you', 'day-30', 'day-60', 'day-90', 'metrics', 'tests'];
+const SLIDES = ['hero', 'you', 'day-30', 'day-60', 'day-90', 'tests'];
 
 test.describe('Presentation smoke', () => {
   test.beforeEach(async ({ page }) => {
@@ -100,7 +100,7 @@ test.describe('Keyboard navigation', () => {
     await expect(page.locator('[data-hud-current]')).toHaveText('05');
     await expect(page).toHaveURL(/#day-90$/);
     await page.keyboard.press('End');
-    await expect(page.locator('[data-hud-current]')).toHaveText('07');
+    await expect(page.locator('[data-hud-current]')).toHaveText('06');
     await page.keyboard.press('Home');
     await expect(page.locator('[data-hud-current]')).toHaveText('01');
   });
@@ -318,7 +318,6 @@ test.describe('Copy', () => {
     await expect(page.getByTestId('day60-success').locator('li')).toHaveCount(3);
     await expect(page.getByTestId('day90-success').locator('li')).toHaveCount(4);
     await expect(page.getByTestId('day90-success').locator('li').nth(2)).toHaveText('A governance gate — Counterspell or its equivalent in your stack — reviewing every AI-generated test; acceptance rate tracked');
-    await expect(page.locator('#metrics .closer')).toContainText('guided by data rather than subjective confidence.');
   });
 
   test('the Day 60 narrative is one consolidated block, then the fixture app', async ({ page }) => {
@@ -364,30 +363,7 @@ test.describe('The plan at a glance', () => {
   });
 });
 
-test.describe('Metrics and footer', () => {
-  test('metrics table has rows for all three phases', async ({ page }) => {
-    await page.goto('/#metrics');
-    for (const phase of ['30', '60', '90', 'ongoing']) {
-      expect(await page.locator(`[data-testid="metrics-table"] tr[data-phase="${phase}"]`).count(), `phase ${phase}`).toBeGreaterThan(0);
-    }
-  });
-
-  test('metrics section reads as telemetry: intro, four columns, focus / telemetry / outcome per phase', async ({ page }) => {
-    await page.goto('/#metrics');
-    await expect(page.locator('#metrics .eyebrow')).toHaveText('Measuring Impact & Accountability');
-    await expect(page.locator('#metrics-title')).toHaveText('Verifiable signals, not subjective claims.');
-    await expect(page.locator('#metrics .section-sub')).toContainText('against our day-one baseline.');
-    const table = page.getByTestId('metrics-table');
-    await expect(table.locator('thead th')).toHaveText(['Phase', 'Milestone Focus', 'Primary Telemetry', 'Target Outcome']);
-    await expect(table.locator('tbody tr')).toHaveCount(4);
-    const day60 = table.locator('tr[data-phase="60"] td');
-    await expect(day60).toHaveText(['Day 60', 'Feedback Velocity', 'PR merge-gate p95 latency; first-run suite pass rate', 'Fast, predictable gates (< 5 min) engineers trust without bypassing.']);
-    await expect(table.locator('tr[data-phase="ongoing"] td').nth(1)).toHaveText('Production Health');
-    // Four columns never squeeze: the wrapper scrolls on narrow viewports, the page does not.
-    const o = await page.evaluate(() => ({ s: document.documentElement.scrollWidth, c: document.documentElement.clientWidth }));
-    expect(o.s).toBeLessThanOrEqual(o.c);
-  });
-
+test.describe('Footer', () => {
   test('the footer carries the CI badge and links to the suite', async ({ page }) => {
     await page.goto('/#tests');
     const badge = page.getByTestId('ci-badge');
@@ -455,18 +431,18 @@ test.describe('Motion', () => {
   test('content below the fold reveals as it scrolls into view, staggered, then settles', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('html')).toHaveClass(/motion/);
-    const table = page.locator('#metrics .table-wrap');
+    const table = page.locator('#day-90 .table-wrap');
     await expect(table).toHaveClass(/\breveal\b/);
     expect(await table.evaluate((el) => getComputedStyle(el).opacity)).toBe('0');
     // Siblings are numbered for the stagger; rows fade rather than move.
     expect(await page.locator('#day-90 .pipeline li').nth(2).evaluate((el) => el.style.getPropertyValue('--i'))).toBe('2');
-    await expect(page.locator('[data-testid="metrics-table"] tbody tr').nth(1)).toHaveClass(/reveal-fade/);
+    await expect(page.locator('[data-testid="glance-table"] tbody tr').nth(1)).toHaveClass(/reveal-fade/);
     await table.scrollIntoViewIfNeeded();
     await expect(table).toHaveClass(/is-in/);
     // Once the entrance has played the reveal class is dropped so hover transitions take over.
     await expect(table).not.toHaveClass(/\breveal\b/, { timeout: 5000 });
     expect(await table.evaluate((el) => getComputedStyle(el).opacity)).toBe('1');
-    await expect(page.locator('[data-testid="metrics-table"] tbody tr').nth(3)).toHaveClass(/is-in/);
+    await expect(page.locator('[data-testid="glance-table"] tbody tr').nth(2)).toHaveClass(/is-in/);
   });
 
   test('the hero rises in on load, the active slide underlines its number and the HUD counter ticks', async ({ page }) => {
@@ -500,7 +476,7 @@ test.describe('Motion', () => {
     await page.goto('/');
     await expect(page.locator('html')).not.toHaveClass(/motion/);
     expect(await page.locator('.reveal, .reveal-fade, .reveal-emblem, .glow').count()).toBe(0);
-    expect(await page.locator('#metrics .table-wrap').evaluate((el) => getComputedStyle(el).opacity)).toBe('1');
+    expect(await page.locator('#day-90 .table-wrap').evaluate((el) => getComputedStyle(el).opacity)).toBe('1');
     expect(await page.locator('#hero-title').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
     // The progress bar still tracks; it just doesn't animate.
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
@@ -554,8 +530,8 @@ test.describe('Ergonomics', () => {
       await page.setViewportSize({ width, height: 900 });
       await page.goto('/');
       const links = page.locator('.nav-links > a');
-      await expect(links).toHaveCount(6);
-      for (let i = 0; i < 6; i++) await expect(links.nth(i)).toBeVisible();
+      await expect(links).toHaveCount(5);
+      for (let i = 0; i < 5; i++) await expect(links.nth(i)).toBeVisible();
       await links.last().click();
       await expect(page.locator('#tests')).toBeInViewport();
     }

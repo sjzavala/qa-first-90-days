@@ -137,26 +137,7 @@ Every evaluation outputs an auditable verdict—**ACCEPTED**, **REFACTORED**, or
 
 ---
 
-## 6. Measuring Impact & Accountability
-
-**Eyebrow:** Measuring Impact & Accountability
-
-**Heading:** Verifiable signals, not subjective claims.
-
-**Intro:** A QA function should justify its investment with clear, observable telemetry. We track signals across each milestone to evaluate feedback velocity, pipeline stability, and production quality against our day-one baseline.
-
-| Phase | Milestone Focus | Primary Telemetry | Target Outcome |
-|---|---|---|---|
-| **Day 30** | Baseline Discovery | Escaped defect count, CI cycle time, flake frequency | Historical baseline captured and published across teams. |
-| **Day 60** | Feedback Velocity | PR merge-gate p95 latency; first-run suite pass rate | Fast, predictable gates (< 5 min) engineers trust without bypassing. |
-| **Day 90** | System Trust | Flake score trends, quarantine expiry resolution, gate bypasses | Zero P0/P1 escapes past a green gate; flaky tests resolved under strict SLA. |
-| **Ongoing** | Production Health | Quarter-over-quarter escaped defects; mean time to detect (MTTD) | Sustained drop in user-facing defects; validated release confidence. |
-
-**Closer:** These indicators are instrumented directly into CI pipelines and incident tracking. They give Engineering, Release, and Product shared, objective visibility—ensuring quality decisions are guided by data rather than subjective confidence.
-
----
-
-## 7. The Road Ahead
+## 6. The Road Ahead
 
 **Eyebrow:** The Road Ahead
 

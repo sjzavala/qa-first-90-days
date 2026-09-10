@@ -35,7 +35,6 @@
         <a href="#day-30">Day 30</a>
         <a href="#day-60">Day 60</a>
         <a href="#day-90">Day 90</a>
-        <a href="#metrics">Metrics</a>
         <a href="#tests">Tests</a>
       </div>
     </nav>
@@ -61,7 +60,7 @@
         <div class="cta-row">
           <a class="btn btn-dark" href="#you">The plan <span class="arrow" aria-hidden="true">↓</span></a>
           <a class="btn btn-outline" href="#day-90">Counterspell <span class="arrow" aria-hidden="true">↗</span></a>
-          <span class="keys-hint mono">↓ ↑ or J K to move · 1–7 to jump</span>
+          <span class="keys-hint mono">↓ ↑ or J K to move · 1–6 to jump</span>
         </div>
       </div>
     </section>
@@ -322,42 +321,16 @@
     </section>
 
     <!-- 06 · METRICS -->
-    <section class="section section-tint slide" id="metrics" data-slide="6" aria-labelledby="metrics-title">
-      <div class="section-inner">
-        <div class="section-head">
-          <span class="section-num">06</span>
-          <div>
-            <p class="eyebrow">Measuring Impact &amp; Accountability</p>
-            <h2 id="metrics-title">Verifiable signals, not subjective claims.</h2>
-            <p class="section-sub">A QA function should justify its investment with clear, observable telemetry. We track signals across each milestone to evaluate feedback velocity, pipeline stability, and production quality against our day-one baseline.</p>
-          </div>
-        </div>
-
-        <div class="table-wrap">
-          <table class="data-table metrics" data-testid="metrics-table">
-            <thead><tr><th>Phase</th><th>Milestone Focus</th><th>Primary Telemetry</th><th>Target Outcome</th></tr></thead>
-            <tbody>
-              <tr data-phase="30"><td><span class="tag">Day 30</span></td><td><strong>Baseline Discovery</strong></td><td class="muted">Escaped defect count, CI cycle time, flake frequency</td><td>Historical baseline captured and published across teams.</td></tr>
-              <tr data-phase="60"><td><span class="tag">Day 60</span></td><td><strong>Feedback Velocity</strong></td><td class="muted">PR merge-gate p95 latency; first-run suite pass rate</td><td>Fast, predictable gates (&lt; 5 min) engineers trust without bypassing.</td></tr>
-              <tr data-phase="90"><td><span class="tag">Day 90</span></td><td><strong>System Trust</strong></td><td class="muted">Flake score trends, quarantine expiry resolution, gate bypasses</td><td>Zero P0/P1 escapes past a green gate; flaky tests resolved under strict SLA.</td></tr>
-              <tr data-phase="ongoing"><td><span class="tag">Ongoing</span></td><td><strong>Production Health</strong></td><td class="muted">Quarter-over-quarter escaped defects; mean time to detect (MTTD)</td><td>Sustained drop in user-facing defects; validated release confidence.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p class="closer">These indicators are instrumented directly into CI pipelines and incident tracking. They give Engineering, Release, and Product shared, objective visibility—ensuring quality decisions are guided by data rather than subjective confidence.</p>
-      </div>
-    </section>
 
     <div class="emblem-divider" aria-hidden="true" data-testid="emblem-divider">
       <img src="assets/art/web/emblem-256.png" srcset="assets/art/web/emblem-256.png 1x, assets/art/web/emblem-512.png 2x" alt="" width="200" height="200" loading="lazy">
     </div>
 
-    <!-- 07 · THE ROAD AHEAD -->
-    <section class="section section-dark slide" id="tests" data-slide="7" aria-labelledby="tests-title">
+    <!-- 06 · THE ROAD AHEAD -->
+    <section class="section section-dark slide" id="tests" data-slide="6" aria-labelledby="tests-title">
       <div class="section-inner">
         <div class="section-head">
-          <span class="section-num">07</span>
+          <span class="section-num">06</span>
           <div>
             <p class="eyebrow">The Road Ahead</p>
             <h2 id="tests-title">From tactical gates to an engineering habit. <span class="mage" aria-hidden="true">🧙‍♂️</span></h2>
@@ -396,8 +369,8 @@
   </footer>
 
   <div class="hud" data-testid="hud" aria-live="polite">
-    <span class="hud-pos"><span data-hud-current>01</span><span class="dim"> / </span><span data-hud-total>07</span></span>
-    <span class="hud-keys mono">↓ ↑ · J K · 1–7</span>
+    <span class="hud-pos"><span data-hud-current>01</span><span class="dim"> / </span><span data-hud-total>06</span></span>
+    <span class="hud-keys mono">↓ ↑ · J K · 1–6</span>
   </div>
 
   <script src="js/main.js"></script>

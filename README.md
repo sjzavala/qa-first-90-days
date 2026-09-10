@@ -50,7 +50,7 @@ npx playwright install chromium webkit   # first time
 npm test
 ```
 
-`e2e/site.spec.js` covers: title and headings, seven slides in order, nav targets, keyboard navigation (arrows, J/K, digits, Home/End, HUD, ignoring form controls), the six clips and their posters answering 200, the runner log showing a green run, the Counterspell iframe booting in replay mode and playing a recording with no backend, the five pipeline steps and four repo links, metrics rows for every phase, the footer badge, external-link hygiene, and no horizontal overflow. Chromium and Mobile Safari.
+`e2e/site.spec.js` covers: title and headings, six slides in order, nav targets, keyboard navigation (arrows, J/K, digits, Home/End, HUD, ignoring form controls), the six clips and their posters answering 200, the runner log showing a green run, the Counterspell iframe booting in replay mode and playing a recording with no backend, the four pipeline steps and three repo links, the footer badge, external-link hygiene, and no horizontal overflow. Chromium and Mobile Safari.
 
 `.github/workflows/ci.yml` stages the deployable artifact (`index.html css js assets media counterspell`) into `dist/`, runs the suite **against that staged copy** (`SITE_DIR=dist`), and deploys it to GitHub Pages only when green. Testing the artifact rather than the source tree is what catches a file that was left out of the deploy. During staging the footer badge's link is rewritten to the exact Actions run that built the page. One-time setup: **Settings → Pages → Source: GitHub Actions**. The badge in the footer points at that workflow, so it renders once the repo exists at `github.com/sjzavala/qa-first-90-days`.
 

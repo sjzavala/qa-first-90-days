@@ -1,5 +1,5 @@
 /* QA at StrongMind — presentation controls.
-   1. keyboard navigation between slides (↓ ↑, J K, 1–7, Home/End)
+   1. keyboard navigation between slides (↓ ↑, J K, 1–6, Home/End)
    2. scroll spy: nav highlight + HUD position
    3. pass ?api= through to the embedded Counterspell so a live backend can be used
    4. Day 60 replayed test run
