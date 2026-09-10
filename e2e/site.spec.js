@@ -273,25 +273,24 @@ test.describe('Day 90 · Counterspell embed', () => {
     for (const eng of ['Deterministic Rules', 'Semantic Analysis', 'ACCEPTED', 'REFACTORED', 'REJECTED']) expect(text).toContain(eng);
   });
 
-  test('pipeline has five steps linking the four repos', async ({ page }) => {
+  test('pipeline has four steps linking the three repos', async ({ page }) => {
     await page.goto('/#day-90');
     const steps = page.locator('[data-testid="pipeline"] > li');
-    await expect(steps).toHaveCount(5);
-    await expect(steps.locator('h4')).toHaveText(['Draft', 'Govern', 'Target', 'Stabilize', 'Evaluate']);
+    await expect(steps).toHaveCount(4);
+    await expect(steps.locator('h4')).toHaveText(['Draft', 'Govern', 'Target', 'Stabilize']);
     const repos = await page.locator('[data-testid="pipeline"] a[href^="https://github.com/sjzavala/"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
     expect(repos).toEqual([
       'https://github.com/sjzavala/claude-qa-tms',
       'https://github.com/sjzavala/playwright-test-selector',
       'https://github.com/sjzavala/flake-radar',
-      'https://github.com/sjzavala/claude-agent-swarm',
     ]);
     await expect(page.getByTestId('pipeline-strip')).toHaveText("Each phase is backed by open-source tooling I've built to solve these specific orchestration challenges. At StrongMind, they serve as tested blueprints—adapted to your stack, integrated with your CI/CD, and owned by your engineers.");
-    await expect(page.locator('[data-testid="pipeline"] a.prior-art')).toHaveCount(4);
-    await expect(page.locator('[data-testid="pipeline"] a.prior-art')).toHaveText(Array(4).fill(/^reference implementation/));
+    await expect(page.locator('[data-testid="pipeline"] a.prior-art')).toHaveCount(3);
+    await expect(page.locator('[data-testid="pipeline"] a.prior-art')).toHaveText(Array(3).fill(/^reference implementation/));
     await expect(steps.nth(0).locator('p')).toContainText('A human engineer reviews every proposed spec.');
     await expect(steps.nth(1).locator('p')).toContainText('Counterspell evaluates the spec before it reaches the codebase');
     await expect(steps.nth(1).locator('a')).toHaveAttribute('href', '#counterspell-frame');
-    await expect(steps.nth(4).locator('p')).toContainText('Telemetry and benchmarking that measure tooling ROI');
+    await expect(steps.nth(3).locator('p')).toContainText('Evidence-based flake detection');
   });
 });
 

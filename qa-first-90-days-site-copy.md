@@ -40,7 +40,7 @@ Each surface carries a fundamentally different blast radius. Quality engineering
 
 ---|---|---|---|
 | Day 30 | Release archaeology; risk map agreed with EM and Release; one visible fix shipped; metrics baseline started | 1:1s with every product team lead, the QA peers, and Release; learn how decisions get made here — and earn the right to be in them | Environments, access, CI permissions; pick the home for QA docs and standards; agree a reporting cadence with my manager |
-| Day 60 | Framework spine on team one; merge gate live; conventions doc; feedback time published | Pair with team-one engineers so the suite is ours, not mine; first brown-bag on the framework; QA peers involved in test design | Quality status reporting format established; tooling and licenses sorted; hiring input if the function grows |
+| Day 60 | Framework spine on team one; merge gate live; documentation published; feedback time published | Pair with team-one engineers so the suite is ours, not mine; first brown-bag on the framework; QA peers involved in test design | Quality status reporting format established; tooling and licenses sorted; hiring input if the function grows |
 | Day 90 | Gates written with Release; standards published; team two onboarding from docs; AI governance pilot | Standards socialized before they're enforced — reviewed with leads, adopted with buy-in; go/no-go run as a partnership with Release | Metrics dashboard live; quarterly quality review format proposed; docs current enough that day 91 doesn't depend on my memory |
 
 ---
@@ -74,7 +74,7 @@ The fixture below is Month 2 in miniature: an LMS reference app (quizzes, submis
 **Success at day 60:**
 - The riskiest flow covered by a suite the team trusts
 - Merge gate live; time-to-feedback measured and published
-- Conventions doc exists; a second engineer has added a test using only the docs
+- Documentation exists; a second engineer has added a test using only the docs
 
 **Core test conventions (card under the success list):**
 - **Isolation:** Zero shared state; fixtures seed auth and database resets per worker.
@@ -115,12 +115,11 @@ Every evaluation outputs an auditable verdict—**ACCEPTED**, **REFACTORED**, or
 
 [Counterspell embed]
 
-**Pipeline (lifecycle of an AI-generated test, draft → telemetry):**
+**Pipeline (lifecycle of an AI-generated test, draft → stabilize):**
 - 01 Draft — AI explores product flows and drafts test specifications traced directly to user stories and acceptance criteria. A human engineer reviews every proposed spec. (reference implementation ↗ claude-qa-tms)
 - 02 Govern — Counterspell evaluates the spec before it reaches the codebase: deterministic anti-pattern checks (no fixed waits or brittle selectors) followed by semantic validation of assertion value. (Counterspell, above ↑)
 - 03 Target — Change-based test selection runs only the flows touched by a pull request's diff, keeping PR feedback under 5 minutes. Ambiguous changes escalate to full suites. (reference implementation ↗ playwright-test-selector)
 - 04 Stabilize — Evidence-based flake detection that automatically quarantines unstable tests with strict expiration dates—ensuring merge gates stay trusted and flaky tests never live forever. (reference implementation ↗ flake-radar)
-- 05 Evaluate — Telemetry and benchmarking that measure tooling ROI: tracking pipeline execution speeds, agent token efficiency, and defect escape prevention over time. (reference implementation ↗ claude-agent-swarm)
 
 **Closer:** Each phase is backed by open-source tooling I've built to solve these specific orchestration challenges. At StrongMind, they serve as tested blueprints—adapted to your stack, integrated with your CI/CD, and owned by your engineers.
 

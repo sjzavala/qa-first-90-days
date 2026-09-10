@@ -209,7 +209,7 @@
         <ul class="success-list" data-testid="day60-success">
           <li>The riskiest flow covered by a suite the team trusts</li>
           <li>Merge gate live; time-to-feedback measured and published</li>
-          <li>Conventions doc exists; a second engineer has added a test using only the docs</li>
+          <li>Documentation exists; a second engineer has added a test using only the docs</li>
         </ul>
 
         <aside class="conventions" data-testid="day60-conventions" aria-labelledby="conventions-title">
@@ -295,7 +295,6 @@
           <li><span class="pipe-num">02</span><h4>Govern</h4><p>Counterspell evaluates the spec before it reaches the codebase: deterministic anti-pattern checks (no fixed waits or brittle selectors) followed by semantic validation of assertion value.</p><a class="text-link" href="#counterspell-frame">Counterspell, above <span class="arrow" aria-hidden="true">↑</span></a></li>
           <li><span class="pipe-num">03</span><h4>Target</h4><p>Change-based test selection runs only the flows touched by a pull request's diff, keeping PR feedback under 5 minutes. Ambiguous changes escalate to full suites.</p><a class="text-link prior-art" href="https://github.com/sjzavala/playwright-test-selector" target="_blank" rel="noopener" title="playwright-test-selector">reference implementation <span class="arrow" aria-hidden="true">↗</span></a></li>
           <li><span class="pipe-num">04</span><h4>Stabilize</h4><p>Evidence-based flake detection that automatically quarantines unstable tests with strict expiration dates—ensuring merge gates stay trusted and flaky tests never live forever.</p><a class="text-link prior-art" href="https://github.com/sjzavala/flake-radar" target="_blank" rel="noopener" title="flake-radar">reference implementation <span class="arrow" aria-hidden="true">↗</span></a></li>
-          <li><span class="pipe-num">05</span><h4>Evaluate</h4><p>Telemetry and benchmarking that measure tooling ROI: tracking pipeline execution speeds, agent token efficiency, and defect escape prevention over time.</p><a class="text-link prior-art" href="https://github.com/sjzavala/claude-agent-swarm" target="_blank" rel="noopener" title="claude-agent-swarm">reference implementation <span class="arrow" aria-hidden="true">↗</span></a></li>
         </ol>
         <p class="pipeline-strip" data-testid="pipeline-strip">Each phase is backed by open-source tooling I've built to solve these specific orchestration challenges. At StrongMind, they serve as tested blueprints—adapted to your stack, integrated with your CI/CD, and owned by your engineers.</p>
 
@@ -314,7 +313,7 @@
             <thead><tr><th scope="col">Phase</th><th scope="col">Core responsibilities</th><th scope="col">Team &amp; culture</th><th scope="col">Operations</th></tr></thead>
             <tbody>
               <tr data-phase="30"><th scope="row"><span class="tag">Day 30</span></th><td>Release archaeology; risk map agreed with EM and Release; one visible fix shipped; metrics baseline started</td><td>1:1s with every product team lead, the QA peers, and Release; learn how decisions get made here — and earn the right to be in them</td><td>Environments, access, CI permissions; pick the home for QA docs and standards; agree a reporting cadence with my manager</td></tr>
-              <tr data-phase="60"><th scope="row"><span class="tag">Day 60</span></th><td>Framework spine on team one; merge gate live; conventions doc; feedback time published</td><td>Pair with team-one engineers so the suite is ours, not mine; first brown-bag on the framework; QA peers involved in test design</td><td>Quality status reporting format established; tooling and licenses sorted; hiring input if the function grows</td></tr>
+              <tr data-phase="60"><th scope="row"><span class="tag">Day 60</span></th><td>Framework spine on team one; merge gate live; documentation published; feedback time published</td><td>Pair with team-one engineers so the suite is ours, not mine; first brown-bag on the framework; QA peers involved in test design</td><td>Quality status reporting format established; tooling and licenses sorted; hiring input if the function grows</td></tr>
               <tr data-phase="90"><th scope="row"><span class="tag">Day 90</span></th><td>Gates written with Release; standards published; team two onboarding from docs; AI governance pilot</td><td>Standards socialized before they're enforced — reviewed with leads, adopted with buy-in; go/no-go run as a partnership with Release</td><td>Metrics dashboard live; quarterly quality review format proposed; docs current enough that day 91 doesn't depend on my memory</td></tr>
             </tbody>
           </table>
