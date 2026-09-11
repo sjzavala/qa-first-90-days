@@ -386,7 +386,7 @@ test.describe('Footer', () => {
     await expect(page.locator('#tests .eyebrow')).toHaveText('The Long View');
     await expect(page.locator('#tests-title')).toContainText('Building something teams actually love using.');
     await expect(page.locator('#tests-title .mage')).toHaveAttribute('aria-hidden', 'true');
-    await expect(page.locator('#tests .prose p')).toHaveText("At the end of the day, test orchestration isn’t about building fences—it’s about giving engineers the confidence to build fearlessly. When gates run fast, tests stay dependable, and the pipeline stays honest, quality stops feeling like a chore and starts feeling like a superpower. The real win is creating a culture where everyone feels proud of what ships and nobody dreads deploy day.");
+    await expect(page.locator('#tests .prose p')).toHaveText("Honestly, testing isn’t about policing people or getting in the way of the work. It’s just about giving everyone the confidence to build without having to second-guess every move. When feedback is fast, the tests actually hold up, and the pipeline stays honest, quality stops feeling like a chore and just becomes second nature. At the end of the day, the goal is simple: support a crew that’s genuinely stoked on what they’re creating, where nobody has to dread deploy day. 🪄");
     const thanks = page.getByTestId('closing-thanks');
     await expect(thanks.locator('p')).toHaveCount(2);
     await expect(thanks.locator('p strong').first()).toHaveText('Thank you for taking the time to explore this.');
