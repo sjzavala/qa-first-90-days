@@ -65,9 +65,9 @@ And you knock out one small, visible win early. You build trust by fixing someth
 
 **Heading:** Get it right with one team first.
 
-**Body (consolidated):** Instead of scattering half-baked setups across five teams, month two focuses on one full slice where the risk is highest. We set up Playwright right from the start—independent tests, zero shared data pollution, web assertions that wait on real UI state instead of arbitrary pauses, and tracking retries so flakes get fixed instead of swept under the rug. We get PR checks fast enough that developers don't mind waiting on them, and document the patterns cleanly so test 200 is just as solid as test two. The real test of success? Team two getting up and running from the docs, not from my calendar.
+**Body (consolidated):** Rather than spreading thin setups across every product surface at once, month two focuses on one critical slice where reliability matters most. We dial in Playwright the right way—isolated test data, deterministic web assertions instead of arbitrary sleeps, and visible retry tracking so flakes get solved at the root. We keep PR checks fast enough that engineers don't mind running them, and document conventions cleanly so test 200 matches the quality of test two. The real benchmark? A second team getting up and running from the docs, not from my calendar.
 
-The demo below is Month 2 in miniature: a clean LMS reference setup (quizzes, submissions, grade books) paired with a deterministic Playwright suite protecting the core flows.
+The fixture below is Month 2 in miniature: an LMS reference setup covering quizzes, submissions, and grade books, paired with a deterministic Playwright suite protecting those core flows.
 
 [demo embed]
 
