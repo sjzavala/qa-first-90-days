@@ -141,7 +141,7 @@ Every evaluation outputs an auditable verdict—**ACCEPTED**, **REFACTORED**, or
 
 **Eyebrow:** The Road Ahead
 
-**Heading:** From tactical gates to an engineering habit. 🧙‍♂️
+**Heading:** From tactical gates to an engineering habit. 🪄
 
 **Body:** A 90-day plan is only successful if the momentum outlasts the onboarding window. By establishing clear baselines, proving value on a single team, and introducing governed automation, test orchestration stops being a bottleneck and becomes an everyday engineering habit. The goal isn't just a green suite—it's giving product teams the confidence to ship faster because they trust their safety net.
 

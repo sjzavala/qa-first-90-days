@@ -533,7 +533,7 @@ html.motion .emblem-divider img.reveal-emblem.is-in { opacity: 0.35; transform: 
 [data-hud-current] { display: inline-block; }
 .motion [data-hud-current].tick { animation: tick 0.35s var(--ease); }
 
-/* Hover: cards and pipeline stages lift toward the accent; table rows light up; the mage bobs. */
+/* Hover: cards and pipeline stages lift toward the accent; table rows light up; the wand bobs. */
 .motion .gate-card, .motion .pipeline li, .motion .card, .motion .clip { transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease); }
 .motion .gate-card:hover, .motion .pipeline li:hover, .motion .card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 22px 44px -26px rgba(11, 122, 114, 0.5), 0 0 0 1px var(--accent-soft); }
 .motion .pipeline li:hover .pipe-num { color: var(--accent-dark); }
