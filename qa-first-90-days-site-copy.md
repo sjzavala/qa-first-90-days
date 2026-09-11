@@ -39,9 +39,9 @@ Each surface carries a fundamentally different blast radius. Quality engineering
 **Closer:** StrongMind already treats generative curriculum as something that requires automated evaluation before publishing. I bring that exact mindset to synthetic test engineering: generating tests with AI is fast, but it demands an automated gate to ensure it actually protects the product rather than polluting the suite.
 
 ---|---|---|---|
-| Day 30 | Release archaeology; risk map agreed with EM and Release; one visible fix shipped; metrics baseline started | 1:1s with every product team lead, the QA peers, and Release; learn how decisions get made here — and earn the right to be in them | Environments, access, CI permissions; pick the home for QA docs and standards; agree a reporting cadence with my manager |
-| Day 60 | Framework spine on team one; merge gate live; documentation published; feedback time published | Pair with team-one engineers so the suite is ours, not mine; first brown-bag on the framework; QA peers involved in test design | Quality status reporting format established; tooling and licenses sorted; hiring input if the function grows |
-| Day 90 | Gates written with Release; standards published; team two onboarding from docs; AI governance pilot | Standards socialized before they're enforced — reviewed with leads, adopted with buy-in; go/no-go run as a partnership with Release | Metrics dashboard live; quarterly quality review format proposed; docs current enough that day 91 doesn't depend on my memory |
+| Day 30 | Release archaeology; risk map aligned with EM & Release; first quick-win fix shipped; baseline captured. | 1:1 discovery with product leads, peers, and Release; map existing shipping rituals and identify developer friction. | Audit environments, access, and CI permissions; establish documentation hub; align on leadership reporting cadence. |
+| Day 60 | Playwright framework core on Team One; PR merge gate live (< 5 min); test conventions codified. | Pair with Team One engineers to build shared ownership; host framework brown-bag; involve peers in test design. | Establish recurring quality reporting format; provision tooling licenses; define criteria for future team scaling. |
+| Day 90 | Co-authored release gates active; Team Two onboarding; AI test governance pipeline piloted. | Socialize standards ahead of enforcement; partner with Release on production Go/No-Go decisions. | Telemetry dashboard live against baseline; deliver initial quarterly review; ensure documentation is fully self-sustaining. |
 
 ---
 
@@ -124,14 +124,14 @@ Every evaluation outputs an auditable verdict—**ACCEPTED**, **REFACTORED**, or
 **Closer:** Each phase is backed by open-source tooling I've built to solve these specific orchestration challenges. At StrongMind, they serve as tested blueprints—adapted to your stack, integrated with your CI/CD, and owned by your engineers.
 
 **Success at day 90:**
-- Quality gates written with Release and in use: merge vs. release, go/no-go format
-- Standards published; second team onboarded from docs alone
-- A governance gate — Counterspell or its equivalent in your stack — reviewing every AI-generated test; acceptance rate tracked
-- Metrics dashboard live against the day-one baseline
+- **Active Quality Gates:** Automated PR merge gates live; formalized Go/No-Go criteria established with Release.
+- **Self-Serve Onboarding:** Team two onboarded to the test framework using documentation alone.
+- **AI Test Governance:** Automated governance gate (Counterspell pattern) reviewing synthetic tests with acceptance telemetry tracked.
+- **Executive Telemetry Live:** Dashboards tracking cycle time, flake rate, and escaped defect trends against the Day 30 baseline.
 
-**The plan at a glance (intro line):** Three lanes, ninety days — the technical work is only the first column.
+**The Plan at a Glance (intro line):** Three tracks across ninety days—technical execution, developer enablement, and operational foundation.
 
-| Phase | Core responsibilities | Team & culture | Operations |
+| Phase | Technical Foundation | Team Enablement & Culture | Operations & Governance |
 |
 
 

@@ -317,7 +317,7 @@ test.describe('Copy', () => {
     await expect(page.getByTestId('day30-success').locator('li')).toHaveCount(4);
     await expect(page.getByTestId('day60-success').locator('li')).toHaveCount(3);
     await expect(page.getByTestId('day90-success').locator('li')).toHaveCount(4);
-    await expect(page.getByTestId('day90-success').locator('li').nth(2)).toHaveText('A governance gate — Counterspell or its equivalent in your stack — reviewing every AI-generated test; acceptance rate tracked');
+    await expect(page.getByTestId('day90-success').locator('li').nth(2)).toHaveText('AI Test Governance: Automated governance gate (Counterspell pattern) reviewing synthetic tests with acceptance telemetry tracked.');
   });
 
   test('the Day 60 narrative is one consolidated block, then the fixture app', async ({ page }) => {
@@ -347,15 +347,15 @@ test.describe('Copy', () => {
 test.describe('The plan at a glance', () => {
   test('a 3×3 swimlane table with its intro line closes the Day 90 section', async ({ page }) => {
     await page.goto('/#day-90');
-    await expect(page.getByTestId('glance-intro')).toHaveText('Three lanes, ninety days — the technical work is only the first column.');
+    await expect(page.getByTestId('glance-intro')).toHaveText('Three tracks across ninety days—technical execution, developer enablement, and operational foundation.');
     const table = page.getByTestId('glance-table');
-    await expect(table.locator('thead th')).toHaveText(['Phase', 'Core responsibilities', 'Team & culture', 'Operations']);
+    await expect(table.locator('thead th')).toHaveText(['Phase', 'Technical Foundation', 'Team Enablement & Culture', 'Operations & Governance']);
     const rows = table.locator('tbody tr');
     await expect(rows).toHaveCount(3);
     await expect(rows.locator('th[scope="row"]')).toHaveText(['Day 30', 'Day 60', 'Day 90']);
     for (let i = 0; i < 3; i++) await expect(rows.nth(i).locator('td')).toHaveCount(3);
-    await expect(rows.nth(0).locator('td').nth(0)).toHaveText('Release archaeology; risk map agreed with EM and Release; one visible fix shipped; metrics baseline started');
-    await expect(rows.nth(2).locator('td').nth(2)).toHaveText("Metrics dashboard live; quarterly quality review format proposed; docs current enough that day 91 doesn't depend on my memory");
+    await expect(rows.nth(0).locator('td').nth(0)).toHaveText('Release archaeology; risk map aligned with EM & Release; first quick-win fix shipped; baseline captured.');
+    await expect(rows.nth(2).locator('td').nth(2)).toHaveText('Telemetry dashboard live against baseline; deliver initial quarterly review; ensure documentation is fully self-sustaining.');
     // Placement: after "Success at day 90", still inside #day-90, as the last block before Metrics.
     expect(await table.evaluate((t) => t.closest('section')?.id)).toBe('day-90');
     expect(await page.getByTestId('day90-success').evaluate((el) => el.compareDocumentPosition(document.querySelector('[data-testid="glance-table"]')) & Node.DOCUMENT_POSITION_FOLLOWING)).toBeTruthy();
