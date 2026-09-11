@@ -57,7 +57,7 @@ And you knock out one small, visible win early. You build trust by fixing someth
 - Current-state writeup delivered: how each team ships and verifies today
 - Risk map agreed with the EM and Release
 - One visible improvement shipped
-- Baseline started: escaped defects, pipeline times, flake incidents — day-one numbers, so day-90 claims are measurable
+- **Initial baseline captured:** Escaped bugs, CI runtimes, and flake rates logged early, so Day 90 progress is backed by real numbers.
 
 ---
 
@@ -77,9 +77,9 @@ The fixture below is Month 2 in miniature: an LMS reference setup covering quizz
 - Documentation exists; a second engineer has added a test using only the docs
 
 **Core test conventions (card under the success list):**
-- **Isolation:** Zero shared state; fixtures seed auth and database resets per worker.
-- **Selectors:** Semantic user-facing locators (`getByRole`, `getByLabel`) over brittle DOM paths.
-- **Async:** Web-first assertions only; zero hardcoded timeouts.
+- **Clean Isolation:** Zero shared state. Fixtures handle fresh auth and test data per worker so suites run in parallel without tripping over each other.
+- **Resilient Locators:** Stick to user-facing selectors (`getByRole`, `getByLabel`) instead of brittle DOM paths that snap when markup changes.
+- **Honest Async:** Web-first assertions that wait on actual UI states—no hardcoded sleeps, arbitrary timeouts, or guessing.
 
 ---
 

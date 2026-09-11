@@ -147,7 +147,7 @@
               <li>Current-state writeup delivered: how each team ships and verifies today</li>
               <li>Risk map agreed with the EM and Release</li>
               <li>One visible improvement shipped</li>
-              <li>Baseline started: escaped defects, pipeline times, flake incidents — day-one numbers, so day-90 claims are measurable</li>
+              <li><strong>Initial baseline captured:</strong> Escaped bugs, CI runtimes, and flake rates logged early, so Day 90 progress is backed by real numbers.</li>
             </ul>
           </div>
         </div>
@@ -212,12 +212,21 @@
         </ul>
 
         <aside class="conventions" data-testid="day60-conventions" aria-labelledby="conventions-title">
-          <p class="eyebrow" id="conventions-title">Core test conventions</p>
-          <dl>
-            <div><dt>Isolation</dt><dd>Zero shared state; fixtures seed auth and database resets per worker.</dd></div>
-            <div><dt>Selectors</dt><dd>Semantic user-facing locators (<code>getByRole</code>, <code>getByLabel</code>) over brittle DOM paths.</dd></div>
-            <div><dt>Async</dt><dd>Web-first assertions only; zero hardcoded timeouts.</dd></div>
-          </dl>
+          <h4 id="conventions-title">Core test conventions</h4>
+          <div class="conventions-grid">
+            <div class="convention-card">
+              <h5>Clean Isolation</h5>
+              <p>Zero shared state. Fixtures handle fresh auth and test data per worker so suites run in parallel without tripping over each other.</p>
+            </div>
+            <div class="convention-card">
+              <h5>Resilient Locators</h5>
+              <p>Stick to user-facing selectors (<code>getByRole</code>, <code>getByLabel</code>) instead of brittle DOM paths that snap when markup changes.</p>
+            </div>
+            <div class="convention-card">
+              <h5>Honest Async</h5>
+              <p>Web-first assertions that wait on actual UI states—no hardcoded sleeps, arbitrary timeouts, or guessing.</p>
+            </div>
+          </div>
         </aside>
       </div>
     </section>
