@@ -383,10 +383,10 @@ test.describe('Footer', () => {
 
   test('the closing section looks past day 90, thanks the panel, and keeps the self-test proof as a footnote', async ({ page }) => {
     await page.goto('/#tests');
-    await expect(page.locator('#tests .eyebrow')).toHaveText('The Road Ahead');
-    await expect(page.locator('#tests-title')).toContainText('From tactical gates to an engineering habit.');
+    await expect(page.locator('#tests .eyebrow')).toHaveText('The Long View');
+    await expect(page.locator('#tests-title')).toContainText('Building something teams actually love using.');
     await expect(page.locator('#tests-title .mage')).toHaveAttribute('aria-hidden', 'true');
-    await expect(page.locator('#tests .prose p')).toHaveText("A 90-day plan is only successful if the momentum outlasts the onboarding window. By establishing clear baselines, proving value on a single team, and introducing governed automation, test orchestration stops being a bottleneck and becomes an everyday engineering habit. The goal isn't just a green suite—it's giving product teams the confidence to ship faster because they trust their safety net.");
+    await expect(page.locator('#tests .prose p')).toHaveText("At the end of the day, test orchestration isn’t about building fences—it’s about giving engineers the confidence to build fearlessly. When gates run fast, tests stay dependable, and the pipeline stays honest, quality stops feeling like a chore and starts feeling like a superpower. The real win is creating a culture where everyone feels proud of what ships and nobody dreads deploy day.");
     const thanks = page.getByTestId('closing-thanks');
     await expect(thanks.locator('p')).toHaveCount(2);
     await expect(thanks.locator('p strong').first()).toHaveText('Thank you for taking the time to explore this.');

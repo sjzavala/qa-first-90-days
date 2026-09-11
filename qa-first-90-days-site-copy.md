@@ -137,13 +137,13 @@ Every evaluation outputs an auditable verdict—**ACCEPTED**, **REFACTORED**, or
 
 ---
 
-## 6. The Road Ahead
+## 6. The Long View
 
-**Eyebrow:** The Road Ahead
+**Eyebrow:** The Long View
 
-**Heading:** From tactical gates to an engineering habit. 🪄
+**Heading:** Building something teams actually love using. 🧙‍♂️
 
-**Body:** A 90-day plan is only successful if the momentum outlasts the onboarding window. By establishing clear baselines, proving value on a single team, and introducing governed automation, test orchestration stops being a bottleneck and becomes an everyday engineering habit. The goal isn't just a green suite—it's giving product teams the confidence to ship faster because they trust their safety net.
+**Body:** At the end of the day, test orchestration isn’t about building fences—it’s about giving engineers the confidence to build fearlessly. When gates run fast, tests stay dependable, and the pipeline stays honest, quality stops feeling like a chore and starts feeling like a superpower. The real win is creating a culture where everyone feels proud of what ships and nobody dreads deploy day.
 
 **Closing block:**
 
