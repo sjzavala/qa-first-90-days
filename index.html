@@ -261,18 +261,18 @@
                 </dl>
               </article>
             </div>
-            <h3 class="sub-heading" id="counterspell-title">Counterspell — The Automated Governance Gate for AI-Generated Tests</h3>
+            <h3 class="sub-heading" id="counterspell-title">Counterspell — Keeping AI-Generated Tests Honest</h3>
             <div class="prose">
-              <p>Generating a test is cheap; maintaining a bad one is expensive. <strong>Counterspell</strong> acts as an automated governance gate for AI-generated specs, evaluating every test across two layers before it enters the repository:</p>
+              <p>Look, generating tests with AI takes two seconds. Maintaining broken, noisy ones takes forever. <strong>Counterspell</strong> is just a smart filter that catches the junk before it hits main, looking at every new spec in two passes:</p>
 
               <ul>
-                <li><strong>Deterministic Rules:</strong> Blocks anti-patterns instantly (hardcoded waits, brittle selectors, <code>networkidle</code>).</li>
-                <li><strong>Semantic Analysis:</strong> Evaluates assertion substance, test independence, and net coverage gain.</li>
+                <li><strong>Deterministic Rules:</strong> Knocks out the obvious headaches right away—hardcoded timeouts, fragile DOM paths, or relying on network idle.</li>
+                <li><strong>Semantic Checks:</strong> Makes sure the test actually tests something real, runs independently, and isn't just adding bloat to the suite.</li>
               </ul>
 
-              <p>Every evaluation outputs an auditable verdict—<strong>ACCEPTED</strong>, <strong>REFACTORED</strong>, or <strong>REJECTED</strong>—with logged rationale that engineers can challenge. Try the interactive inspector below, or view a recorded run.</p>
+              <p>Every check gives a clear, logged call—<strong>ACCEPTED</strong>, <strong>REFACTORED</strong>, or <strong>REJECTED</strong>—with straightforward reasons so anyone on the team can see the reasoning. Check out the inspector below or watch a quick replay to see it move.</p>
 
-              <p class="text-subtle" data-testid="day90-caveat"><small><em>Note: This reference architecture uses a zero-dependency fixture to validate the pattern. Month 1 discovery will determine whether these gating rules run natively in StrongMind's existing CI/CD or as an integrated service.</em></small></p>
+              <p class="text-subtle" data-testid="day90-caveat"><small><em>Note: This reference architecture uses a zero-dependency fixture to show the pattern working. In month one, we'll see whether it makes more sense to run these rules right inside StrongMind's CI or as an integrated check.</em></small></p>
             </div>
           </div>
         </div>

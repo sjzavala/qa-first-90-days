@@ -263,14 +263,14 @@ test.describe('Day 90 · Counterspell embed', () => {
     await expect(cards.nth(1).locator('dd').nth(3)).toContainText('joint sign-off (EM, Release, QA)');
     // Sits under the narrative and above the Counterspell heading.
     expect(await page.getByTestId('gate-comparison').evaluate((el) => el.nextElementSibling?.id)).toBe('counterspell-title');
-    await expect(page.locator('#counterspell-title')).toHaveText('Counterspell — The Automated Governance Gate for AI-Generated Tests');
+    await expect(page.locator('#counterspell-title')).toHaveText('Counterspell — Keeping AI-Generated Tests Honest');
   });
 
   test('Counterspell copy uses engineering terms, not RPG ones', async ({ page }) => {
     await page.goto('/');
     const text = await page.locator('#day-90').innerText();
     for (const rpg of ['cantrip', 'leveled slot', 'reaction check', 'arcana', 'RESOLVES', 'RESHAPED', 'COUNTERED']) expect(text.toLowerCase()).not.toContain(rpg.toLowerCase());
-    for (const eng of ['Deterministic Rules', 'Semantic Analysis', 'ACCEPTED', 'REFACTORED', 'REJECTED']) expect(text).toContain(eng);
+    for (const eng of ['Deterministic Rules', 'Semantic Checks', 'ACCEPTED', 'REFACTORED', 'REJECTED']) expect(text).toContain(eng);
   });
 
   test('pipeline has four steps linking the three repos', async ({ page }) => {
@@ -333,12 +333,11 @@ test.describe('Copy', () => {
   test('the Counterspell introduction is one consolidated block under its heading', async ({ page }) => {
     await page.goto('/#day-90');
     const prose = page.locator('#counterspell-title + .prose');
-    await expect(prose.locator('> p').first()).toContainText('Generating a test is cheap; maintaining a bad one is expensive.');
+    await expect(prose.locator('> p').first()).toContainText('Look, generating tests with AI takes two seconds.');
     await expect(prose.locator('ul li')).toHaveCount(2);
-    await expect(prose.locator('ul li strong')).toHaveText(['Deterministic Rules:', 'Semantic Analysis:']);
-    await expect(prose.locator('ul li code')).toHaveText('networkidle');
+    await expect(prose.locator('ul li strong')).toHaveText(['Deterministic Rules:', 'Semantic Checks:']);
     await expect(prose.locator('> p').nth(1)).toContainText('ACCEPTED, REFACTORED, or REJECTED');
-    await expect(page.getByTestId('day90-caveat')).toHaveText("Note: This reference architecture uses a zero-dependency fixture to validate the pattern. Month 1 discovery will determine whether these gating rules run natively in StrongMind's existing CI/CD or as an integrated service.");
+    await expect(page.getByTestId('day90-caveat')).toHaveText("Note: This reference architecture uses a zero-dependency fixture to show the pattern working. In month one, we'll see whether it makes more sense to run these rules right inside StrongMind's CI or as an integrated check.");
     // Nothing loose between the heading block and the embed any more.
     expect(await page.getByTestId('counterspell-embed').evaluate((el) => el.previousElementSibling?.classList.contains('section-head'))).toBe(true);
   });
