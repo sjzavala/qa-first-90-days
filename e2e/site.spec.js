@@ -324,8 +324,8 @@ test.describe('Copy', () => {
     await page.goto('/#day-60');
     const prose = page.locator('#day-60 .section-head .prose');
     await expect(prose.locator('p')).toHaveCount(2);
-    await expect(prose.locator('p').first()).toContainText('month two focuses on one full slice where the risk is highest.');
-    await expect(page.getByTestId('day60-intro-line')).toHaveText('The demo below is Month 2 in miniature: a clean LMS reference setup (quizzes, submissions, grade books) paired with a deterministic Playwright suite protecting the core flows.');
+    await expect(prose.locator('p').first()).toContainText('month two focuses on one critical slice where reliability matters most.');
+    await expect(page.getByTestId('day60-intro-line')).toHaveText('The fixture below is Month 2 in miniature: an LMS reference setup covering quizzes, submissions, and grade books, paired with a deterministic Playwright suite protecting those core flows.');
     // Nothing loose between the heading block and the demo panel.
     expect(await page.getByTestId('course-app-demo').evaluate((el) => el.previousElementSibling?.classList.contains('section-head'))).toBe(true);
   });
@@ -487,10 +487,10 @@ test.describe('Ergonomics', () => {
   test('Day 60 closes with a compact conventions card: isolation, selectors, async', async ({ page }) => {
     await page.goto('/#day-60');
     const card = page.getByTestId('day60-conventions');
-    await expect(card.locator('dt')).toHaveText(['Isolation', 'Selectors', 'Async']);
-    await expect(card.locator('dd').nth(0)).toHaveText('Zero shared state; fixtures seed auth and database resets per worker.');
-    await expect(card.locator('dd').nth(1)).toHaveText('Semantic user-facing locators (getByRole, getByLabel) over brittle DOM paths.');
-    await expect(card.locator('dd').nth(2)).toHaveText('Web-first assertions only; zero hardcoded timeouts.');
+    await expect(card.locator('h5')).toHaveText(['Clean Isolation', 'Resilient Locators', 'Honest Async']);
+    await expect(card.locator('.convention-card p').nth(0)).toContainText('Zero shared state.');
+    await expect(card.locator('.convention-card p').nth(1)).toContainText('user-facing selectors');
+    await expect(card.locator('.convention-card p').nth(2)).toContainText('Web-first assertions');
     await expect(card.locator('code')).toHaveCount(2);
     // Sits directly under the success criteria.
     expect(await card.evaluate((el) => el.previousElementSibling?.getAttribute('data-testid'))).toBe('day60-success');
