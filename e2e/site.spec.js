@@ -305,11 +305,11 @@ test.describe('Copy', () => {
   test('every slide carries its copy: intro, table or success list', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('#you .eyebrow')).toHaveText('Product Landscape & Risk Hierarchy');
-    await expect(page.locator('#you-title')).toHaveText('Allocating quality by failure cost.');
+    await expect(page.locator('#you-title')).toHaveText('Allocating quality where failure actually hurts.');
     const youIntro = page.locator('#you .section-head .prose p');
     await expect(youIntro).toHaveCount(2);
-    await expect(youIntro.first()).toContainText('StrongMind delivers across four distinct surfaces');
-    await expect(youIntro.nth(1)).toContainText('the most damage to institutional trust and core operations.');
+    await expect(youIntro.first()).toContainText('StrongMind is juggling four pretty different things');
+    await expect(youIntro.nth(1)).toContainText('school trust, accreditation, or day-one learning.');
     await expect(page.locator('#you .closer')).toContainText('rather than polluting the suite.');
     await expect(page.locator('#you [data-testid="risk-table"] thead th')).toHaveText(['Surface', 'Critical Failure Mode', 'Business & Engineering Impact']);
     await expect(page.locator('#you [data-testid="risk-table"] tbody tr').first().locator('td strong').first()).toHaveText('Grades & Progress Data');
@@ -324,8 +324,8 @@ test.describe('Copy', () => {
     await page.goto('/#day-60');
     const prose = page.locator('#day-60 .section-head .prose');
     await expect(prose.locator('p')).toHaveCount(2);
-    await expect(prose.locator('p').first()).toContainText('Month two builds the foundation where the risk map points: a full vertical slice on a single product team.');
-    await expect(page.getByTestId('day60-intro-line')).toHaveText('The fixture below is Month 2 in miniature: an LMS reference app (quizzes, submissions, grade books) paired with a live, deterministic Playwright suite guarding those critical flows.');
+    await expect(prose.locator('p').first()).toContainText('month two focuses on one full slice where the risk is highest.');
+    await expect(page.getByTestId('day60-intro-line')).toHaveText('The demo below is Month 2 in miniature: a clean LMS reference setup (quizzes, submissions, grade books) paired with a deterministic Playwright suite protecting the core flows.');
     // Nothing loose between the heading block and the demo panel.
     expect(await page.getByTestId('course-app-demo').evaluate((el) => el.previousElementSibling?.classList.contains('section-head'))).toBe(true);
   });

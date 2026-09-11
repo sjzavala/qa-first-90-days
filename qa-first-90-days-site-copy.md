@@ -10,7 +10,7 @@ Voice: short, declarative, portfolio-style. Numbers where they exist. No filler.
 
 **Title:** The first 90 days of quality at StrongMind.
 
-**Subtitle:** A plan for founding the QA function — and the tooling I'd bring with me. Most of it already exists. This site is part of the demo: it tests itself in CI on every push.
+**Subtitle:** A realistic roadmap for getting StrongMind's QA function off the ground—and the working tooling to back it up. No hypotheticals or hand-waving: just battle-tested patterns, working code, and an approach built to help the whole team ship with confidence.
 
 **Buttons:** The plan ↓ · Counterspell ↗
 
@@ -20,11 +20,11 @@ Voice: short, declarative, portfolio-style. Numbers where they exist. No filler.
 
 **Eyebrow:** Product Landscape & Risk Hierarchy
 
-**Heading:** Allocating quality by failure cost.
+**Heading:** Allocating quality where failure actually hurts.
 
-**Intro:** StrongMind delivers across four distinct surfaces: district courseware, educator analytics, direct-to-family homeschool platforms, and agentic curriculum generation in Course Builder.
+**Intro:** StrongMind is juggling four pretty different things: core district courseware, educator reporting, homeschool tools, and Course Builder's agentic generation.
 
-Each surface carries a fundamentally different blast radius. Quality engineering shouldn't be spread uniformly across the catalog—it should concentrate where an unhandled defect does the most damage to institutional trust and core operations.
+A defect doesn't carry the same weight across all four. Quality effort shouldn't just be spread out like peanut butter across every feature ticket—it needs to zero in on the spots where an escaped bug actually threatens school trust, accreditation, or day-one learning.
 
 **Risk table (highest first):**
 
@@ -45,13 +45,13 @@ Each surface carries a fundamentally different blast radius. Quality engineering
 
 ---
 
-## 3. Day 30 — Learn the terrain
+## 3. Day 30 · Discovery & Quick Wins
 
-**Heading:** Archaeology before architecture.
+**Heading:** Listen first, build second.
 
-**Body:** The fastest way for a first QA hire to fail is to ship a framework for a company they haven't understood. Month one is deliberate: watch releases happen, read the last incidents, and ask every product team the same question — how do you know it works before it ships? Map the answers without judgment. Then align on the risk ranking with Engineering and Release, so month two builds on a shared map, not my assumptions.
+**Body:** The fastest way to burn out as a first test hire is trying to install a whole philosophy before understanding how the team already works. Month one is about paying attention: watching real deploys, digging through recent post-mortems, and asking engineers one straightforward question—*how do you know this is solid before it goes out?* You take in the answers without judgment, map out where the friction really is, and agree on the high-risk zones with Engineering and Release. That way, what comes next is built on reality, not my own assumptions.
 
-**And one visible win.** Trust is earned with something small and real in the first weeks — a flake root-caused, a CI run made faster, a readiness checklist for one team. Listening produces the map; the win earns the room to act on it.
+And you knock out one small, visible win early. You build trust by fixing something real right away—hunting down an annoying flake, shaving time off a slow CI step, or helping one team clean up a shaky release step. Listening gives you the lay of the land; delivering something helpful earns you the room to build.
 
 **Success at day 30:**
 - Current-state writeup delivered: how each team ships and verifies today
@@ -61,13 +61,13 @@ Each surface carries a fundamentally different blast radius. Quality engineering
 
 ---
 
-## 4. Day 60 — One team, one spine
+## 4. Day 60 · The Core Spine
 
-**Heading:** Deep on one team before wide on all of them.
+**Heading:** Go deep with one crew before spreading it wide.
 
-**Body (consolidated):** Month two builds the foundation where the risk map points: a full vertical slice on a single product team. We set up Playwright with strict isolation and determinism from day one—zero shared state, dynamic assertions over fixed waits, and test retries tracked for triage rather than masked as passes. We ship a PR merge gate fast enough for engineers to actually wait on, backed by living documentation so test 200 matches the quality of test two—enabling team two to onboard from docs rather than my calendar.
+**Body (consolidated):** Instead of scattering half-baked setups across five teams, month two focuses on one full slice where the risk is highest. We set up Playwright right from the start—independent tests, zero shared data pollution, web assertions that wait on real UI state instead of arbitrary pauses, and tracking retries so flakes get fixed instead of swept under the rug. We get PR checks fast enough that developers don't mind waiting on them, and document the patterns cleanly so test 200 is just as solid as test two. The real test of success? Team two getting up and running from the docs, not from my calendar.
 
-The fixture below is Month 2 in miniature: an LMS reference app (quizzes, submissions, grade books) paired with a live, deterministic Playwright suite guarding those critical flows.
+The demo below is Month 2 in miniature: a clean LMS reference setup (quizzes, submissions, grade books) paired with a deterministic Playwright suite protecting the core flows.
 
 [demo embed]
 
@@ -83,11 +83,11 @@ The fixture below is Month 2 in miniature: an LMS reference app (quizzes, submis
 
 ---
 
-## 5. Day 90 — Practice into process
+## 5. Day 90 · Sustainable Process
 
-**Heading:** From one team's suite to the company's quality system.
+**Heading:** Turning what works into a habit everyone shares.
 
-**Body:** Month three turns practice into process. With Release, we write the gates: what blocks a merge, what blocks a release, and who makes the go/no-go call on what evidence. A merge gate is automated and binary. A release gate is a judgment call with evidence — and a green build you don't believe is worse than a red one. Gates are written with the teams that live under them, not handed down. The standards get published, the second team onboards, and the AI layer starts — governed from day one, not bolted on after.
+**Body:** Month three is where good habits turn into everyday process. We sit down with Release to figure out our actual checks: what stops a PR from merging, what halts a release, and how the team makes a confident call based on real signals. A merge check is fast and automated. A release call is about judgment—and shipping on a green build nobody trusts is way worse than stopping on a red one. You build these gates with the people who have to live with them, not hand them down from above. Once the standards feel natural, team two steps in, and we bring in AI governance from day one so automation stays clean as it grows.
 
 **Gate comparison (cards, under the body):**
 
