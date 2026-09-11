@@ -61,9 +61,9 @@ And you knock out one small, visible win early. You build trust by fixing someth
 
 ---
 
-## 4. Day 60 · The Core Spine
+## 4. Day 60 · Dialing In Team One
 
-**Heading:** Go deep with one crew before spreading it wide.
+**Heading:** Get it right with one team first.
 
 **Body (consolidated):** Instead of scattering half-baked setups across five teams, month two focuses on one full slice where the risk is highest. We set up Playwright right from the start—independent tests, zero shared data pollution, web assertions that wait on real UI state instead of arbitrary pauses, and tracking retries so flakes get fixed instead of swept under the rug. We get PR checks fast enough that developers don't mind waiting on them, and document the patterns cleanly so test 200 is just as solid as test two. The real test of success? Team two getting up and running from the docs, not from my calendar.
 
