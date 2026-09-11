@@ -30,11 +30,11 @@ A defect doesn't carry the same weight across all four. Quality effort shouldn't
 
 | Surface | Critical Failure Mode | Business & Engineering Impact |
 |---|---|---|
-| **Grades & Progress Data** | State/district reporting mismatch; inaccurate transcript calculations | **Regulatory & Institutional Risk:** Compliance violations and audit exposure that cannot be patched away. |
-| **Assessment Submission** | Silent submission drops; unhandled payload loss during quiz completion | **Irreversible Data Loss:** Erodes student and parent trust; triggers high-touch, unscalable customer support triage. |
-| **Enrollment & Rostering** | Identity/LTI sync desync; student course lockout at term start | **Operational Blocker:** Halts instruction immediately; causes predictable day-one support spikes. |
+| **Grades & Progress Data** | State/district reporting mismatch; inaccurate transcript calculations | **Compliance Exposure:** Reporting errors trigger audit flags and district escalations that no hotfix can undo. |
+| **Assessment Submission** | Silent submission drops; unhandled payload loss during quiz completion | **Lost Student Work:** A dropped submission can't be recovered. It erodes trust with students and parents and floods support with cases no one can bulk-resolve. |
+| **Enrollment & Rostering** | Identity/LTI sync desync; student course lockout at term start | **Day-One Lockout:** Students can't get into their courses when the term starts. Support volume spikes immediately and instruction stalls. |
 | **AI Curriculum (Course Builder)** | Hallucinated or non-compliant instructional content published at scale | **Curriculum Credibility:** It's a content governance problem, not a 500 error. It needs LLM eval rubrics and sanity checks, not just binary pass/fail asserts. |
-| **Content Delivery** | Lesson asset render failures; broken interactive modules | **Local Friction:** High visibility and frequent, but recoverable with rapid rollback or hotfix. |
+| **Content Delivery** | Lesson asset render failures; broken interactive modules | **Visible but Recoverable:** Broken lessons are loud and frequent, but a rollback or hotfix can usually resolve them fast. |
 
 **Closer:** StrongMind already treats generative curriculum as something that requires automated evaluation before publishing. I bring that exact mindset to synthetic test engineering: generating tests with AI is fast, but it demands an automated gate to ensure it actually protects the product rather than polluting the suite.
 
